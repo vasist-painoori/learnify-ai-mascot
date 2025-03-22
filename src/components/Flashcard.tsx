@@ -76,7 +76,7 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
         </div>
         
         <div 
-          className="relative w-full h-64 cursor-pointer perspective-1000"
+          className="relative w-full h-64 cursor-pointer [perspective:1000px]"
           onClick={handleFlip}
         >
           <motion.div
@@ -90,12 +90,12 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
             className="relative w-full h-full"
           >
             <div 
-              className={`absolute inset-0 w-full h-full transition-all duration-500 ease-in-out preserve-3d ${
-                isFlipped ? 'rotate-y-180' : ''
+              className={`absolute inset-0 w-full h-full transition-all duration-500 ease-in-out [transform-style:preserve-3d] ${
+                isFlipped ? '[transform:rotateY(180deg)]' : ''
               }`}
             >
               {/* Front of card */}
-              <div className="absolute inset-0 w-full h-full backface-hidden p-6 flex items-center justify-center bg-white dark:bg-gray-900 text-center">
+              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] p-6 flex items-center justify-center bg-white dark:bg-gray-900 text-center">
                 <div>
                   <p className="text-lg font-medium mb-2">{currentFlashcard.front}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">Click to flip</p>
@@ -103,7 +103,7 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
               </div>
               
               {/* Back of card */}
-              <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 p-6 flex items-center justify-center bg-gray-50 dark:bg-gray-800 text-center">
+              <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] p-6 flex items-center justify-center bg-gray-50 dark:bg-gray-800 text-center">
                 <div>
                   <p className="text-lg">{currentFlashcard.back}</p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">Click to flip back</p>
@@ -144,24 +144,6 @@ const Flashcard = ({ flashcards }: FlashcardProps) => {
           </Button>
         </div>
       </div>
-      
-      <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .preserve-3d {
-          transform-style: preserve-3d;
-        }
-        
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-        
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-      `}</style>
     </div>
   );
 };
