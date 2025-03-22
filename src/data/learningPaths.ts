@@ -342,7 +342,7 @@ console.log(sum); // 15`,
                 question: "What will be the output of: [1, 2, 3].map(x => x * 2)?",
                 options: ["[1, 2, 3]", "[2, 4, 6]", "[1, 4, 9]", "6"],
                 correctAnswer: 1,
-                explanation: "The map() method creates a new array with the results of calling a function on every element in the array. In this case, each element is multiplied by 2."
+                explanation: "The map() method creates a new array with the results of calling a function on every element, and each element is multiplied by 2."
               }
             ],
             flashcards: [
@@ -747,7 +747,7 @@ Reference types include:
 
 ## Variable Declaration and Initialization
 
-```java
+\`\`\`
 // Declaration
 int age;
 String name;
@@ -759,7 +759,7 @@ name = "John";
 // Declaration and initialization together
 double salary = 50000.0;
 boolean isEmployed = true;
-```
+\`\`\`
             `,
             codeExamples: [
               {
@@ -852,7 +852,7 @@ class Person {
             flashcards: [
               {
                 front: "What is the difference between primitive and reference types in Java?",
-                back: "Primitive types store actual values and are stored on the stack. Reference types store references (memory addresses) that point to objects on the heap. Primitive types include byte, short, int, long, float, double, char, and boolean. Reference types include classes, interfaces, arrays, and strings."
+                back: "Primitive types store actual values and are stored on the stack. Reference types store a reference to their data, which is stored on the heap. Primitive types include byte, short, int, long, float, double, char, and boolean. Reference types include classes, interfaces, arrays, and strings."
               },
               {
                 front: "What is the default value of an uninitialized int variable as a class field?",
@@ -1378,3 +1378,4 @@ int main() {
     ]
   }
 ];
+
