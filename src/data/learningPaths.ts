@@ -250,6 +250,123 @@ console.log(sum(1, 2, 3, 4)); // 10`,
                 back: "The 'this' keyword refers to the object that is executing the current function. Its value depends on how the function is called and can be different in different contexts."
               }
             ]
+          },
+          {
+            id: "js-arrays",
+            title: "Arrays and Array Methods",
+            description: "Working with arrays and mastering array manipulation methods",
+            content: `
+# Arrays in JavaScript
+
+Arrays are ordered collections of values. In JavaScript, arrays can contain different types of values and are dynamic in size.
+
+## Creating Arrays
+\`\`\`javascript
+// Array literal notation
+let fruits = ["apple", "banana", "orange"];
+
+// Array constructor
+let numbers = new Array(1, 2, 3, 4, 5);
+
+// Empty array
+let empty = [];
+\`\`\`
+
+## Array Properties and Methods
+JavaScript arrays have many built-in methods for manipulation and traversal:
+
+- \`push()\`: Add items to the end
+- \`pop()\`: Remove the last item
+- \`shift()\`: Remove the first item
+- \`unshift()\`: Add items to the beginning
+- \`slice()\`: Extract a section
+- \`splice()\`: Add/remove items
+- \`forEach()\`: Loop through array
+- \`map()\`: Create a new array with results
+- \`filter()\`: Create a new array with filtered items
+- \`reduce()\`: Reduce to a single value
+            `,
+            codeExamples: [
+              {
+                title: "Array Manipulation",
+                code: `// Creating an array
+let colors = ["red", "green", "blue"];
+console.log(colors.length); // 3
+
+// Adding elements
+colors.push("yellow");
+console.log(colors); // ["red", "green", "blue", "yellow"]
+
+// Removing elements
+let lastColor = colors.pop();
+console.log(lastColor); // "yellow"
+console.log(colors); // ["red", "green", "blue"]
+
+// Access by index
+console.log(colors[0]); // "red"
+colors[1] = "purple";
+console.log(colors); // ["red", "purple", "blue"]`,
+                explanation: "This example shows basic array operations including creation, adding/removing elements, and accessing/modifying elements by index."
+              },
+              {
+                title: "Array Methods",
+                code: `const numbers = [1, 2, 3, 4, 5];
+
+// forEach - execute a function on each element
+numbers.forEach(number => {
+  console.log(number * 2);
+});
+
+// map - create a new array with transformed values
+const doubled = numbers.map(number => number * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+// filter - create a new array with filtered elements
+const evenNumbers = numbers.filter(number => number % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+
+// reduce - accumulate values
+const sum = numbers.reduce((total, number) => total + number, 0);
+console.log(sum); // 15`,
+                explanation: "This example demonstrates higher-order array methods like forEach, map, filter, and reduce, which are powerful tools for array manipulation and transformation."
+              }
+            ],
+            quiz: [
+              {
+                question: "Which method adds one or more elements to the end of an array?",
+                options: ["unshift()", "concat()", "push()", "append()"],
+                correctAnswer: 2,
+                explanation: "The push() method adds one or more elements to the end of an array and returns the new length of the array."
+              },
+              {
+                question: "What will be the output of: [1, 2, 3].map(x => x * 2)?",
+                options: ["[1, 2, 3]", "[2, 4, 6]", "[1, 4, 9]", "6"],
+                correctAnswer: 1,
+                explanation: "The map() method creates a new array with the results of calling a function on every element in the array. In this case, each element is multiplied by 2."
+              }
+            ],
+            flashcards: [
+              {
+                front: "What is an array in JavaScript?",
+                back: "An array is an ordered collection of values. Each value is called an element, and each element has a numeric position, known as its index."
+              },
+              {
+                front: "What's the difference between map() and forEach()?",
+                back: "map() creates a new array with the results of calling a function on every element, while forEach() simply executes a function on each element without returning anything."
+              },
+              {
+                front: "How do you check if a value is an array?",
+                back: "You can use Array.isArray(value), which returns true if the value is an array, otherwise false."
+              },
+              {
+                front: "What does the filter() method do?",
+                back: "The filter() method creates a new array with all elements that pass the test implemented by the provided function."
+              },
+              {
+                front: "What is array destructuring?",
+                back: "Array destructuring is a JavaScript syntax that allows you to unpack values from arrays, or properties from objects, into distinct variables."
+              }
+            ]
           }
         ]
       }
@@ -371,6 +488,169 @@ print(numbers)  # {1, 2, 3, 4, 5}`,
                 back: "Python has three numeric data types: int (integers), float (floating-point numbers), and complex (complex numbers with real and imaginary parts, like 1+2j)."
               }
             ]
+          },
+          {
+            id: "py-control-flow",
+            title: "Control Flow",
+            description: "Understanding control flow in Python with conditionals and loops",
+            content: `
+# Control Flow in Python
+
+Control flow allows you to execute certain pieces of code based on conditions or to repeat code multiple times.
+
+## Conditional Statements
+In Python, conditional statements are created using if, elif, and else:
+
+\`\`\`python
+# If statement
+x = 10
+if x > 5:
+    print("x is greater than 5")
+
+# If-else statement
+y = 3
+if y > 5:
+    print("y is greater than 5")
+else:
+    print("y is not greater than 5")
+
+# If-elif-else statement
+z = 5
+if z > 5:
+    print("z is greater than 5")
+elif z < 5:
+    print("z is less than 5")
+else:
+    print("z is equal to 5")
+\`\`\`
+
+## Loops
+Python provides two main types of loops:
+
+### For Loops
+Used for iterating over a sequence (list, tuple, string, etc.):
+
+\`\`\`python
+# Looping through a list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Using range function
+for i in range(5):  # 0 to 4
+    print(i)
+\`\`\`
+
+### While Loops
+Execute a set of statements as long as a condition is true:
+
+\`\`\`python
+# Simple while loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+\`\`\`
+            `,
+            codeExamples: [
+              {
+                title: "Conditional Statements",
+                code: `# Simple if-else
+age = 20
+if age >= 18:
+    print("You are an adult")
+else:
+    print("You are a minor")
+
+# Multiple conditions
+score = 85
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"
+print(f"Your grade is {grade}")
+
+# Nested if statements
+num = 15
+if num > 0:
+    if num % 2 == 0:
+        print("Positive even number")
+    else:
+        print("Positive odd number")
+else:
+    print("Non-positive number")`,
+                explanation: "This example demonstrates various forms of conditional statements in Python, including simple if-else, multiple conditions with elif, and nested if statements."
+              },
+              {
+                title: "Loops",
+                code: `# For loop with a list
+colors = ["red", "green", "blue"]
+for color in colors:
+    print(f"Color: {color}")
+
+# For loop with range
+for i in range(1, 6):  # 1 to 5
+    print(f"Number: {i}")
+
+# While loop
+counter = 5
+while counter > 0:
+    print(f"Countdown: {counter}")
+    counter -= 1
+print("Blast off!")
+
+# Break and continue
+for i in range(10):
+    if i == 3:
+        continue  # Skip 3
+    if i == 7:
+        break  # Stop at 7
+    print(i)`,
+                explanation: "This example shows how to work with for loops using lists and the range function, while loops, and control flow statements like break (exit the loop) and continue (skip to the next iteration)."
+              }
+            ],
+            quiz: [
+              {
+                question: "What will be the output of this code?\n\nfor i in range(3, 7):\n    print(i)",
+                options: ["3 4 5 6 7", "3 4 5 6", "4 5 6 7", "3 4 5"],
+                correctAnswer: 1,
+                explanation: "In Python, range(3, 7) generates numbers from 3 to 6 (inclusive of the start but exclusive of the end). So it prints 3, 4, 5, and 6."
+              },
+              {
+                question: "Which statement is used to exit a loop prematurely?",
+                options: ["exit", "break", "continue", "return"],
+                correctAnswer: 1,
+                explanation: "The 'break' statement is used to exit a loop prematurely. When encountered, it immediately terminates the loop and control passes to the statement following the loop."
+              }
+            ],
+            flashcards: [
+              {
+                front: "What is the difference between 'break' and 'continue' in Python?",
+                back: "'break' terminates the loop entirely and moves to the code after the loop. 'continue' skips the current iteration and moves to the next iteration of the loop."
+              },
+              {
+                front: "What does the 'range()' function do?",
+                back: "The range() function generates a sequence of numbers. It can take up to three arguments: start (default 0), stop (required), and step (default 1). It creates a sequence from start up to, but not including, stop, with the given step size."
+              },
+              {
+                front: "How do you iterate through a list with its index in Python?",
+                back: "You can use the enumerate() function, which adds a counter to an iterable: for index, value in enumerate(my_list): print(index, value)"
+              },
+              {
+                front: "What is a ternary conditional operator in Python?",
+                back: "A ternary conditional operator is a one-line shorthand for an if-else statement: value_if_true if condition else value_if_false"
+              },
+              {
+                front: "What is the difference between 'elif' and 'else if'?",
+                back: "In Python, 'elif' is the correct keyword for else-if conditions. 'else if' (as two separate words) is not valid Python syntax. 'elif' is more concise and is the standard way to chain conditions."
+              }
+            ]
           }
         ]
       }
@@ -433,6 +713,162 @@ Java is a class-based, object-oriented programming language designed to have as 
               {
                 front: "What is the difference between '==' and .equals() in Java?",
                 back: "'==' compares object references (checks if both references point to the same object in memory), while .equals() compares the actual content/values of objects. For strings and other objects, use .equals() to compare content."
+              }
+            ]
+          },
+          {
+            id: "java-variables",
+            title: "Variables and Data Types",
+            description: "Understanding variables, primitive types, and reference types in Java",
+            content: `
+# Variables and Data Types in Java
+
+Java is a strongly-typed language, which means all variables must be declared with a specific data type.
+
+## Primitive Data Types
+Java has eight primitive data types:
+
+1. **byte**: 8-bit signed integer (-128 to 127)
+2. **short**: 16-bit signed integer (-32,768 to 32,767)
+3. **int**: 32-bit signed integer (-2^31 to 2^31-1)
+4. **long**: 64-bit signed integer (-2^63 to 2^63-1)
+5. **float**: 32-bit floating point
+6. **double**: 64-bit floating point
+7. **boolean**: true or false
+8. **char**: 16-bit Unicode character
+
+## Reference Types
+Reference types include:
+
+1. **Classes**: User-defined types
+2. **Interfaces**: Abstract types
+3. **Arrays**: Collections of elements
+4. **Strings**: Sequences of characters (technically a class)
+
+## Variable Declaration and Initialization
+
+```java
+// Declaration
+int age;
+String name;
+
+// Initialization
+age = 25;
+name = "John";
+
+// Declaration and initialization together
+double salary = 50000.0;
+boolean isEmployed = true;
+```
+            `,
+            codeExamples: [
+              {
+                title: "Primitive Types",
+                code: `public class PrimitiveTypes {
+    public static void main(String[] args) {
+        // Integer types
+        byte smallNumber = 127;
+        short mediumNumber = 32767;
+        int regularNumber = 2147483647;
+        long largeNumber = 9223372036854775807L; // Note the 'L' suffix
+        
+        // Floating-point types
+        float decimalNumber = 3.14f; // Note the 'f' suffix
+        double preciseDecimal = 3.141592653589793;
+        
+        // Other primitives
+        char singleCharacter = 'A';
+        boolean isTrue = true;
+        
+        // Printing all values
+        System.out.println("byte: " + smallNumber);
+        System.out.println("short: " + mediumNumber);
+        System.out.println("int: " + regularNumber);
+        System.out.println("long: " + largeNumber);
+        System.out.println("float: " + decimalNumber);
+        System.out.println("double: " + preciseDecimal);
+        System.out.println("char: " + singleCharacter);
+        System.out.println("boolean: " + isTrue);
+        
+        // Type conversion (casting)
+        int intValue = (int) largeNumber; // May lose precision
+        System.out.println("int from long: " + intValue);
+    }
+}`,
+                explanation: "This example demonstrates all the primitive data types in Java, their ranges, and how to declare and initialize them. It also shows type casting, which is converting one data type to another."
+              },
+              {
+                title: "Reference Types",
+                code: `public class ReferenceTypes {
+    public static void main(String[] args) {
+        // String (the most common reference type)
+        String greeting = "Hello, World!";
+        System.out.println(greeting);
+        
+        // Array (a collection of elements)
+        int[] numbers = {1, 2, 3, 4, 5};
+        System.out.println("First number: " + numbers[0]);
+        
+        // Object from a class
+        Person person = new Person("Alice", 30);
+        System.out.println(person.getName() + " is " + person.getAge() + " years old");
+    }
+}
+
+class Person {
+    private String name;
+    private int age;
+    
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+}`,
+                explanation: "This example shows reference types in Java, including Strings, arrays, and custom objects. Unlike primitive types, reference types store references (memory addresses) to objects rather than the actual values."
+              }
+            ],
+            quiz: [
+              {
+                question: "Which of the following is NOT a primitive data type in Java?",
+                options: ["int", "double", "String", "boolean"],
+                correctAnswer: 2,
+                explanation: "String is not a primitive data type in Java. It's a class, making it a reference type. The primitive types are byte, short, int, long, float, double, char, and boolean."
+              },
+              {
+                question: "What will happen if you try to assign 128 to a byte variable?",
+                options: ["It will work fine", "Compilation error", "Runtime error", "It will wrap around to -128"],
+                correctAnswer: 1,
+                explanation: "A byte in Java can only hold values from -128 to 127. Trying to assign 128 directly to a byte variable will cause a compilation error because 128 is outside this range."
+              }
+            ],
+            flashcards: [
+              {
+                front: "What is the difference between primitive and reference types in Java?",
+                back: "Primitive types store actual values and are stored on the stack. Reference types store references (memory addresses) that point to objects on the heap. Primitive types include byte, short, int, long, float, double, char, and boolean. Reference types include classes, interfaces, arrays, and strings."
+              },
+              {
+                front: "What is the default value of an uninitialized int variable as a class field?",
+                back: "The default value is 0. Java automatically initializes class fields with default values if not explicitly initialized (0 for numeric types, false for boolean, null for reference types). However, local variables must be initialized before use."
+              },
+              {
+                front: "What is the difference between float and double in Java?",
+                back: "Both are floating-point data types, but float is a 32-bit single-precision type and double is a 64-bit double-precision type. Double has more precision and a larger range than float. Float literals require an 'f' suffix (e.g., 3.14f), while double is the default for decimal values."
+              },
+              {
+                front: "What is type casting in Java?",
+                back: "Type casting is converting one data type to another. Widening casts (smaller to larger type) happen automatically. Narrowing casts (larger to smaller type) must be done explicitly and may lose information. Example: double d = 5.0; int i = (int) d;"
+              },
+              {
+                front: "How are strings stored in Java?",
+                back: "Strings in Java are objects of the String class and are stored in a special memory area called the String Pool. Strings are immutable, meaning their values cannot be changed after creation. When you modify a string, a new string object is created."
               }
             ]
           }
@@ -503,6 +939,184 @@ class Program
                 back: "Delegates in C# are type-safe function pointers that can reference methods with compatible signatures. They are used for implementing events and callback methods, and are the foundation for lambda expressions and LINQ."
               }
             ]
+          },
+          {
+            id: "cs-data-types",
+            title: "Data Types and Variables",
+            description: "Understanding data types and variable declaration in C#",
+            content: `
+# Data Types and Variables in C#
+
+C# is a strongly-typed language. Every variable and constant has a type, as does every expression that evaluates to a value.
+
+## Value Types
+C# provides a standard set of built-in numeric types:
+
+* **Integer Types**: byte, sbyte, short, ushort, int, uint, long, ulong
+* **Floating-Point Types**: float, double
+* **Decimal Type**: decimal (higher precision than float or double)
+* **Boolean Type**: bool (true or false)
+* **Character Type**: char (a single Unicode character)
+
+## Reference Types
+* **String**: A sequence of characters (string)
+* **Object**: The base class for all types (object)
+* **Dynamic**: A type that bypasses compile-time type checking (dynamic)
+* **Class Types**: User-defined types
+
+## Variable Declaration
+
+```csharp
+// Declaring variables
+int age;
+string name;
+bool isActive;
+
+// Initializing variables
+age = 25;
+name = "John";
+isActive = true;
+
+// Declaration and initialization in one line
+double salary = 50000.50;
+char grade = 'A';
+```
+            `,
+            codeExamples: [
+              {
+                title: "Working with Data Types",
+                code: `using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Integer types
+        byte smallNumber = 255;                 // 0 to 255
+        int standardInteger = 2147483647;       // -2^31 to 2^31-1
+        long largeInteger = 9223372036854775807L; // -2^63 to 2^63-1
+        
+        // Floating-point types
+        float singlePrecision = 3.14f;          // Note the 'f' suffix
+        double doublePrecision = 3.14159265359; // More precise
+        decimal moneyValue = 1234.56m;          // Note the 'm' suffix
+        
+        // Boolean type
+        bool isCorrect = true;
+        
+        // Character type
+        char letter = 'A';
+        
+        // String type (reference type)
+        string greeting = "Hello, C#!";
+        
+        // Displaying values
+        Console.WriteLine($"byte: {smallNumber}");
+        Console.WriteLine($"int: {standardInteger}");
+        Console.WriteLine($"long: {largeInteger}");
+        Console.WriteLine($"float: {singlePrecision}");
+        Console.WriteLine($"double: {doublePrecision}");
+        Console.WriteLine($"decimal: {moneyValue}");
+        Console.WriteLine($"bool: {isCorrect}");
+        Console.WriteLine($"char: {letter}");
+        Console.WriteLine($"string: {greeting}");
+        
+        // Type conversion
+        int intFromFloat = (int)singlePrecision;
+        Console.WriteLine($"int from float: {intFromFloat}"); // Truncates to 3
+        
+        // Parse from string
+        string numberAsString = "42";
+        int parsedInt = int.Parse(numberAsString);
+        Console.WriteLine($"Parsed int: {parsedInt}");
+    }
+}`,
+                explanation: "This example demonstrates various data types in C#, including integer types, floating-point types, boolean, character, and string. It also shows type conversion through casting and parsing from strings."
+              },
+              {
+                title: "Value vs Reference Types",
+                code: `using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Value types
+        int x = 10;
+        int y = x; // y gets a copy of x's value
+        y = 20;    // Changing y doesn't affect x
+        
+        Console.WriteLine($"x = {x}, y = {y}"); // x = 10, y = 20
+        
+        // Reference types
+        int[] array1 = { 1, 2, 3 };
+        int[] array2 = array1; // array2 references the same array as array1
+        
+        // Changing array2 affects array1 because they reference the same object
+        array2[0] = 99;
+        
+        Console.WriteLine($"array1[0] = {array1[0]}, array2[0] = {array2[0]}"); // Both are 99
+        
+        // String behavior (immutable reference type)
+        string str1 = "Hello";
+        string str2 = str1;
+        
+        // This doesn't change str1 because strings are immutable
+        // Instead, str2 gets a new string object
+        str2 = "World";
+        
+        Console.WriteLine($"str1 = {str1}, str2 = {str2}"); // str1 = Hello, str2 = World
+        
+        // Using ref to pass value types by reference
+        int a = 5;
+        ModifyValue(ref a);
+        Console.WriteLine($"After ModifyValue: a = {a}"); // a = 10
+    }
+    
+    static void ModifyValue(ref int number)
+    {
+        number = number * 2; // Changes the original value
+    }
+}`,
+                explanation: "This example demonstrates the difference between value types and reference types in C#. Value types contain the data directly and each variable has its own copy. Reference types store a reference to the data, so multiple variables can refer to the same object. The example also shows how to use the 'ref' keyword to pass value types by reference."
+              }
+            ],
+            quiz: [
+              {
+                question: "Which of the following is a value type in C#?",
+                options: ["string", "array", "class", "struct"],
+                correctAnswer: 3,
+                explanation: "A struct is a value type in C#, meaning it's stored directly on the stack. Strings, arrays, and classes are all reference types, which store a reference to data on the heap."
+              },
+              {
+                question: "What is the correct suffix for decimal literals in C#?",
+                options: ["d", "f", "m", "No suffix needed"],
+                correctAnswer: 2,
+                explanation: "The correct suffix for decimal literals in C# is 'm'. For example: decimal money = 125.50m; Float literals use 'f' (3.14f) and double literals don't require a suffix."
+              }
+            ],
+            flashcards: [
+              {
+                front: "What is the difference between value types and reference types in C#?",
+                back: "Value types (such as int, float, bool, struct) directly contain their data and are stored on the stack. Each variable has its own copy of the data. Reference types (such as string, array, class) store a reference to data on the heap, so multiple variables can reference the same object."
+              },
+              {
+                front: "What is the 'var' keyword in C#?",
+                back: "The 'var' keyword enables implicit typing, allowing the compiler to determine the variable's type from its initialization expression. The variable is still strongly typed, just inferred. Example: var name = \"John\"; (inferred as string)"
+              },
+              {
+                front: "What is type conversion in C#?",
+                back: "Type conversion is changing a value from one data type to another. Implicit conversions happen automatically when there's no data loss. Explicit conversions (casting) require a cast operator and may lose data. C# also offers methods like Convert.ToInt32() and int.Parse() for string conversions."
+              },
+              {
+                front: "What is the 'nullable' type in C#?",
+                back: "A nullable type can represent the normal range of values for its underlying type, plus an additional null value. This is useful when dealing with databases or other scenarios where values might be missing. Example: int? nullableInt = null;"
+              },
+              {
+                front: "How are strings stored in C#?",
+                back: "Strings in C# are immutable reference types. When you create a string, it's stored in a special area of memory called the heap. Once created, a string's value cannot be changed. Any operation that appears to modify a string actually creates a new string object."
+              }
+            ]
           }
         ]
       }
@@ -566,6 +1180,196 @@ int main() {
               {
                 front: "What is the difference between 'new' and 'malloc' in C++?",
                 back: "'new' is a C++ operator that allocates memory and calls constructors for objects, while 'malloc' is a C function that only allocates memory. 'new' returns the correct type, and 'malloc' returns void*. 'new' throws exceptions on failure, while 'malloc' returns NULL."
+              }
+            ]
+          },
+          {
+            id: "cpp-variables",
+            title: "Variables and Data Types",
+            description: "Understanding variables and data types in C++",
+            content: `
+# Variables and Data Types in C++
+
+C++ offers a rich set of built-in data types and allows programmers to create their own data types through structures, classes, and enumerations.
+
+## Fundamental Data Types
+
+C++ has several fundamental data types:
+
+1. **Integer Types**:
+   - \`int\`: The most common integer type
+   - \`short\`: A shorter integer
+   - \`long\`: A longer integer
+   - \`long long\`: An even longer integer (C++11)
+
+2. **Floating-Point Types**:
+   - \`float\`: Single-precision floating point
+   - \`double\`: Double-precision floating point
+   - \`long double\`: Extended-precision floating point
+
+3. **Character Types**:
+   - \`char\`: Basic character type
+   - \`wchar_t\`: Wide character type
+   - \`char16_t\`, \`char32_t\`: Unicode character types (C++11)
+
+4. **Boolean Type**:
+   - \`bool\`: Can hold true or false
+
+5. **Void Type**:
+   - \`void\`: Represents the absence of type
+
+## Type Modifiers
+
+Types can be modified with:
+- \`signed\` / \`unsigned\`: For integer types
+- \`const\`: For making variables unchangeable
+
+## Variable Declaration and Initialization
+
+```cpp
+// Declaration
+int age;
+double price;
+
+// Initialization
+age = 25;
+price = 19.99;
+
+// Declaration and initialization
+char grade = 'A';
+bool isActive = true;
+
+// C++11 uniform initialization
+int count{10};
+float pi{3.14f};
+```
+            `,
+            codeExamples: [
+              {
+                title: "Basic Data Types",
+                code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Integer types
+    int regularInt = 42;
+    short smallInt = 32767;
+    long bigInt = 2147483647L;
+    long long veryBigInt = 9223372036854775807LL;
+    
+    // Unsigned integer (non-negative only)
+    unsigned int positiveOnly = 4294967295U;
+    
+    // Floating-point types
+    float simpleFloat = 3.14f;       // Note the 'f' suffix
+    double preciseDouble = 3.141592653589793;
+    
+    // Character types
+    char singleChar = 'A';
+    wchar_t wideChar = L'Ω';         // Note the L prefix
+    
+    // Boolean type
+    bool isTrue = true;
+    bool isFalse = false;
+    
+    // Output values
+    cout << "int: " << regularInt << endl;
+    cout << "short: " << smallInt << endl;
+    cout << "long: " << bigInt << endl;
+    cout << "long long: " << veryBigInt << endl;
+    cout << "unsigned int: " << positiveOnly << endl;
+    cout << "float: " << simpleFloat << endl;
+    cout << "double: " << preciseDouble << endl;
+    cout << "char: " << singleChar << endl;
+    cout << "bool (true): " << isTrue << endl;
+    cout << "bool (false): " << isFalse << endl;
+    
+    // Type sizes
+    cout << "Size of int: " << sizeof(int) << " bytes" << endl;
+    cout << "Size of double: " << sizeof(double) << " bytes" << endl;
+    
+    return 0;
+}`,
+                explanation: "This example demonstrates the basic data types in C++, including integers, floating-point numbers, characters, and booleans. It also shows how to declare and initialize variables of different types and how to check their memory sizes using the sizeof operator."
+              },
+              {
+                title: "Type Conversions and Constants",
+                code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Implicit type conversion
+    int intValue = 42;
+    double doubleValue = intValue;    // int to double (safe)
+    cout << "Double from int: " << doubleValue << endl;
+    
+    // Explicit type conversion (casting)
+    double pi = 3.14159;
+    int roundedPi = static_cast<int>(pi);   // Truncates to 3
+    cout << "Int from double: " << roundedPi << endl;
+    
+    // Constants
+    const double gravity = 9.81;      // Cannot be changed
+    // gravity = 10.0;                // Error: assignment of read-only variable
+    
+    // Auto keyword (type inference, C++11)
+    auto autoInt = 42;                // Deduced as int
+    auto autoDouble = 3.14;           // Deduced as double
+    auto autoChar = 'X';              // Deduced as char
+    
+    cout << "Auto int: " << autoInt << endl;
+    cout << "Auto double: " << autoDouble << endl;
+    cout << "Auto char: " << autoChar << endl;
+    
+    // Type aliases
+    typedef unsigned long ulong;      // Traditional way
+    using uint = unsigned int;        // Modern way (C++11)
+    
+    ulong bigNumber = 1234567890UL;
+    uint positiveNum = 42U;
+    
+    cout << "ulong: " << bigNumber << endl;
+    cout << "uint: " << positiveNum << endl;
+    
+    return 0;
+}`,
+                explanation: "This example shows how to perform type conversions in C++, both implicit (automatic) and explicit (using static_cast). It also demonstrates constants (using the const keyword), type inference (using auto), and type aliases (using typedef and using)."
+              }
+            ],
+            quiz: [
+              {
+                question: "What is the output of the following code?\n\nint x = 5;\ndouble y = 2.0;\nint z = x / y;\nstd::cout << z;",
+                options: ["2.5", "2", "3", "Compilation error"],
+                correctAnswer: 3,
+                explanation: "This will cause a compilation error. In C++, you cannot directly assign a double (result of x / y) to an int without an explicit cast. The operation x / y produces a double, and the compiler catches the type mismatch."
+              },
+              {
+                question: "Which of the following correctly declares a constant integer in C++?",
+                options: ["int constant x = 10;", "constant int x = 10;", "const int x = 10;", "int x = const 10;"],
+                correctAnswer: 2,
+                explanation: "The correct way to declare a constant integer in C++ is 'const int x = 10;'. The const keyword precedes the type and indicates that the variable's value cannot be changed after initialization."
+              }
+            ],
+            flashcards: [
+              {
+                front: "What is the difference between float and double in C++?",
+                back: "Both are floating-point data types, but they differ in precision and memory usage. float typically uses 4 bytes (32 bits) with about 7 decimal digits of precision, while double uses 8 bytes (64 bits) with about 15 decimal digits of precision. Double is more precise but uses more memory."
+              },
+              {
+                front: "What is the 'auto' keyword in C++?",
+                back: "The 'auto' keyword, introduced in C++11, enables type inference. It allows the compiler to automatically deduce the type of a variable from its initializer. For example, 'auto x = 5;' will make x an int. This makes code more concise and adaptable to type changes."
+              },
+              {
+                front: "What is a reference in C++?",
+                back: "A reference in C++ is an alias for an existing variable. Once initialized, a reference cannot be changed to refer to another variable. References are declared using the & symbol: 'int& ref = original;'. They're commonly used for function parameters to avoid copying large objects."
+              },
+              {
+                front: "What is the difference between 'const int* p', 'int* const p', and 'const int* const p'?",
+                back: "'const int* p' means p points to a constant integer (the integer cannot be modified through p). 'int* const p' means p is a constant pointer (p cannot be changed to point elsewhere). 'const int* const p' means p is a constant pointer to a constant integer (neither can be changed)."
+              },
+              {
+                front: "What does 'nullptr' represent in C++?",
+                back: "'nullptr' is a keyword introduced in C++11 to represent a null pointer. It's a type-safe alternative to NULL or 0 when representing a null pointer. Unlike NULL (which is typically defined as 0), nullptr has its own type (std::nullptr_t) which prevents it from being implicitly converted to integer types."
               }
             ]
           }
