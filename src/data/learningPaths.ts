@@ -6,7 +6,7 @@ import { javaPath } from './learning-paths/javaPath';
 import { csharpPath } from './learning-paths/csharpPath';
 import { cppPath } from './learning-paths/cppPath';
 
-export { 
+export type { 
   Module, 
   Topic, 
   CodeExample, 
