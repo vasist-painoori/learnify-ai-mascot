@@ -1,4 +1,3 @@
-
 import { LearningPath } from '../types';
 
 export const cppPath: LearningPath = {
@@ -61,7 +60,66 @@ int main() {
             }
           ]
         },
-        // ... Additional C++ topics would be defined here
+        {
+          id: "cpp-variables",
+          title: "Variables and Data Types",
+          description: "Understanding variables and data types in C++",
+          content: `
+# Variables and Data Types in C++
+
+C++ provides various data types and ways to store and manipulate data in memory.
+          `,
+          codeExamples: [
+            {
+              title: "Basic Data Types",
+              code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Integer types
+    int a = 42;
+    short b = 100;
+    long c = 123456789L;
+    
+    // Floating point types
+    float f = 3.14f;
+    double d = 3.14159;
+    
+    // Character type
+    char ch = 'A';
+    
+    // Boolean type
+    bool flag = true;
+    
+    // Output values
+    cout << "Integer: " << a << endl;
+    cout << "Short: " << b << endl;
+    cout << "Long: " << c << endl;
+    cout << "Float: " << f << endl;
+    cout << "Double: " << d << endl;
+    cout << "Char: " << ch << endl;
+    cout << "Bool: " << flag << endl;
+    
+    return 0;
+}`,
+              explanation: "This example demonstrates the basic data types available in C++, including integers, floating-point numbers, characters, and booleans."
+            }
+          ],
+          quiz: [
+            {
+              question: "What is the size of an int in C++?",
+              options: ["Always 2 bytes", "Always 4 bytes", "Always 8 bytes", "Implementation dependent"],
+              correctAnswer: 3,
+              explanation: "The size of an int in C++ is implementation dependent. While it's commonly 4 bytes on many modern systems, this is not guaranteed by the standard."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What are the fundamental data types in C++?",
+              back: "The fundamental data types in C++ include:\n- char (character)\n- int (integer)\n- float (single-precision floating-point)\n- double (double-precision floating-point)\n- bool (boolean)\n- void (no type)\nEach can be modified with signed/unsigned and short/long."
+            }
+          ]
+        }
       ]
     }
   ]
