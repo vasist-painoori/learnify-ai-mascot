@@ -16,32 +16,40 @@ export const rubyPath: LearningPath = {
           content: `
 # Introduction to Ruby
 
-Ruby is a dynamic, object-oriented programming language known for its simplicity and productivity.
+Ruby is a dynamic, object-oriented programming language designed for simplicity and productivity.
           `,
           codeExamples: [
             {
               title: "Hello World in Ruby",
-              code: `# This is a simple Ruby program
-puts "Hello, World!"`,
-              explanation: "This is a basic Ruby program that prints 'Hello, World!' to the console. The 'puts' command prints a string with a newline character at the end."
+              code: `# Simple Hello World program
+puts "Hello, World!"
+
+# Using a variable
+greeting = "Hello, Ruby!"
+puts greeting`,
+              explanation: "This example shows how to print text to the console using the 'puts' method, which adds a newline character at the end. It also demonstrates assigning a string to a variable and then printing that variable."
             }
           ],
           quiz: [
             {
               question: "Who created the Ruby programming language?",
-              options: ["Guido van Rossum", "James Gosling", "Yukihiro Matsumoto", "Bjarne Stroustrup"],
-              correctAnswer: 2,
-              explanation: "Ruby was created by Yukihiro Matsumoto (often known as 'Matz') in the mid-1990s in Japan. Matz designed Ruby to make programmers happy by creating an elegant language that balances functional and imperative programming."
+              options: ["Guido van Rossum", "Yukihiro Matsumoto", "James Gosling", "Bjarne Stroustrup"],
+              correctAnswer: 1,
+              explanation: "Ruby was created by Yukihiro Matsumoto (often referred to as 'Matz') in Japan. He designed it to be a language that emphasizes human needs rather than computer needs."
             }
           ],
           flashcards: [
             {
               front: "What is Ruby?",
-              back: "Ruby is a dynamic, interpreted, object-oriented programming language designed for simplicity and productivity. It has an elegant syntax that is natural to read and easy to write."
+              back: "Ruby is a dynamic, interpreted, object-oriented programming language that emphasizes simplicity and productivity. It has an elegant syntax that is natural to read and easy to write."
             },
             {
-              front: "What is the current stable version of Ruby?",
-              back: "As of 2023, Ruby 3.x is the current stable version, with significant improvements in performance, concurrency, and typing."
+              front: "When was Ruby created?",
+              back: "Ruby was created by Yukihiro Matsumoto in 1995. It was designed to be a language that emphasizes human understanding rather than computer understanding."
+            },
+            {
+              front: "What is the Ruby philosophy?",
+              back: "Ruby follows the principle of 'least surprise', meaning it tries to behave in a way that minimizes confusion for experienced users. It also follows the saying 'There's more than one way to do it', offering flexibility in programming approaches."
             }
           ]
         },
@@ -52,209 +60,317 @@ puts "Hello, World!"`,
           content: `
 # Variables and Data Types in Ruby
 
-Ruby is dynamically typed, which means you don't need to declare a variable's type when you create it.
+Ruby is a dynamically typed language, which means variables don't have predefined types.
           `,
           codeExamples: [
             {
               title: "Variables and Basic Data Types",
-              code: `# Numeric types
-age = 30             # Integer
-price = 19.99        # Float
-
-# String type
-name = "Ruby"        # String with double quotes
-language = 'Ruby'    # String with single quotes
-
-# Boolean type
-is_active = true
-is_completed = false
-
-# Array type (ordered collection)
-fruits = ["apple", "banana", "cherry"]
-
-# Hash type (key-value pairs)
-person = { "name" => "John", "age" => 30 }
-person_symbol = { name: "John", age: 30 }  # Modern syntax
-
-# Symbol type
-status = :active
-
-# Nil (represents absence of value)
-result = nil
-
-# Display values
+              code: `# Integer
+age = 30
 puts "Age: #{age}"
+
+# Float
+price = 19.99
 puts "Price: #{price}"
+
+# String
+name = "Ruby"
 puts "Name: #{name}"
-puts "Active? #{is_active}"
-puts "Fruits: #{fruits}"
-puts "Person: #{person}"
-puts "Symbol: #{status}"
-puts "Result: #{result.inspect}"`,
-              explanation: "This example demonstrates the basic data types in Ruby: numbers (integers and floats), strings, booleans, arrays, hashes, symbols, and nil. Ruby is dynamically typed, so variables can change their type throughout the program."
+
+# Boolean
+is_active = true
+puts "Active: #{is_active}"
+
+# Nil (equivalent to null in other languages)
+user = nil
+puts "User: #{user.inspect}"
+
+# Symbol (immutable, reusable identifiers)
+status = :active
+puts "Status: #{status}"
+
+# Constants (start with uppercase letter)
+PI = 3.14159
+puts "PI: #{PI}"`,
+              explanation: "This example demonstrates different data types in Ruby including integers, floats, strings, booleans, nil, symbols, and constants. Note how Ruby uses string interpolation with #{} to embed expressions within strings."
             }
           ],
           quiz: [
             {
-              question: "Which of the following is NOT a valid variable name in Ruby?",
-              options: ["_user", "User1", "1user", "user_name"],
+              question: "In Ruby, how do you check the data type of a variable?",
+              options: ["typeof variable", "variable.type", "variable.class", "gettype(variable)"],
               correctAnswer: 2,
-              explanation: "In Ruby, variable names cannot start with a number. They must start with a letter or underscore, followed by letters, numbers, or underscores."
+              explanation: "In Ruby, you can check the data type of a variable by calling the .class method on it. For example, 'hello'.class would return String."
             }
           ],
           flashcards: [
             {
-              front: "What is the difference between single quotes and double quotes for strings in Ruby?",
-              back: "Double-quoted strings allow string interpolation (e.g., \"Hello #{name}\") and escape sequences (e.g., \"\\n\" for newline). Single-quoted strings interpret characters literally with few exceptions (e.g., escaping a single quote inside the string)."
+              front: "What is a Symbol in Ruby?",
+              back: "A Symbol in Ruby is an immutable object that represents a name or string. Symbols are often used as keys in hashes and for method names. They are prefixed with a colon, like :name."
             },
             {
-              front: "What is a Symbol in Ruby?",
-              back: "A Symbol in Ruby is an immutable name or string. Symbols are lightweight objects often used as hash keys or to represent names. They are prefixed with a colon (e.g., :name). Unlike strings, identical symbols refer to the same object in memory, making them more memory-efficient."
+              front: "How are variables named in Ruby?",
+              back: "Ruby variable names are case-sensitive and typically use snake_case (lowercase with underscores). Local variables start with a lowercase letter, instance variables start with @, class variables start with @@, and constants start with an uppercase letter."
             }
           ]
         },
         {
-          id: "ruby-operators",
-          title: "Operators",
-          description: "Understanding Ruby operators for arithmetic, comparison, and logical operations",
+          id: "ruby-strings",
+          title: "Strings and String Manipulation",
+          description: "Working with strings in Ruby",
           content: `
-# Operators in Ruby
+# Strings in Ruby
 
-Ruby provides various types of operators for performing operations on variables and values.
+Strings in Ruby are objects of the String class and offer many built-in methods for manipulation.
           `,
           codeExamples: [
             {
-              title: "Arithmetic and Assignment Operators",
-              code: `# Arithmetic operators
-a = 10
-b = 3
+              title: "String Creation and Manipulation",
+              code: `# Creating strings
+str1 = "Hello"
+str2 = 'World'
+puts str1 + " " + str2  # Concatenation
 
-puts "a + b = #{a + b}"    # Addition: 13
-puts "a - b = #{a - b}"    # Subtraction: 7
-puts "a * b = #{a * b}"    # Multiplication: 30
-puts "a / b = #{a / b}"    # Division: 3 (integer division)
-puts "a % b = #{a % b}"    # Modulus (remainder): 1
-puts "a ** b = #{a ** b}"  # Exponentiation: 1000
+# String interpolation (only works with double quotes)
+name = "Ruby"
+puts "Hello, #{name}!"   # Output: Hello, Ruby!
+puts 'Hello, #{name}!'   # Output: Hello, #{name}!
 
-# Floating-point division
-puts "a.to_f / b = #{a.to_f / b}"  # 3.3333...
+# Multiline strings
+multiline = "This is a
+multiline string
+in Ruby"
+puts multiline
 
-# Assignment operators
-x = 10
-puts "x = #{x}"
+# Here documents
+long_text = <<-HEREDOC
+  This is another way to create
+  a multiline string in Ruby.
+  It's called a "here document".
+HEREDOC
+puts long_text
 
-x += 5     # Same as: x = x + 5
-puts "x += 5: #{x}"   # 15
+# String methods
+text = "ruby programming"
+puts text.length        # 16
+puts text.upcase        # RUBY PROGRAMMING
+puts text.capitalize    # Ruby programming
+puts text.include?("ruby")  # true
+puts text.gsub("ruby", "Ruby")  # Ruby programming
+puts text.split(" ")    # ["ruby", "programming"]
 
-x -= 3     # Same as: x = x - 3
-puts "x -= 3: #{x}"   # 12
-
-x *= 2     # Same as: x = x * 2
-puts "x *= 2: #{x}"   # 24
-
-x /= 4     # Same as: x = x / 4
-puts "x /= 4: #{x}"   # 6
-
-x %= 4     # Same as: x = x % 4
-puts "x %= 4: #{x}"   # 2
-
-x **= 3    # Same as: x = x ** 3
-puts "x **= 3: #{x}"  # 8`,
-              explanation: "This example shows arithmetic operators (+, -, *, /, %, **) and compound assignment operators (+=, -=, *=, /=, %=, **=) in Ruby. Note that division between integers (a / b) returns an integer result, while division with at least one float (a.to_f / b) returns a float result."
-            },
-            {
-              title: "Comparison and Logical Operators",
-              code: `# Comparison operators
-a = 10
-b = 5
-c = 10
-
-puts "a == c: #{a == c}"      # Equal to: true
-puts "a != b: #{a != b}"      # Not equal to: true
-puts "a > b: #{a > b}"        # Greater than: true
-puts "a < b: #{a < b}"        # Less than: false
-puts "a >= c: #{a >= c}"      # Greater than or equal to: true
-puts "a <= b: #{a <= b}"      # Less than or equal to: false
-
-# Comparison of different types
-puts "1 == 1.0: #{1 == 1.0}"  # true
-puts "1 === 1.0: #{1 === 1.0}"  # true
-puts "'5' == 5: #{'5' == 5}"  # false
-
-# Combined comparison operator (spaceship)
-puts "a <=> b: #{a <=> b}"    # 1 (a > b)
-puts "b <=> a: #{b <=> a}"    # -1 (b < a)
-puts "a <=> c: #{a <=> c}"    # 0 (a == c)
-
-# Logical operators
-x = true
-y = false
-
-puts "x && y: #{x && y}"      # Logical AND: false
-puts "x || y: #{x || y}"      # Logical OR: true
-puts "!x: #{!x}"              # Logical NOT: false
-
-# Short-circuit evaluation
-def test_method
-  puts "This method was called"
-  return false
-end
-
-puts "Short-circuit with ||:"
-result = true || test_method  # test_method is not called
-puts "Result: #{result}"
-
-puts "\\nShort-circuit with &&:"
-result = false && test_method  # test_method is not called
-puts "Result: #{result}"`,
-              explanation: "This example demonstrates comparison operators (==, !=, >, <, >=, <=), the combined comparison operator (<=>), and logical operators (&&, ||, !). It also shows short-circuit evaluation in logical operations, where the second operand isn't evaluated if the first one determines the result."
+# Accessing characters
+puts text[0]            # r
+puts text[0..3]         # ruby
+puts text[-11..-1]      # programming`,
+              explanation: "This example demonstrates creating strings using single and double quotes, string interpolation, multiline strings, here documents, and various string methods such as length, upcase, capitalize, include?, gsub, and split. It also shows how to access characters and substrings using index notation."
             }
           ],
           quiz: [
             {
-              question: "What will be the output of the following Ruby code?\n\nx = 10\ny = 5\nputs x / y, x.to_f / y",
-              options: ["2, 2", "2, 2.0", "2.0, 2.0", "Error"],
-              correctAnswer: 1,
-              explanation: "The first division (x / y) is integer division, which returns 2. The second division (x.to_f / y) converts x to a float before division, resulting in 2.0 as the output."
+              question: "What is the output of this Ruby code?\n\"Hello\".gsub(\"H\", \"J\").downcase",
+              options: ["Hello", "hello", "jello", "Jello"],
+              correctAnswer: 2,
+              explanation: "The gsub method replaces all occurrences of \"H\" with \"J\", resulting in \"Jello\". Then the downcase method converts it to lowercase, giving \"jello\"."
             }
           ],
           flashcards: [
             {
-              front: "What is the purpose of the spaceship operator (<=>) in Ruby?",
-              back: "The spaceship operator (<=>) in Ruby is a comparison operator that returns -1 if the left operand is less than the right operand, 0 if they are equal, and 1 if the left operand is greater than the right operand. It's commonly used for implementing custom comparison methods and sorting."
+              front: "What is the difference between single-quoted and double-quoted strings in Ruby?",
+              back: "Double-quoted strings (\"text\") allow for escape sequences and string interpolation using #{expression}, while single-quoted strings ('text') interpret most characters literally and don't allow interpolation."
             },
             {
-              front: "What's the difference between '==' and '===' in Ruby?",
-              back: "In Ruby, == tests if two objects have the same value, while === is typically used in case statements for pattern matching. For most built-in classes, === is the same as ==, but some classes override === to provide special behavior (e.g., Range === 5 tests if 5 is in the range)."
+              front: "What is a here document in Ruby?",
+              back: "A here document (or heredoc) is a way to create multiline strings in Ruby using <<-IDENTIFIER and IDENTIFIER to mark the beginning and end. Heredocs preserve newlines and spacing, making them useful for templates or large text blocks."
+            }
+          ]
+        },
+        {
+          id: "ruby-arrays",
+          title: "Arrays",
+          description: "Working with arrays in Ruby",
+          content: `
+# Arrays in Ruby
+
+Arrays in Ruby are ordered collections that can hold objects of different types.
+          `,
+          codeExamples: [
+            {
+              title: "Creating and Using Arrays",
+              code: `# Creating arrays
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "two", 3.0, :four, [5, 6]]
+empty = []
+
+# Accessing elements
+puts numbers[0]      # 1 (first element)
+puts numbers[-1]     # 5 (last element)
+puts numbers[1..3]   # [2, 3, 4] (range of elements)
+
+# Modifying arrays
+numbers.push(6)          # Add to the end: [1, 2, 3, 4, 5, 6]
+numbers << 7             # Also adds to the end: [1, 2, 3, 4, 5, 6, 7]
+numbers.unshift(0)       # Add to the beginning: [0, 1, 2, 3, 4, 5, 6, 7]
+numbers.insert(3, 2.5)   # Insert at specific position: [0, 1, 2, 2.5, 3, 4, 5, 6, 7]
+
+popped = numbers.pop     # Remove from the end: 7
+shifted = numbers.shift  # Remove from the beginning: 0
+deleted = numbers.delete(2.5)  # Remove specific element: 2.5
+
+puts "After modifications: #{numbers.inspect}"
+
+# Array methods
+puts numbers.length     # Get length
+puts numbers.include?(5)  # Check if element exists
+puts numbers.join(", ")   # Join elements into a string
+puts numbers.reverse      # Reverse the array
+numbers.sort!             # Sort the array in place
+puts numbers.inspect
+
+# Iterating through arrays
+numbers.each do |num|
+  puts "Number: #{num}"
+end
+
+# Map (create a new array by transforming elements)
+doubled = numbers.map { |num| num * 2 }
+puts "Doubled: #{doubled.inspect}"
+
+# Select (filter elements)
+even = numbers.select { |num| num.even? }
+puts "Even numbers: #{even.inspect}"`,
+              explanation: "This example demonstrates creating arrays, accessing elements, modifying arrays with methods like push, pop, shift, unshift, and delete, and using common array methods like length, include?, join, reverse, and sort. It also shows how to iterate through arrays using each, and transform arrays using map and select."
+            }
+          ],
+          quiz: [
+            {
+              question: "What is the output of this Ruby code?\n[1, 2, 3, 4, 5].select { |n| n > 2 }.map { |n| n * 2 }",
+              options: ["[2, 4, 6, 8, 10]", "[6, 8, 10]", "[3, 4, 5]", "[1, 2, 3, 4, 5]"],
+              correctAnswer: 1,
+              explanation: "The code first selects all elements greater than 2, resulting in [3, 4, 5]. Then it applies the map operation to multiply each element by 2, resulting in [6, 8, 10]."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What methods are used to add elements to the beginning and end of an array in Ruby?",
+              back: "To add to the end of an array, use push or the shovel operator (<<). To add to the beginning of an array, use unshift."
+            },
+            {
+              front: "What is the difference between map and each in Ruby arrays?",
+              back: "The each method iterates through each element and executes a block of code, returning the original array. The map method transforms each element according to a block and returns a new array with the transformed values."
+            }
+          ]
+        },
+        {
+          id: "ruby-hashes",
+          title: "Hashes",
+          description: "Working with key-value pairs in Ruby",
+          content: `
+# Hashes in Ruby
+
+Hashes are collections of key-value pairs, similar to dictionaries in other languages.
+          `,
+          codeExamples: [
+            {
+              title: "Creating and Using Hashes",
+              code: `# Creating hashes
+person = { "name" => "John", "age" => 30, "city" => "New York" }
+puts person["name"]   # John
+
+# Symbol keys (more common in modern Ruby)
+user = { name: "Alice", age: 25, city: "Boston" }
+puts user[:name]      # Alice
+
+# Alternative syntax
+book = { :title => "Ruby Programming", :author => "Matz", :year => 1995 }
+puts book[:title]     # Ruby Programming
+
+# Nested hashes
+contact = {
+  name: "Bob",
+  details: {
+    email: "bob@example.com",
+    phone: "555-1234"
+  }
+}
+puts contact[:details][:email]  # bob@example.com
+
+# Adding and modifying values
+person["occupation"] = "Developer"  # Add new key-value pair
+person["age"] = 31                  # Modify existing value
+
+# Removing values
+removed = person.delete("city")
+puts "Removed: #{removed}"
+
+# Hash methods
+puts person.keys.inspect      # Get all keys
+puts person.values.inspect    # Get all values
+puts person.length            # Number of key-value pairs
+puts person.has_key?("name")  # Check if key exists
+puts person.has_value?(31)    # Check if value exists
+puts person.empty?            # Check if hash is empty
+
+# Default values
+grades = Hash.new(0)  # Default value is 0
+grades["Alice"] = 95
+puts grades["Alice"]  # 95
+puts grades["Bob"]    # 0 (default value, "Bob" key does not exist)
+
+# Iterating through hashes
+user.each do |key, value|
+  puts "#{key}: #{value}"
+end
+
+# Transforming hashes
+uppercase_names = person.transform_keys(&:upcase)
+puts uppercase_names.inspect`,
+              explanation: "This example demonstrates creating hashes with different syntaxes (hash rocket => and symbol keys), accessing values, adding, modifying and removing key-value pairs, and using common hash methods. It also shows how to set default values for non-existent keys, iterate through hashes, and transform hash keys."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which of the following is the correct way to create a hash with symbol keys in Ruby?",
+              options: [
+                "{ name => \"John\", age => 30 }",
+                "{ \"name\": \"John\", \"age\": 30 }",
+                "{ :name => \"John\", :age => 30 }",
+                "{ name: \"John\", age: 30 }"
+              ],
+              correctAnswer: 3,
+              explanation: "The modern Ruby syntax for creating a hash with symbol keys is { name: \"John\", age: 30 }, which is shorthand for { :name => \"John\", :age => 30 }."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is the difference between arrays and hashes in Ruby?",
+              back: "Arrays are ordered collections indexed by integers, starting from 0. Hashes are collections of key-value pairs, where keys can be any object (commonly symbols or strings), and values are accessed by their associated key rather than a numeric index."
+            },
+            {
+              front: "How do you set a default value for a hash in Ruby?",
+              back: "You can set a default value for a hash by using Hash.new(default_value) when creating the hash. When a non-existent key is accessed, the default value is returned instead of nil."
             }
           ]
         },
         {
           id: "ruby-control-flow",
           title: "Control Flow",
-          description: "Understanding decision making and loops in Ruby",
+          description: "Understanding control flow in Ruby",
           content: `
 # Control Flow in Ruby
 
-Control flow in Ruby allows you to control the flow of your program's execution based on conditions and iterations.
+Control flow statements allow you to control the execution of your code based on conditions and iterations.
           `,
           codeExamples: [
             {
               title: "Conditional Statements",
-              code: `# If statement
-number = 10
+              code: `# If-else statement
+age = 18
 
-if number > 0
-  puts "#{number} is positive"
-end
-
-# If-else statement
-temperature = 25
-
-if temperature > 30
-  puts "It's hot outside!"
+if age >= 18
+  puts "You are an adult"
 else
-  puts "It's not too hot today."
+  puts "You are a minor"
 end
 
 # If-elsif-else statement
@@ -272,731 +388,262 @@ else
   grade = "F"
 end
 
-puts "Grade: #{grade}"  # Grade: B
+puts "Grade: #{grade}"
 
 # Unless statement (opposite of if)
 is_raining = false
 
 unless is_raining
-  puts "No need for an umbrella!"
+  puts "You don't need an umbrella"
+else
+  puts "Take an umbrella"
 end
-
-# Modifier form of if and unless
-puts "Number is positive" if number > 0
-puts "Don't forget your umbrella" if is_raining
-puts "You can leave your umbrella" unless is_raining
 
 # Ternary operator
 age = 20
-status = age >= 18 ? "Adult" : "Minor"
-puts "Status: #{status}"  # Status: Adult
+status = age >= 18 ? "adult" : "minor"
+puts status
 
 # Case statement (switch)
-day = 3
+day = "Wednesday"
 
 case day
-when 1
-  day_name = "Monday"
-when 2
-  day_name = "Tuesday"
-when 3
-  day_name = "Wednesday"
-when 4
-  day_name = "Thursday"
-when 5
-  day_name = "Friday"
-when 6
-  day_name = "Saturday"
-when 7
-  day_name = "Sunday"
+when "Monday"
+  puts "Start of the work week"
+when "Wednesday"
+  puts "Middle of the week"
+when "Friday"
+  puts "End of the work week"
+when "Saturday", "Sunday"
+  puts "Weekend!"
 else
-  day_name = "Invalid day"
+  puts "Regular day"
 end
 
-puts "Day: #{day_name}"  # Day: Wednesday
+# Case with ranges
+age = 25
 
-# Case statement with ranges
-case score
-when 90..100
-  letter_grade = "A"
-when 80...90
-  letter_grade = "B"
-when 70...80
-  letter_grade = "C"
-when 60...70
-  letter_grade = "D"
+case age
+when 0..12
+  puts "Child"
+when 13..19
+  puts "Teenager"
+when 20..65
+  puts "Adult"
 else
-  letter_grade = "F"
-end
-
-puts "Letter grade: #{letter_grade}"  # Letter grade: B`,
-              explanation: "This example demonstrates conditional statements in Ruby, including if, if-else, if-elsif-else, unless, and case statements. It also shows the modifier form of if and unless, which allows for more concise syntax when the condition is simple. The case statement in Ruby is more powerful than switch statements in many other languages, as it can work with ranges and use the === operator for pattern matching."
+  puts "Senior"
+end`,
+              explanation: "This example shows various conditional statements in Ruby, including if-else, if-elsif-else, unless (which is the opposite of if), the ternary operator for simple conditionals, and case statements (Ruby's version of switch). The case statement can match not just exact values, but also ranges and other patterns."
             },
             {
-              title: "Loops and Iteration",
+              title: "Loops and Iterations",
               code: `# While loop
-puts "While loop:"
-count = 1
-while count <= 5
-  puts "Count: #{count}"
-  count += 1
+counter = 0
+while counter < 5
+  puts "While loop: #{counter}"
+  counter += 1
 end
 
 # Until loop (opposite of while)
-puts "\\nUntil loop:"
-count = 1
-until count > 5
-  puts "Count: #{count}"
-  count += 1
+counter = 0
+until counter >= 5
+  puts "Until loop: #{counter}"
+  counter += 1
 end
 
-# For loop with range
-puts "\\nFor loop with range:"
-for i in 1..5
-  puts "i = #{i}"
+# For loop (less common in Ruby)
+for i in 0..4
+  puts "For loop: #{i}"
 end
 
-# Each iterator with range
-puts "\\nEach iterator with range:"
-(1..5).each do |i|
-  puts "i = #{i}"
+# Each method with block
+(0..4).each do |i|
+  puts "Each loop: #{i}"
 end
 
-# Each iterator with array
-puts "\\nEach iterator with array:"
-fruits = ["apple", "banana", "cherry"]
-fruits.each do |fruit|
-  puts fruit
-end
+# Each with single-line block
+(0..4).each { |i| puts "Each one-line: #{i}" }
 
-# Each with index
-puts "\\nEach with index:"
-fruits.each_with_index do |fruit, index|
-  puts "#{index + 1}. #{fruit}"
-end
-
-# Times iterator
-puts "\\n3.times:"
-3.times do |i|
-  puts "i = #{i}"  # 0, 1, 2
+# Times method
+5.times do |i|
+  puts "Times loop: #{i}"
 end
 
 # Upto and downto methods
-puts "\\n1.upto(3):"
-1.upto(3) do |i|
-  puts "i = #{i}"  # 1, 2, 3
-end
+1.upto(3) { |i| puts "Upto: #{i}" }
+3.downto(1) { |i| puts "Downto: #{i}" }
 
-puts "\\n3.downto(1):"
-3.downto(1) do |i|
-  puts "i = #{i}"  # 3, 2, 1
-end
-
-# Step method
-puts "\\nStep method:"
-(1..10).step(2) do |i|
-  puts "i = #{i}"  # 1, 3, 5, 7, 9
-end
-
-# Loop control statements: break
-puts "\\nBreak statement:"
-for i in 1..10
-  break if i > 5
-  puts "i = #{i}"
-end
-
-# Loop control statements: next (like continue)
-puts "\\nNext statement:"
-for i in 1..10
-  next if i % 2 == 0  # Skip even numbers
-  puts "i = #{i}"
-end
-
-# Loop control statements: redo
-puts "\\nRedo example:"
-count = 0
-for i in 1..3
-  puts "i = #{i}"
-  if i == 2 && count < 1
-    count += 1
-    puts "Redoing i = 2"
-    redo  # Repeat the current iteration
-  end
-end
-
-# Infinite loop with break
-puts "\\nInfinite loop with break:"
-counter = 1
+# Loop method with break
+i = 0
 loop do
-  puts "Counter: #{counter}"
-  counter += 1
-  break if counter > 5
+  puts "Infinite loop: #{i}"
+  i += 1
+  break if i >= 3
+end
+
+# Next and redo
+for i in 0..5
+  next if i % 2 == 0  # Skip even numbers
+  puts "Odd number: #{i}"
 end`,
-              explanation: "This example shows various types of loops and iteration methods in Ruby. In addition to traditional while, until, and for loops, Ruby offers many iterators like each, times, upto, downto, and step. It also demonstrates loop control statements like break (to exit a loop), next (to skip to the next iteration), and redo (to repeat the current iteration). The loop method creates an infinite loop that must be explicitly terminated with a break statement."
+              explanation: "This example demonstrates different ways to create loops in Ruby, including while loops, until loops, for loops with ranges, and various iterator methods like each, times, upto, and downto. It also shows the loop method for creating infinite loops with manual breaks, and the next keyword for skipping iterations."
             }
           ],
           quiz: [
             {
-              question: "What will be the output of the following Ruby code?\n\nx = 5\nunless x > 10\n  puts \"x is not greater than 10\"\nelse\n  puts \"x is greater than 10\"\nend",
-              options: [
-                "x is not greater than 10",
-                "x is greater than 10",
-                "No output",
-                "Error"
-              ],
-              correctAnswer: 0,
-              explanation: "The 'unless' statement executes its body when the condition is false. Since x (5) is not greater than 10, the condition is false, and the code outputs 'x is not greater than 10'. You can think of 'unless condition' as equivalent to 'if !condition'."
+              question: "What will be the output of this Ruby code?\n\ni = 0\nwhile i < 3 do\n  puts i\n  i += 1\nend",
+              options: ["0 1 2 3", "0 1 2", "1 2 3", "Error"],
+              correctAnswer: 1,
+              explanation: "The while loop will run as long as i < 3. It will output 0, then 1, then 2, and then i becomes 3, the condition becomes false, and the loop exits without printing 3."
             }
           ],
           flashcards: [
             {
               front: "What is the difference between 'while' and 'until' loops in Ruby?",
-              back: "A 'while' loop executes as long as the condition is true, whereas an 'until' loop executes as long as the condition is false. You can think of 'until condition' as equivalent to 'while !condition'."
+              back: "A 'while' loop executes as long as the condition is true. An 'until' loop executes as long as the condition is false. 'until x > 5' is functionally equivalent to 'while x <= 5'."
             },
             {
-              front: "How does the 'case' statement in Ruby differ from 'switch' statements in other languages?",
-              back: "Ruby's 'case' statement is more powerful than traditional switch statements because: 1) It uses the '===' operator for pattern matching, not just equality. 2) It can work with ranges, classes, and regular expressions. 3) It doesn't require 'break' statements to prevent fall-through. 4) It can assign the result of the matched when clause to a variable."
+              front: "What is the most 'Ruby-like' way to iterate through a collection?",
+              back: "The most idiomatic way to iterate in Ruby is to use the 'each' method with a block, rather than traditional for/while loops. For example: collection.each { |item| puts item }."
             }
           ]
         },
         {
           id: "ruby-methods",
           title: "Methods",
-          description: "Creating and using methods in Ruby",
+          description: "Defining and using methods in Ruby",
           content: `
 # Methods in Ruby
 
-Methods are reusable blocks of code that perform specific tasks in Ruby programs.
+Methods are reusable blocks of code that perform specific tasks in Ruby.
           `,
           codeExamples: [
             {
               title: "Defining and Calling Methods",
               code: `# Basic method definition
-def say_hello
-  puts "Hello, World!"
+def greet
+  puts "Hello, world!"
 end
 
-# Calling the method
-say_hello  # Output: Hello, World!
+# Call the method
+greet
 
 # Method with parameters
-def greet(name)
+def say_hello(name)
   puts "Hello, #{name}!"
 end
 
-greet("Ruby")  # Output: Hello, Ruby!
+say_hello("Ruby")
 
 # Method with default parameter
-def welcome(name = "Guest")
+def greet_person(name = "Guest")
   puts "Welcome, #{name}!"
 end
 
-welcome           # Output: Welcome, Guest!
-welcome("Alice")  # Output: Welcome, Alice!
+greet_person         # Uses default parameter
+greet_person("John") # Uses provided parameter
 
 # Method with multiple parameters
-def introduce(name, age)
-  puts "#{name} is #{age} years old."
-end
-
-introduce("Bob", 30)  # Output: Bob is 30 years old.
-
-# Method with return value
 def add(a, b)
   return a + b
 end
 
-sum = add(5, 3)
-puts "Sum: #{sum}"  # Output: Sum: 8
+sum = add(3, 5)
+puts "Sum: #{sum}"
 
-# Implicit return (last evaluated expression)
+# Explicit return is optional, Ruby returns the last evaluated expression
 def multiply(a, b)
-  a * b  # No explicit return needed
+  a * b  # Implicit return
 end
 
 product = multiply(4, 6)
-puts "Product: #{product}"  # Output: Product: 24
+puts "Product: #{product}"
 
-# Multiple return values
-def get_coordinates
-  return 10, 20, 30  # Returns an array [10, 20, 30]
+# Method with variable number of arguments
+def calculate_average(*numbers)
+  total = numbers.sum
+  average = total / numbers.length.to_f
+  return average
 end
 
-x, y, z = get_coordinates
-puts "Coordinates: #{x}, #{y}, #{z}"  # Output: Coordinates: 10, 20, 30
+avg = calculate_average(2, 4, 6, 8)
+puts "Average: #{avg}"
 
-# Passing a block to a method
-def do_three_times
-  yield if block_given?
-  yield if block_given?
-  yield if block_given?
+# Named parameters (keyword arguments)
+def create_user(name:, email:, age: nil)
+  puts "Creating user:"
+  puts "  Name: #{name}"
+  puts "  Email: #{email}"
+  puts "  Age: #{age || 'Not provided'}"
 end
 
-do_three_times { puts "Hello from block!" }
+create_user(name: "Alice", email: "alice@example.com")
+create_user(name: "Bob", email: "bob@example.com", age: 30)
 
-# Variable number of arguments (splat operator)
-def sum(*numbers)
-  total = 0
-  numbers.each { |n| total += n }
-  total
+# Predicates (methods that return true/false, conventionally end with ?)
+def even?(number)
+  number % 2 == 0
 end
 
-puts sum(1, 2, 3, 4, 5)  # Output: 15
+puts "Is 4 even? #{even?(4)}"
+puts "Is 7 even? #{even?(7)}"
 
-# Keyword arguments (Ruby 2.0+)
-def create_person(name:, age:, city: "Unknown")
-  "#{name}, #{age}, from #{city}"
+# Bang methods (methods that modify the caller, conventionally end with !)
+def capitalize_name(name)
+  name.capitalize  # Returns a new capitalized string, original unchanged
 end
 
-person = create_person(name: "Charlie", age: 35, city: "New York")
-puts person  # Output: Charlie, 35, from New York
-
-# Method with block parameter (Ruby 2.0+)
-def custom_each(array, &block)
-  array.each(&block)
+def capitalize_name!(name)
+  name.capitalize! # Modifies the original string in place
+  return name
 end
 
-custom_each([1, 2, 3]) { |num| puts num * 2 }`,
-              explanation: "This example demonstrates defining and calling methods in Ruby. It covers methods with no parameters, methods with parameters (including default parameters and variable arguments), methods that return values (both explicitly with 'return' and implicitly), methods that take blocks, and methods with keyword arguments. Ruby methods can return multiple values as an array, and they can be readily assigned to multiple variables."
-            },
-            {
-              title: "Method Scope and Visibility",
-              code: `# Class with different method visibility
-class Person
-  def initialize(name)
-    @name = name
-  end
-  
-  # Public method (default)
-  def say_hello
-    puts "#{@name} says hello!"
-    private_method  # Can call private methods
-  end
-  
-  # Protected method
-  protected
-  
-  def protected_method
-    puts "This is a protected method."
-  end
-  
-  # Private method
-  private
-  
-  def private_method
-    puts "This is a private method."
-  end
-end
+name1 = "john"
+name2 = capitalize_name(name1)
+puts "Original: #{name1}, New: #{name2}"
 
-# Creating instances
-alice = Person.new("Alice")
-bob = Person.new("Bob")
-
-# Calling methods
-alice.say_hello  # Works: public method
-
-# alice.protected_method  # Error: protected method
-# alice.private_method    # Error: private method
-
-# Singleton methods (methods for specific objects)
-def alice.dance
-  puts "Alice is dancing!"
-end
-
-alice.dance  # Works for alice
-# bob.dance  # Error: undefined method for bob
-
-# Method aliasing
-class Calculator
-  def add(a, b)
-    a + b
-  end
-  
-  alias sum add  # Create an alias 'sum' for method 'add'
-end
-
-calc = Calculator.new
-puts calc.add(3, 4)  # Output: 7
-puts calc.sum(3, 4)  # Output: 7
-
-# Method with method_missing
-class ResponseObject
-  def method_missing(name, *args)
-    if name.to_s.start_with?("find_by_")
-      attribute = name.to_s[8..-1]  # Extract attribute name
-      puts "Finding by #{attribute} with value #{args.first}"
-    else
-      super  # Call the original method_missing
-    end
-  end
-end
-
-resp = ResponseObject.new
-resp.find_by_name("John")     # Output: Finding by name with value John
-resp.find_by_email("j@ex.com")  # Output: Finding by email with value j@ex.com
-
-# Method introspection
-def example_method(a, b = 1, *c, d:, e: 2, **f, &g)
-  puts "Method called"
-end
-
-method_object = method(:example_method)
-puts "Method name: #{method_object.name}"
-puts "Method parameters: #{method_object.parameters}"
-puts "Method arity: #{method_object.arity}"`,
-              explanation: "This example explores method scope and visibility in Ruby. It demonstrates public, protected, and private methods within a class, singleton methods (methods defined for specific objects), method aliasing (creating alternative names for methods), the method_missing mechanism (for handling calls to undefined methods), and method introspection (examining a method's properties like parameters and arity)."
+name3 = "jane"
+capitalize_name!(name3)
+puts "Modified in place: #{name3}"`,
+              explanation: "This example demonstrates defining methods in Ruby with and without parameters, using default parameters, returning values (both explicitly and implicitly), accepting variable numbers of arguments with the splat operator (*), using named parameters (keyword arguments), and the conventions for predicate methods (ending with ?) and bang methods (ending with !) that modify their receiver."
             }
           ],
           quiz: [
             {
-              question: "What is the difference between public, protected, and private methods in Ruby?",
-              options: [
-                "Public methods can be called anywhere, protected methods only within the class, and private methods only within the instance",
-                "Public methods can be called anywhere, protected methods can be called by instances of the same class, and private methods can only be called by the current object",
-                "Public methods require access control, protected methods can be inherited, and private methods cannot be inherited",
-                "There is no difference; these are just naming conventions"
-              ],
+              question: "What is the output of this Ruby code?\n\ndef greet(message, name = \"World\")\n  \"#{message}, #{name}!\"\nend\n\nputs greet(\"Hello\")",
+              options: ["Hello", "Hello, World!", "Hello, !", "Error"],
               correctAnswer: 1,
-              explanation: "In Ruby, public methods can be called by anyone. Protected methods can be called by instances of the same class or its subclasses, allowing them to interact with each other. Private methods can only be called by the current object (implicitly), without explicitly specifying a receiver, making them useful for internal implementation details."
+              explanation: "The method call greet(\"Hello\") uses the default value \"World\" for the name parameter, so the output is \"Hello, World!\"."
             }
           ],
           flashcards: [
             {
-              front: "What does the 'yield' keyword do in Ruby?",
-              back: "The 'yield' keyword in Ruby executes the block that was passed to the method. If no block was given, yield raises a LocalJumpError unless used with 'block_given?'. It allows methods to accept blocks of code as implicit parameters, enabling powerful patterns for customization and abstraction."
+              front: "What is the difference between a method with a bang (!) and without in Ruby?",
+              back: "In Ruby, methods ending with a bang (!) typically modify the object they're called on (destructive), while their non-bang counterparts return a new object with the modifications, leaving the original unchanged. For example, str.upcase! modifies str, while str.upcase returns a new uppercase string."
             },
             {
-              front: "What is method_missing in Ruby?",
-              back: "method_missing is a special method in Ruby that's called when you invoke a method that doesn't exist. By overriding method_missing, you can dynamically handle undefined methods, enabling techniques like dynamic finders in ActiveRecord, method proxying, and flexible DSLs. It's a key part of Ruby's metaprogramming capabilities."
-            }
-          ]
-        },
-        {
-          id: "ruby-arrays",
-          title: "Arrays",
-          description: "Working with Arrays in Ruby",
-          content: `
-# Arrays in Ruby
-
-Arrays are ordered collections that can hold objects of different types.
-          `,
-          codeExamples: [
-            {
-              title: "Creating and Accessing Arrays",
-              code: `# Creating arrays
-numbers = [1, 2, 3, 4, 5]
-mixed = [1, "two", 3.0, true, nil]
-empty = []
-words = %w(apple banana cherry)  # Same as ["apple", "banana", "cherry"]
-symbols = %i(red green blue)     # Same as [:red, :green, :blue]
-
-# Creating arrays with Array.new
-zeros = Array.new(5, 0)          # [0, 0, 0, 0, 0]
-array_of_arrays = Array.new(3) { [] }  # Creates 3 distinct empty arrays
-
-# Accessing elements
-puts "First element: #{numbers[0]}"      # First element: 1
-puts "Last element: #{numbers[-1]}"      # Last element: 5
-puts "Second element: #{numbers.at(1)}"  # Second element: 2
-
-# Array slicing
-puts "First two elements: #{numbers[0, 2]}"   # First two elements: [1, 2]
-puts "First three elements: #{numbers[0..2]}" # First three elements: [1, 2, 3]
-puts "All except first two: #{numbers[2..-1]}" # All except first two: [3, 4, 5]
-
-# Accessing multiple elements
-puts "First and third: #{numbers.values_at(0, 2)}"  # First and third: [1, 3]
-
-# Checking for elements
-puts "Contains 3? #{numbers.include?(3)}"   # Contains 3? true
-puts "Contains 10? #{numbers.include?(10)}" # Contains 10? false
-
-# Array size
-puts "Size: #{numbers.size}"        # Size: 5
-puts "Length: #{numbers.length}"    # Length: 5
-puts "Empty? #{numbers.empty?}"     # Empty? false
-puts "Empty? #{empty.empty?}"       # Empty? true
-
-# First and last elements
-puts "First: #{numbers.first}"      # First: 1
-puts "Last: #{numbers.last}"        # Last: 5
-puts "First 2: #{numbers.first(2)}" # First 2: [1, 2]
-puts "Last 2: #{numbers.last(2)}"   # Last 2: [4, 5]`,
-              explanation: "This example demonstrates creating arrays in Ruby using various methods, accessing elements by index (both positive and negative), slicing arrays to get portions, and checking for elements and array properties. Ruby provides many convenience methods for working with arrays, such as first, last, include?, and values_at."
-            },
-            {
-              title: "Modifying Arrays",
-              code: `# Starting with a simple array
-arr = [1, 2, 3]
-puts "Original array: #{arr}"  # Original array: [1, 2, 3]
-
-# Adding elements
-arr.push(4)        # Add to the end
-arr << 5           # Also adds to the end (shovel operator)
-arr.unshift(0)     # Add to the beginning
-arr.insert(3, 2.5) # Insert at specific position
-puts "After adding elements: #{arr}"  # After adding elements: [0, 1, 2, 2.5, 3, 4, 5]
-
-# Removing elements
-arr.pop            # Remove from the end
-arr.shift          # Remove from the beginning
-arr.delete_at(2)   # Delete at specific index
-arr.delete(2.5)    # Delete specific value
-puts "After removing elements: #{arr}"  # After removing elements: [1, 3, 4]
-
-# Removing elements conditionally
-even_numbers = [2, 4, 6, 7, 8, 9, 10]
-even_numbers.delete_if { |num| num % 2 != 0 }  # Delete if odd
-puts "Even numbers only: #{even_numbers}"  # Even numbers only: [2, 4, 6, 8, 10]
-
-# Keep if (opposite of delete_if)
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-numbers.keep_if { |num| num <= 5 }  # Keep if <= 5
-puts "Numbers <= 5: #{numbers}"  # Numbers <= 5: [1, 2, 3, 4, 5]
-
-# Array union, intersection, difference
-a = [1, 2, 3, 4]
-b = [3, 4, 5, 6]
-puts "Union: #{a | b}"        # Union: [1, 2, 3, 4, 5, 6]
-puts "Intersection: #{a & b}" # Intersection: [3, 4]
-puts "Difference: #{a - b}"   # Difference: [1, 2]
-
-# Combining arrays
-c = [7, 8]
-combined = a + c
-puts "Combined: #{combined}"  # Combined: [1, 2, 3, 4, 7, 8]
-
-# Multiplying arrays
-repeated = [1, 2] * 3
-puts "Repeated: #{repeated}"  # Repeated: [1, 2, 1, 2, 1, 2]
-
-# Compact - remove nil values
-with_nils = [1, nil, 2, nil, 3]
-puts "Compacted: #{with_nils.compact}"  # Compacted: [1, 2, 3]
-
-# Flatten - reduce nested arrays
-nested = [1, [2, [3, 4]]]
-puts "Flattened: #{nested.flatten}"  # Flattened: [1, 2, 3, 4]
-
-# Uniq - remove duplicates
-duplicates = [1, 2, 2, 3, 3, 3, 4]
-puts "Uniq: #{duplicates.uniq}"  # Uniq: [1, 2, 3, 4]
-
-# Sorting
-unsorted = [3, 1, 4, 2]
-puts "Sorted: #{unsorted.sort}"  # Sorted: [1, 2, 3, 4]
-puts "Sorted descending: #{unsorted.sort.reverse}"  # Sorted descending: [4, 3, 2, 1]
-
-# Advanced sorting
-people = [
-  { name: "Alice", age: 30 },
-  { name: "Bob", age: 25 },
-  { name: "Charlie", age: 35 }
-]
-sorted_by_age = people.sort_by { |person| person[:age] }
-puts "Sorted by age: #{sorted_by_age}"`,
-              explanation: "This example shows how to modify arrays in Ruby by adding elements (push, <<, unshift, insert), removing elements (pop, shift, delete_at, delete), and transforming arrays with methods like union (|), intersection (&), difference (-), compact, flatten, uniq, and sort. Ruby provides many convenient methods for array manipulation that make common operations concise and readable."
-            }
-          ],
-          quiz: [
-            {
-              question: "What will be the output of the following Ruby code?\n\narr = [1, 2, 3, 4, 5]\nputs arr[2, 2]",
-              options: [
-                "[3]",
-                "[3, 4]",
-                "[2, 3]",
-                "Error"
-              ],
-              correctAnswer: 1,
-              explanation: "The array slicing syntax arr[start_index, length] returns 'length' elements starting at 'start_index'. In this case, arr[2, 2] returns 2 elements starting at index 2, which are [3, 4]."
-            }
-          ],
-          flashcards: [
-            {
-              front: "What's the difference between arr.pop and arr.shift in Ruby?",
-              back: "arr.pop removes and returns the last element of the array, whereas arr.shift removes and returns the first element of the array. Both methods modify the original array. Their counterparts for adding elements are arr.push (or arr <<) and arr.unshift, respectively."
-            },
-            {
-              front: "What does the & operator do when used with arrays in Ruby?",
-              back: "The & operator returns the intersection of two arrays - a new array containing only the elements that appear in both arrays. For example, [1, 2, 3] & [2, 3, 4] returns [2, 3]. It automatically removes any duplicates in the result."
-            }
-          ]
-        },
-        {
-          id: "ruby-hashes",
-          title: "Hashes",
-          description: "Working with Hashes (key-value pairs) in Ruby",
-          content: `
-# Hashes in Ruby
-
-Hashes are collections of key-value pairs, similar to dictionaries or maps in other languages.
-          `,
-          codeExamples: [
-            {
-              title: "Creating and Accessing Hashes",
-              code: `# Creating hashes
-# Old syntax with hash rockets
-person = {"name" => "John", "age" => 30, "city" => "New York"}
-
-# New syntax with symbols as keys (preferred in modern Ruby)
-person = {name: "John", age: 30, city: "New York"}
-
-# Creating an empty hash
-empty_hash = {}
-another_empty = Hash.new
-
-# Hash with default value
-scores = Hash.new(0)  # Default value is 0
-puts scores["alice"]  # Output: 0 (default value)
-
-# Accessing values
-puts "Name: #{person[:name]}"  # Output: Name: John
-puts "Age: #{person[:age]}"    # Output: Age: 30
-
-# Accessing non-existent key
-puts "Phone: #{person[:phone]}"  # Output: Phone:  (nil)
-
-# Fetch with default value
-puts "Phone: #{person.fetch(:phone, "Not provided")}"  # Output: Phone: Not provided
-
-# Fetch with block
-puts "Phone: #{person.fetch(:phone) { |key| "No #{key} found" }}"  # Output: Phone: No phone found
-
-# Checking if key exists
-puts "Has name? #{person.key?(:name)}"           # Output: Has name? true
-puts "Has phone? #{person.has_key?(:phone)}"     # Output: Has phone? false
-puts "Includes age? #{person.include?(:age)}"    # Output: Includes age? true
-
-# Getting all keys and values
-puts "Keys: #{person.keys}"          # Output: Keys: [:name, :age, :city]
-puts "Values: #{person.values}"      # Output: Values: ["John", 30, "New York"]
-puts "Key-value pairs: #{person.to_a}"  # Output: Key-value pairs: [[:name, "John"], [:age, 30], [:city, "New York"]]
-
-# Iterating over a hash
-puts "\\nIterating over a hash:"
-person.each do |key, value|
-  puts "#{key}: #{value}"
-end
-
-# Iterating over just keys or values
-puts "\\nJust keys:"
-person.each_key { |key| puts key }
-
-puts "\\nJust values:"
-person.each_value { |value| puts value }`,
-              explanation: "This example demonstrates creating hashes in Ruby using both the older hash rocket syntax (=>) and the newer symbol syntax (:). It shows how to access hash values, provide default values, check for key existence, and iterate over a hash. Hashes are fundamental data structures in Ruby, used extensively for configurations, parameter options, and representing structured data."
-            },
-            {
-              title: "Modifying Hashes",
-              code: `# Starting with a simple hash
-person = {name: "John", age: 30}
-puts "Original hash: #{person}"  # Original hash: {:name=>"John", :age=>30}
-
-# Adding and updating elements
-person[:city] = "New York"  # Add new key-value pair
-person[:age] = 31           # Update existing value
-puts "After adding/updating: #{person}"  # After adding/updating: {:name=>"John", :age=>31, :city=>"New York"}
-
-# Multiple additions/updates
-person.update({email: "john@example.com", phone: "555-1234"})
-# Or use merge! which is an alias for update
-# person.merge!({email: "john@example.com", phone: "555-1234"})
-puts "After update: #{person}"
-
-# Creating a new hash with merge (non-destructive)
-updated_person = person.merge({age: 32, job: "Developer"})
-puts "Original after merge: #{person}"  # Original unchanged
-puts "New merged hash: #{updated_person}"
-
-# Removing items
-person.delete(:phone)
-puts "After delete: #{person}"
-
-# Removing conditionally
-person.delete_if { |key, value| key == :email }
-puts "After delete_if: #{person}"
-
-# Selecting items
-adults = {alice: 30, bob: 15, charlie: 25, dave: 17}
-adult_only = adults.select { |name, age| age >= 18 }
-puts "Adults only: #{adult_only}"
-
-# Rejecting items (opposite of select)
-minors_only = adults.reject { |name, age| age >= 18 }
-puts "Minors only: #{minors_only}"
-
-# Transforming keys and values
-prices = {apple: 0.99, banana: 0.50, orange: 0.75}
-sale_prices = prices.transform_values { |price| price * 0.8 }
-puts "Sale prices: #{sale_prices}"
-
-upcase_keys = prices.transform_keys { |key| key.to_s.upcase.to_sym }
-puts "Upcase keys: #{upcase_keys}"
-
-# Using map on a hash
-mapped = prices.map { |k, v| [k, v * 2] }.to_h
-puts "Mapped prices: #{mapped}"
-
-# Inverting a hash (swapping keys and values)
-inverted = prices.invert
-puts "Inverted prices: #{inverted}"
-
-# Clearing a hash
-prices.clear
-puts "After clear: #{prices}"  # After clear: {}
-
-# Hash slicing (Ruby 2.5+)
-info = {name: "Jane", age: 28, city: "Boston", job: "Engineer"}
-# person_details = info.slice(:name, :age)  # For Ruby 2.5+
-# puts "Sliced hash: #{person_details}"
-
-# Alternative for pre-2.5
-person_details = info.select { |k, _| [:name, :age].include?(k) }
-puts "Selected keys: #{person_details}"`,
-              explanation: "This example shows how to modify hashes in Ruby by adding, updating, and removing elements. It demonstrates methods like update/merge!, merge, delete, delete_if, select, reject, transform_values, transform_keys, map, invert, and clear. These operations allow for flexible hash manipulation in Ruby programs."
-            }
-          ],
-          quiz: [
-            {
-              question: "What will be the output of the following Ruby code?\n\nh1 = {a: 1, b: 2}\nh2 = {b: 3, c: 4}\nputs h1.merge(h2)",
-              options: [
-                "{:a=>1, :b=>2, :b=>3, :c=>4}",
-                "{:a=>1, :b=>3, :c=>4}",
-                "{:a=>1, :b=>[2, 3], :c=>4}",
-                "Error: duplicate key :b"
-              ],
-              correctAnswer: 1,
-              explanation: "When merging hashes with the merge method, if there are duplicate keys, the values from the hash being merged (h2 in this case) take precedence. So h1.merge(h2) produces {:a=>1, :b=>3, :c=>4}, where the value for :b is 3 from h2, not 2 from h1."
-            }
-          ],
-          flashcards: [
-            {
-              front: "What is the difference between Hash.new and Hash.new(0) in Ruby?",
-              back: "Hash.new creates an empty hash where accessing a non-existent key returns nil. Hash.new(0) creates an empty hash where accessing a non-existent key returns the default value 0. This is particularly useful for counters and aggregations, as you don't need to check if a key exists before incrementing its value."
-            },
-            {
-              front: "What's the difference between merge and update (merge!) methods in Ruby hashes?",
-              back: "merge creates and returns a new hash containing the combined contents of the original hash and the provided hash, without modifying the original. update (or its alias merge!) modifies the original hash in-place by adding the contents of the provided hash. Both methods let the second hash's values overwrite any duplicate keys from the first hash."
+              front: "What is the splat operator (*) used for in Ruby method parameters?",
+              back: "The splat operator (*) in method parameters allows a method to accept a variable number of arguments, which are collected into an array. For example, def method(*args) lets you call method(1, 2, 3), and inside the method, args will be [1, 2, 3]."
             }
           ]
         },
         {
           id: "ruby-classes",
           title: "Classes and Objects",
-          description: "Object-oriented programming in Ruby with classes",
+          description: "Object-oriented programming in Ruby",
           content: `
 # Classes and Objects in Ruby
 
-Ruby is a pure object-oriented language where everything is an object, including numbers and strings.
+Ruby is a pure object-oriented language where everything is an object, and classes are used to define the behavior of objects.
           `,
           codeExamples: [
             {
-              title: "Creating Classes and Objects",
-              code: `# Defining a basic class
+              title: "Defining and Using Classes",
+              code: `# Define a simple class
 class Person
   # Constructor method
   def initialize(name, age)
-    @name = name  # Instance variable (prefixed with @)
+    @name = name  # Instance variable
     @age = age
   end
   
@@ -1024,240 +671,218 @@ class Person
   end
 end
 
-# Creating an instance (object) of the class
-person = Person.new("Alice", 30)
-puts person.introduce  # Output: Hi, I'm Alice and I'm 30 years old.
+# Create objects (instances of the class)
+person1 = Person.new("Alice", 30)
+person2 = Person.new("Bob", 25)
 
-# Using getter and setter methods
-puts person.name  # Output: Alice
-person.age = 31
-puts person.age   # Output: 31
+# Call instance methods
+puts person1.introduce
+puts person2.introduce
 
-# Using attr_* methods for getters and setters
+# Access and modify attributes
+puts "Name: #{person1.name}"
+person1.name = "Alicia"
+puts "New name: #{person1.name}"
+
+# Using attr_accessor (shorthand for getters and setters)
 class Student
-  # Creates both getter and setter methods
+  # Creates getter and setter methods automatically
   attr_accessor :name, :grade
   
   # Creates getter methods only
   attr_reader :id
   
   # Creates setter methods only
-  attr_writer :address
+  attr_writer :password
   
-  def initialize(id, name)
-    @id = id
+  def initialize(name, grade, id)
     @name = name
-  end
-end
-
-student = Student.new(12345, "Bob")
-puts student.name  # Output: Bob
-student.name = "Robert"
-puts student.name  # Output: Robert
-puts student.id    # Output: 12345
-# student.id = 54321  # This would raise an error
-student.address = "123 Main St"  # Sets @address
-# puts student.address  # This would raise an error
-
-# Class with custom inspect/to_s methods
-class Book
-  attr_accessor :title, :author, :pages
-  
-  def initialize(title, author, pages)
-    @title = title
-    @author = author
-    @pages = pages
+    @grade = grade
+    @id = id
+    @password = nil
   end
   
-  # Custom string representation
   def to_s
-    "\"#{@title}\" by #{@author} (#{@pages} pages)"
-  end
-  
-  # Used by p, pp, and inspect methods
-  def inspect
-    "#<Book:#{object_id} title=#{@title.inspect} author=#{@author.inspect} pages=#{@pages}>"
+    "Student #{@name}, Grade #{@grade}, ID: #{@id}"
   end
 end
 
-book = Book.new("The Ruby Programming Language", "Matz", 500)
-puts book  # Uses to_s method
-p book     # Uses inspect method`,
-              explanation: "This example demonstrates creating classes in Ruby, which are blueprints for objects. It shows how to define instance variables (with the @ prefix), create instance methods, define constructors (initialize method), and use getter and setter methods. It also shows the attr_accessor, attr_reader, and attr_writer methods, which automatically create getter and setter methods. Finally, it demonstrates customizing string representation with to_s and inspect methods."
-            },
-            {
-              title: "Class Variables, Class Methods, and Inheritance",
-              code: `# Class with class variables and class methods
-class Counter
-  # Class variable (shared across all instances)
-  @@count = 0
+student = Student.new("Charlie", "A", 12345)
+puts student.to_s
+
+# Can use getters and setters
+puts student.name
+student.grade = "A+"
+puts student.grade
+
+# Can read id but not write it
+puts student.id
+# student.id = 54321  # This would raise an error
+
+# Class methods and variables
+class MathHelper
+  # Class variable (shared by all instances)
+  @@pi = 3.14159
   
   # Class method (called on the class, not instances)
-  def self.count
-    @@count
-  end
-  
-  def initialize
-    @@count += 1
+  def self.circle_area(radius)
+    @@pi * radius * radius
   end
   
   # Instance method
-  def increment
-    @@count += 1
+  def square_area(side)
+    side * side
   end
 end
 
-puts "Initial count: #{Counter.count}"  # Output: Initial count: 0
+# Call class method directly on the class
+area = MathHelper.circle_area(5)
+puts "Circle area: #{area}"
 
-counter1 = Counter.new
-puts "After creating counter1: #{Counter.count}"  # Output: After creating counter1: 1
+# Instance methods require an instance
+helper = MathHelper.new
+square_area = helper.square_area(4)
+puts "Square area: #{square_area}"`,
+              explanation: "This example demonstrates defining classes in Ruby with instance variables, instance methods, getter and setter methods, and using attr_accessor, attr_reader, and attr_writer as shortcuts for creating accessors. It also shows class methods defined with self. and class variables with @@, which are shared across all instances of the class."
+            }
+          ],
+          quiz: [
+            {
+              question: "What does attr_accessor :name do in a Ruby class?",
+              options: [
+                "Creates a class variable called name",
+                "Creates a constant called name",
+                "Creates both getter (name) and setter (name=) methods for the @name instance variable",
+                "Creates a class method called name"
+              ],
+              correctAnswer: 2,
+              explanation: "attr_accessor :name automatically creates both a getter method (name) and a setter method (name=) for the @name instance variable, which allows you to read and write the instance variable from outside the class."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is the difference between a class method and an instance method in Ruby?",
+              back: "An instance method is called on an instance of a class and has access to the instance's state (instance variables). A class method is called directly on the class itself, defined with self. prefix, and doesn't have access to instance variables unless an instance is passed in."
+            },
+            {
+              front: "What is the purpose of the initialize method in a Ruby class?",
+              back: "The initialize method is a special method in Ruby classes that acts as a constructor. It's automatically called when a new object is created with Class.new. It's used to set up the initial state of the object by initializing instance variables."
+            }
+          ]
+        },
+        {
+          id: "ruby-inheritance",
+          title: "Inheritance and Modules",
+          description: "Understanding inheritance and modules in Ruby",
+          content: `
+# Inheritance and Modules in Ruby
 
-counter2 = Counter.new
-puts "After creating counter2: #{Counter.count}"  # Output: After creating counter2: 2
-
-counter1.increment
-puts "After incrementing: #{Counter.count}"  # Output: After incrementing: 3
-
-# Inheritance
+Ruby supports single inheritance through classes and multiple inheritance of behavior through modules.
+          `,
+          codeExamples: [
+            {
+              title: "Class Inheritance",
+              code: `# Base class
 class Animal
-  attr_reader :name
+  attr_reader :name, :age
   
-  def initialize(name)
+  def initialize(name, age)
     @name = name
+    @age = age
   end
   
   def speak
     "Some generic animal sound"
   end
+  
+  def description
+    "#{@name} is #{@age} years old"
+  end
 end
 
-# Dog inherits from Animal
+# Derived class
 class Dog < Animal
-  def initialize(name, breed)
-    super(name)  # Call parent's initialize
+  attr_reader :breed
+  
+  def initialize(name, age, breed)
+    super(name, age)  # Call the parent's initialize method
     @breed = breed
   end
   
-  # Override the speak method
+  # Override speak method
   def speak
     "Woof!"
   end
   
+  # Add new method
   def fetch
     "#{@name} is fetching the ball!"
   end
   
-  def info
-    "#{@name} is a #{@breed}"
+  # Extend description method
+  def description
+    "#{super} and is a #{@breed}"
   end
 end
 
-# Cat inherits from Animal
-class Cat < Animal
-  def speak
-    "Meow!"
-  end
-  
-  def purr
-    "Purrrrrr..."
-  end
-end
+# Create instances
+animal = Animal.new("Generic Animal", 5)
+dog = Dog.new("Rex", 3, "German Shepherd")
 
-dog = Dog.new("Rex", "German Shepherd")
-cat = Cat.new("Whiskers")
+puts animal.speak           # Some generic animal sound
+puts dog.speak              # Woof!
+puts dog.fetch              # Rex is fetching the ball!
+puts dog.description        # Rex is 3 years old and is a German Shepherd
 
-puts dog.name   # Output: Rex
-puts dog.speak  # Output: Woof!
-puts dog.fetch  # Output: Rex is fetching the ball!
-puts dog.info   # Output: Rex is a German Shepherd
-
-puts cat.name   # Output: Whiskers
-puts cat.speak  # Output: Meow!
-puts cat.purr   # Output: Purrrrrr...
-
-# Checking inheritance
-puts "Dog is an Animal: #{Dog < Animal}"               # Output: true
-puts "Dog instance is an Animal: #{dog.is_a?(Animal)}" # Output: true
-puts "Dog instance is a Dog: #{dog.is_a?(Dog)}"        # Output: true
-puts "Dog instance is a Cat: #{dog.is_a?(Cat)}"        # Output: false
-
-# Modules and Mixins
+# Modules for mixins
 module Swimmable
   def swim
-    "#{self.class} is swimming!"
+    "#{self.class} is swimming"
+  end
+  
+  def dive
+    "#{self.class} is diving underwater"
   end
 end
 
 module Climbable
   def climb
-    "#{self.class} is climbing!"
+    "#{self.class} is climbing"
   end
 end
 
-class Mammal
-  def breathe
-    "Inhale... Exhale..."
-  end
-end
-
-class Monkey < Mammal
-  include Climbable  # Mix in the Climbable module
+# Class with module inclusion
+class Fish < Animal
+  include Swimmable
   
-  def initialize(name)
-    @name = name
+  def speak
+    "Blub blub"
   end
 end
 
-class Fish
-  include Swimmable  # Mix in the Swimmable module
+class Monkey < Animal
+  include Swimmable
+  include Climbable
+  
+  def speak
+    "Ooh ooh aah aah"
+  end
 end
 
-monkey = Monkey.new("George")
-fish = Fish.new
+fish = Fish.new("Nemo", 1)
+monkey = Monkey.new("George", 8)
 
-puts monkey.breathe  # Output: Inhale... Exhale...
-puts monkey.climb    # Output: Monkey is climbing!
-puts fish.swim       # Output: Fish is swimming!`,
-              explanation: "This example covers class variables (prefixed with @@), which are shared across all instances of a class, and class methods (defined with self.), which are called on the class itself. It also demonstrates inheritance, where a subclass inherits behavior from a superclass, and can override methods or add new ones. The 'super' keyword calls the parent class's implementation. Finally, it shows modules and mixins, which allow for sharing behavior across multiple classes without using inheritance."
-            }
-          ],
-          quiz: [
-            {
-              question: "What's the difference between class variables (@@var) and instance variables (@var) in Ruby?",
-              options: [
-                "Class variables are accessible outside the class, while instance variables are private",
-                "Class variables are shared among all instances of a class, while instance variables are unique to each instance",
-                "Class variables can only be used in class methods, while instance variables can only be used in instance methods",
-                "There is no difference; they are just alternative syntaxes"
-              ],
-              correctAnswer: 1,
-              explanation: "Class variables (prefixed with @@) are shared among all instances of a class and its subclasses. They store data that applies to the class as a whole. Instance variables (prefixed with @) are unique to each instance of a class and store data specific to that instance."
-            }
-          ],
-          flashcards: [
-            {
-              front: "What does attr_accessor do in Ruby?",
-              back: "attr_accessor is a method that automatically creates getter and setter methods for instance variables. For example, attr_accessor :name creates methods name and name= that get and set the @name instance variable. It's a shorthand that reduces boilerplate code."
-            },
-            {
-              front: "What is the purpose of the super keyword in Ruby?",
-              back: "The super keyword in Ruby calls the method with the same name in the parent class. When used without arguments (just super), it passes all the arguments received by the current method. When used with specific arguments (super(arg1, arg2)), it passes only those arguments. It's commonly used in initialize methods of subclasses to set up the parent class's state."
-            }
-          ]
-        },
-        {
-          id: "ruby-modules",
-          title: "Modules and Mixins",
-          description: "Using modules for namespacing and mixins in Ruby",
-          content: `
-# Modules and Mixins in Ruby
+puts fish.speak      # Blub blub
+puts fish.swim       # Fish is swimming
+puts monkey.speak    # Ooh ooh aah aah
+puts monkey.swim     # Monkey is swimming
+puts monkey.climb    # Monkey is climbing
 
-Modules in Ruby provide a mechanism for namespacing, sharing functionality between classes, and creating mixins.
-          `,
-          codeExamples: [
-            {
-              title: "Modules for Namespacing",
-              code: `# Module as a namespace
+# Check ancestry
+puts "Dog ancestors: #{Dog.ancestors}"
+puts "Fish ancestors: #{Fish.ancestors}"
+
+# Modules for namespacing
 module Mathematics
   PI = 3.14159
   
@@ -1265,862 +890,775 @@ module Mathematics
     x * x
   end
   
-  def self.cube(x)
-    x * x * x
-  end
-  
-  # Nested module
-  module Geometry
-    def self.circle_area(radius)
-      PI * radius * radius
-    end
-    
-    def self.square_area(side)
-      side * side
-    end
-  end
-  
-  # Class inside a module
   class Calculator
     def add(a, b)
       a + b
     end
-    
-    def subtract(a, b)
-      a - b
-    end
   end
 end
 
-# Accessing module constants
-puts "PI: #{Mathematics::PI}"  # Output: PI: 3.14159
-
-# Calling module methods
-puts "Square of 5: #{Mathematics.square(5)}"  # Output: Square of 5: 25
-puts "Cube of 3: #{Mathematics.cube(3)}"      # Output: Cube of 3: 27
-
-# Accessing nested module methods
-puts "Circle area: #{Mathematics::Geometry.circle_area(2)}"  # Output: Circle area: 12.56636
-
-# Creating an instance of a class inside a module
+puts Mathematics::PI
+puts Mathematics.square(4)
 calc = Mathematics::Calculator.new
-puts "5 + 3 = #{calc.add(5, 3)}"          # Output: 5 + 3 = 8
-puts "5 - 3 = #{calc.subtract(5, 3)}"     # Output: 5 - 3 = 2
+puts calc.add(2, 3)
 
-# Another namespace example: different classes with the same name
-module Animals
-  class Dog
-    def speak
-      "Animals::Dog says Woof!"
-    end
-  end
-end
-
-module Robots
-  class Dog
-    def speak
-      "Robots::Dog says Beep Boop!"
-    end
-  end
-end
-
-dog1 = Animals::Dog.new
-dog2 = Robots::Dog.new
-
-puts dog1.speak  # Output: Animals::Dog says Woof!
-puts dog2.speak  # Output: Robots::Dog says Beep Boop!`,
-              explanation: "This example demonstrates using modules as namespaces in Ruby. Namespaces help organize code and prevent naming conflicts. You can define constants, methods, nested modules, and classes inside a module. To access them, you use the scope resolution operator (::). This allows different classes with the same name to coexist in different namespaces."
-            },
-            {
-              title: "Modules as Mixins",
-              code: `# Module as a mixin (provides shared functionality)
-module Loggable
-  def log(message)
-    puts "[LOG] #{Time.now}: #{message}"
+# Module methods
+module StringUtils
+  def self.reverse(str)
+    str.reverse
   end
   
-  def debug(message)
-    puts "[DEBUG] #{message}" if @debug_enabled
-  end
-  
-  def enable_debugging
-    @debug_enabled = true
-  end
-  
-  def disable_debugging
-    @debug_enabled = false
+  def self.capitalize_words(str)
+    str.split.map(&:capitalize).join(' ')
   end
 end
 
-# Module with included callback
-module Identifiable
-  def self.included(base)
-    puts "Identifiable module included in #{base}"
-    base.extend(ClassMethods)  # Add class methods when module is included
-  end
-  
-  # Instance methods - added to instances of including class
-  def id
-    @id ||= generate_id
-  end
-  
-  private
-  
-  def generate_id
-    "#{self.class.name.downcase}-#{object_id}"
-  end
-  
-  # Class methods - added to the class itself
-  module ClassMethods
-    def count_instances
-      @count ||= 0
-      @count += 1
-    end
-  end
-end
-
-# Class including modules
-class User
-  include Loggable     # Mix in instance methods from Loggable
-  include Identifiable  # Mix in instance methods from Identifiable
-  
-  attr_reader :name
-  
-  def initialize(name)
-    @name = name
-    log("Created user: #{name}")
-    self.class.count_instances
-  end
-end
-
-# Creating instances
-user1 = User.new("Alice")       # Logs: [LOG] 2023-06-01 12:00:00: Created user: Alice
-puts "User ID: #{user1.id}"     # Output: User ID: user-47030960298380
-
-user1.enable_debugging
-user1.debug("Testing debug mode")  # Output: [DEBUG] Testing debug mode
-
-# Multiple inheritance via mixins
-module Swimmable
-  def swim
-    "#{self.class} is swimming!"
-  end
-end
-
-module Flyable
-  def fly
-    "#{self.class} is flying!"
-  end
-end
-
-class Bird
-  include Flyable
-end
-
-class Fish
-  include Swimmable
-end
-
-class Duck
-  include Swimmable
-  include Flyable
-end
-
-bird = Bird.new
-fish = Fish.new
-duck = Duck.new
-
-puts bird.fly   # Output: Bird is flying!
-puts fish.swim  # Output: Fish is swimming!
-puts duck.fly   # Output: Duck is flying!
-puts duck.swim  # Output: Duck is swimming!
-
-# Using prepend instead of include
-module Decorator
-  def greet
-    "** #{super} **"  # 'super' calls the original method
-  end
-end
-
-class Greeter
-  prepend Decorator  # Prepend puts the module's methods before the class's methods
-  
-  def greet
-    "Hello, world!"
-  end
-end
-
-greeter = Greeter.new
-puts greeter.greet  # Output: ** Hello, world! **`,
-              explanation: "This example shows using modules as mixins in Ruby, which is a way to share functionality across different classes. The 'include' method adds a module's instance methods to a class's instances. The 'extend' method adds a module's instance methods as class methods. The 'prepend' method works like 'include', but places the module's methods before the class's methods in the lookup chain, allowing them to override class methods. This provides a form of multiple inheritance where a class can inherit behavior from multiple sources."
+puts StringUtils.reverse("hello")                # olleh
+puts StringUtils.capitalize_words("hello world") # Hello World`,
+              explanation: "This example demonstrates class inheritance in Ruby, where a derived class (Dog) inherits from a base class (Animal), and can override methods, add new methods, and use super to call the parent's method. It also shows modules being used as mixins to provide shared behavior across different classes, giving Ruby a form of multiple inheritance. Finally, it shows modules being used for namespacing to organize code and prevent name collisions."
             }
           ],
           quiz: [
             {
-              question: "What is the primary difference between 'include' and 'extend' when using modules in Ruby?",
-              options: [
-                "include adds the module's methods as instance methods, while extend adds them as class methods",
-                "include is used for namespacing, while extend is used for mixins",
-                "include makes module methods available in subclasses, while extend does not",
-                "There is no difference; they are interchangeable"
-              ],
-              correctAnswer: 0,
-              explanation: "The key difference is that 'include' adds a module's methods as instance methods to the including class, so they're available to instances of that class. 'extend' adds a module's methods as class methods, so they're available directly on the class itself. This is a common pattern for creating both instance-level and class-level functionality from modules."
-            }
-          ],
-          flashcards: [
-            {
-              front: "What is the difference between 'include' and 'prepend' in Ruby?",
-              back: "Both 'include' and 'prepend' add a module's methods as instance methods to a class, but with a different priority in the method lookup chain. With 'include', the class's own methods take precedence over the module's methods. With 'prepend', the module's methods take precedence over the class's methods, allowing them to override class methods while still being able to call the original method with 'super'."
-            },
-            {
-              front: "What is the Ruby method lookup chain (ancestor chain)?",
-              back: "The Ruby method lookup chain is the order in which Ruby searches for methods when they're called. For instance methods, Ruby looks in: 1) Prepended modules (newest first), 2) The class itself, 3) Included modules (newest last), 4) Superclass and its modules, continuing up the inheritance chain. This can be examined with the ancestors method on a class."
-            }
-          ]
-        },
-        {
-          id: "ruby-blocks",
-          title: "Blocks, Procs, and Lambdas",
-          description: "Working with blocks, procs, and lambdas in Ruby",
-          content: `
-# Blocks, Procs, and Lambdas in Ruby
-
-Blocks, procs, and lambdas are Ruby's way of implementing closures - chunks of code that can be passed around and executed later.
-          `,
-          codeExamples: [
-            {
-              title: "Blocks",
-              code: `# Using a block with do...end
-3.times do |i|
-  puts "Iteration #{i}"
-end
-
-# Using a block with curly braces
-[1, 2, 3].each { |num| puts "Number: #{num}" }
-
-# Method that yields to a block
-def greet
-  puts "Before the greeting"
-  yield if block_given?  # Execute the block if one was provided
-  puts "After the greeting"
-end
-
-# Calling method with a block
-greet { puts "Hello, World!" }
-
-# Calling method without a block
-greet  # No error because we check with block_given?
-
-# Method with parameter and block
-def repeat(n)
-  n.times { yield }
-end
-
-repeat(3) { puts "Echo!" }
-
-# Block parameters
-def math_operation(a, b)
-  yield(a, b) if block_given?
-end
-
-math_operation(5, 3) { |x, y| puts "Sum: #{x + y}" }
-math_operation(5, 3) { |x, y| puts "Product: #{x * y}" }
-
-# Returning a value from a block
-def calculate(a, b)
-  result = yield(a, b)
-  puts "The result is #{result}"
-  result  # Return the result
-end
-
-sum = calculate(5, 3) { |x, y| x + y }  # Block returns x + y
-puts "Sum variable: #{sum}"
-
-# Block variables scope
-outer_var = "Outside"
-
-1.times do
-  inner_var = "Inside"
-  puts "Inside block: outer_var = #{outer_var}"  # Can access outer variables
-end
-
-# puts inner_var  # Error: inner_var is not available outside the block
-
-# Block that can handle any number of arguments
-def flexible_yield(*args)
-  yield(*args)
-end
-
-flexible_yield(1, 2, 3) { |a, b, c| puts "Got #{a}, #{b}, #{c}" }
-flexible_yield(1, 2) { |a, b| puts "Got #{a}, #{b}" }`,
-              explanation: "This example demonstrates blocks in Ruby, which are chunks of code that can be passed to methods and executed using the 'yield' keyword. Blocks can be written with either do...end or {}, and they can accept parameters. Methods can check if a block was provided using 'block_given?'. Blocks can also return values, which the method can then use or return. Blocks have access to variables from their outside scope (closures)."
-            },
-            {
-              title: "Procs and Lambdas",
-              code: `# Creating a Proc object
-square = Proc.new { |x| x * x }
-cube = proc { |x| x * x * x }  # Alternative syntax
-
-# Using a Proc
-puts "Square of 5: #{square.call(5)}"  # Output: Square of 5: 25
-puts "Cube of 3: #{cube.call(3)}"      # Output: Cube of 3: 27
-
-# Alternative ways to call a proc
-puts square[5]      # Using square bracket syntax
-puts square.(5)     # Using dot syntax
-puts square === 5   # Using threequals operator (case equality)
-
-# Creating a lambda
-greeting = lambda { |name| "Hello, #{name}!" }
-farewell = -> (name) { "Goodbye, #{name}!" }  # Alternative syntax
-
-# Using a lambda
-puts greeting.call("Alice")  # Output: Hello, Alice!
-puts farewell.call("Bob")    # Output: Goodbye, Bob!
-
-# Differences between procs and lambdas: argument checking
-proc_example = proc { |a, b| "a: #{a}, b: #{b}" }
-lambda_example = lambda { |a, b| "a: #{a}, b: #{b}" }
-
-puts proc_example.call(1)      # Output: a: 1, b:  (nil for missing arg)
-# puts lambda_example.call(1)   # Error: wrong number of arguments
-
-puts proc_example.call(1, 2, 3)  # Output: a: 1, b: 2 (ignores extra args)
-# puts lambda_example.call(1, 2, 3)  # Error: wrong number of arguments
-
-# Differences between procs and lambdas: return behavior
-def proc_return
-  p = Proc.new { return "Returned from proc" }
-  p.call
-  return "Returned from method"  # This line is never reached
-end
-
-def lambda_return
-  l = lambda { return "Returned from lambda" }
-  result = l.call
-  return "Returned from method: #{result}"
-end
-
-puts proc_return    # Output: Returned from proc
-puts lambda_return  # Output: Returned from method: Returned from lambda
-
-# Converting a block to a proc
-def block_to_proc(&block)
-  puts "Block converted to proc"
-  block.call("Hello from proc")
-end
-
-block_to_proc { |msg| puts msg }
-
-# Method that accepts both regular args and a block
-def both_args_and_block(arg1, arg2, &block)
-  puts "Args: #{arg1}, #{arg2}"
-  block.call if block_given?
-end
-
-both_args_and_block("one", "two") { puts "Block executed" }
-
-# Using Symbol#to_proc (shorthand)
-numbers = [1, 2, 3, 4, 5]
-
-# Standard block
-squares = numbers.map { |n| n * n }
-
-# Using method reference
-def square(n)
-  n * n
-end
-squares_with_method = numbers.map(&method(:square))
-
-# Using Symbol#to_proc
-upcase_words = ["hello", "world"].map(&:upcase)  # Same as { |str| str.upcase }
-puts "Upcase words: #{upcase_words}"  # Output: Upcase words: ["HELLO", "WORLD"]
-
-# Currying (partial application of functions)
-multiply = ->(x, y) { x * y }
-double = multiply.curry[2]  # Fix first argument to 2
-triple = multiply.curry[3]  # Fix first argument to 3
-
-puts "Double 5: #{double.call(5)}"  # Output: Double 5: 10
-puts "Triple 5: #{triple.call(5)}"  # Output: Triple 5: 15`,
-              explanation: "This example covers Procs and lambdas in Ruby, which are objects that encapsulate blocks. They can be stored in variables, passed to methods, and called later. The main differences between Procs and lambdas are in argument checking (lambdas are strict, Procs are not) and return behavior (return in a Proc exits the enclosing method, while return in a lambda only exits the lambda). The example also shows how to convert blocks to Procs using the & operator, using Symbol#to_proc for shorthand syntax, and currying (creating a new Proc by fixing some arguments of an existing one)."
-            }
-          ],
-          quiz: [
-            {
-              question: "What's the difference between a Proc and a lambda in Ruby?",
-              options: [
-                "Procs are objects, lambdas are just syntax sugar for blocks",
-                "Procs check argument count, lambdas don't",
-                "Lambdas check argument count and treat 'return' differently than Procs",
-                "There is no difference; they are different names for the same feature"
-              ],
+              question: "In Ruby, what keyword is used to include a module's methods as instance methods in a class?",
+              options: ["extend", "require", "include", "import"],
               correctAnswer: 2,
-              explanation: "There are two main differences between Procs and lambdas in Ruby: 1) Lambdas check the number of arguments passed to them, while Procs don't (they set missing arguments to nil and ignore extra ones). 2) A 'return' statement in a Proc returns from the enclosing method, while a 'return' statement in a lambda only returns from the lambda itself."
+              explanation: "The 'include' keyword is used to include a module's methods as instance methods in a class. This is how Ruby enables mixin functionality, allowing classes to inherit behavior from multiple sources."
             }
           ],
           flashcards: [
             {
-              front: "What does yield do in Ruby?",
-              back: "The yield keyword in Ruby executes the block that was passed to the method where yield is called. If no block was provided, yield raises a 'LocalJumpError' unless used with 'block_given?'. yield can also accept arguments that are passed to the block and can receive the block's return value."
+              front: "What is the difference between 'include' and 'extend' when using modules in Ruby?",
+              back: "'include' adds a module's methods as instance methods to a class, so instances of the class can call these methods. 'extend' adds a module's methods as class methods, so they can be called directly on the class itself, without creating an instance."
             },
             {
-              front: "What does the & operator do with blocks and methods in Ruby?",
-              back: "The & operator serves two purposes with blocks and methods in Ruby: 1) In a method parameter (&block), it converts the block passed to the method into a Proc object, which can be stored or passed around. 2) When calling a method (&some_proc), it converts a Proc or any object that responds to to_proc into a block. This is often used with symbols: array.map(&:method_name)."
+              front: "What is a mixin in Ruby?",
+              back: "A mixin is a module that's included in a class to add behavior. Mixins are Ruby's way of implementing multiple inheritance of behavior, since a class can only inherit from one parent class but can include many modules."
             }
           ]
         },
         {
           id: "ruby-exceptions",
           title: "Exception Handling",
-          description: "Working with exceptions and error handling in Ruby",
+          description: "Handling errors and exceptions in Ruby",
           content: `
 # Exception Handling in Ruby
 
-Exception handling allows you to manage errors and exceptional conditions in your Ruby programs.
+Ruby's exception handling provides a way to manage errors and ensure your program behaves gracefully when things go wrong.
           `,
           codeExamples: [
             {
-              title: "Basic Exception Handling",
-              code: `# Basic try-rescue (try-catch in other languages)
+              title: "Exception Basics",
+              code: `# Basic exception handling
 begin
   # Code that might raise an exception
-  10 / 0  # ZeroDivisionError
+  result = 10 / 0  # This will raise a ZeroDivisionError
+  puts "This line won't be executed"
 rescue
   puts "An error occurred!"
 end
 
-# Rescuing specific exceptions
+puts "Program continues..."
+
+# Catching specific exceptions
 begin
-  # These two lines will raise different exceptions
-  # 10 / 0  # ZeroDivisionError
-  File.open("nonexistent_file.txt")  # Errno::ENOENT
-rescue ZeroDivisionError
-  puts "Division by zero error!"
+  # Try to open a non-existent file
+  file = File.open("non_existent_file.txt")
+  content = file.read
+  file.close
 rescue Errno::ENOENT
-  puts "File not found error!"
-end
-
-# Capturing the exception object
-begin
-  10 / 0
-rescue ZeroDivisionError => e
-  puts "Error: #{e.message}"  # Output: Error: divided by 0
-  puts "Backtrace: #{e.backtrace}"
-end
-
-# Multiple exceptions in one rescue clause
-begin
-  # Some code that might raise different errors
-  # [1, 2, 3].fetch(5)  # IndexError
-  # Integer("abc")      # ArgumentError
-rescue IndexError, ArgumentError => e
-  puts "Either an IndexError or ArgumentError occurred: #{e.message}"
-end
-
-# The else clause (executes when no exceptions occur)
-begin
-  puts "This code might raise an exception"
-  # 10 / 0  # Uncomment to see the difference
-rescue ZeroDivisionError
-  puts "An error occurred"
-else
-  puts "No error occurred"
-end
-
-# The ensure clause (always executes)
-begin
-  puts "Trying to open a file"
-  file = File.open("test.txt", "w")
-  file.write("Test data")
-  # 10 / 0  # Uncomment to raise an exception
+  puts "File does not exist"
 rescue => e
+  puts "Some other error occurred: #{e.message}"
+end
+
+# Multiple rescue clauses
+begin
+  # Ask the user for a number
+  print "Enter a number: "
+  num = Integer(gets.chomp)
+  result = 100 / num
+  puts "100 / #{num} = #{result}"
+rescue ZeroDivisionError
+  puts "You can't divide by zero!"
+rescue ArgumentError
+  puts "That's not a valid number"
+end
+
+# Else and ensure clauses
+begin
+  print "Enter another number: "
+  num = Integer(gets.chomp)
+  result = 100 / num
+rescue ZeroDivisionError, ArgumentError => e
   puts "Error: #{e.message}"
 else
-  puts "File operation successful"
+  # Executes only if no exception was raised
+  puts "Result: #{result}"
 ensure
-  file.close if file  # Ensure file is closed whether an error occurred or not
-  puts "File closed (ensure block)"
+  # Always executes, whether there was an exception or not
+  puts "This calculation attempt is complete"
 end
 
-# Using retry
+# Creating custom exceptions
+class NegativeNumberError < StandardError
+  def initialize(msg="Cannot process negative numbers")
+    super
+  end
+end
+
+def square_root(number)
+  if number < 0
+    raise NegativeNumberError, "Cannot calculate square root of #{number}"
+  end
+  Math.sqrt(number)
+end
+
+begin
+  result = square_root(-9)
+rescue NegativeNumberError => e
+  puts "Error: #{e.message}"
+end
+
+# Retry
 attempts = 0
 begin
   attempts += 1
   puts "Attempt #{attempts}"
-  raise "Simulated error" if attempts < 3  # Simulate an error for the first two attempts
+  
+  # Simulate a random failure
+  if rand < 0.7
+    raise "Random error occurred"
+  end
+  
+  puts "Operation succeeded!"
 rescue => e
   puts "Error: #{e.message}"
-  retry if attempts < 3  # Try again for the first two attempts
-end
-puts "Success after #{attempts} attempts"`,
-              explanation: "This example demonstrates basic exception handling in Ruby using begin, rescue, else, and ensure blocks. The rescue clause catches exceptions, the else clause runs when no exceptions occur, and the ensure clause always runs, making it useful for cleanup code. You can rescue specific exception types and capture the exception object to access its message and backtrace. The retry keyword restarts execution from the beginning of the begin block, useful for retrying operations that might fail temporarily."
-            },
-            {
-              title: "Custom Exceptions and Advanced Techniques",
-              code: `# Creating a custom exception class
-class CustomError < StandardError
-  attr_reader :custom_data
-  
-  def initialize(message = "A custom error occurred", custom_data = nil)
-    @custom_data = custom_data
-    super(message)
+  if attempts < 3
+    puts "Retrying..."
+    retry  # Go back to the beginning of the begin block
+  else
+    puts "Giving up after #{attempts} attempts"
   end
-end
-
-# Using a custom exception
-begin
-  raise CustomError.new("Something went wrong", {code: 123})
-rescue CustomError => e
-  puts "Custom error: #{e.message}"
-  puts "Custom data: #{e.custom_data}"
-end
-
-# Exception hierarchy
-begin
-  # This will raise a TypeError
-  "string" + 123
-rescue StandardError => e
-  puts "Caught StandardError: #{e.class}"
-end
-
-# Raising exceptions
-def validate_age(age)
-  raise ArgumentError, "Age must be positive" if age < 0
-  raise TypeError, "Age must be a number" unless age.is_a?(Numeric)
-  puts "Age is valid: #{age}"
-end
-
-begin
-  validate_age(-5)
-rescue ArgumentError => e
-  puts "Validation error: #{e.message}"
-end
-
-begin
-  validate_age("twenty")
-rescue TypeError => e
-  puts "Type error: #{e.message}"
-end
-
-# Re-raising exceptions
-begin
-  begin
-    10 / 0
-  rescue => e
-    puts "Inner rescue caught: #{e.class}"
-    raise  # Re-raise the exception
-  end
-rescue => e
-  puts "Outer rescue caught: #{e.class}"
-end
-
-# Catching exceptions in method definitions
-def divide_numbers(a, b)
-  a / b
-rescue ZeroDivisionError
-  "Division by zero is not allowed"
-end
-
-puts divide_numbers(10, 2)  # Output: 5
-puts divide_numbers(10, 0)  # Output: Division by zero is not allowed
-
-# Exception handling with ensure
-def process_file(filename)
-  file = File.open(filename, "r")
-  yield(file)
-rescue Errno::ENOENT
-  puts "Error: File not found"
-rescue => e
-  puts "Error: #{e.message}"
-ensure
-  file.close if file
-end
-
-# process_file("example.txt") { |f| puts f.read }  # Will display the file contents or an error
-
-# Handling exceptions in threads
-threads = []
-5.times do |i|
-  threads << Thread.new do
-    begin
-      if i == 3
-        raise "Error in thread #{i}"
-      end
-      puts "Thread #{i} completed successfully"
-    rescue => e
-      puts "Thread #{i} error: #{e.message}"
-    end
-  end
-end
-
-threads.each(&:join)
-
-# Exception handling best practices
-def example_of_best_practices
-  # Be specific about which exceptions to catch
-  begin
-    # Some code that might raise exceptions
-  rescue SpecificError => e
-    # Handle the specific error
-  end
-  
-  # Don't rescue Exception (would catch everything, including system errors and interrupts)
-  # begin
-  #   # Some code
-  # rescue Exception => e  # DON'T DO THIS
-  #   # Handle the error
-  # end
-  
-  # Only rescue exceptions you know how to handle
-  # Let unknown exceptions propagate up
 end`,
-              explanation: "This example covers advanced exception handling techniques in Ruby. It shows how to create custom exception classes by inheriting from StandardError, how to raise exceptions with specific messages and data, and how to catch exceptions in method definitions without explicit begin/rescue blocks. It also demonstrates re-raising exceptions, using ensure for cleanup, handling exceptions in threads, and best practices for exception handling. In Ruby, it's generally better to rescue specific exceptions rather than catching all exceptions, and to only rescue exceptions you know how to handle."
+              explanation: "This example demonstrates various aspects of exception handling in Ruby, including the basic begin-rescue-end structure, catching specific exception types, using rescue with variables to capture the exception object, the else clause for success cases, the ensure clause for cleanup code, creating custom exception classes, and using retry to attempt an operation multiple times after a failure."
             }
           ],
           quiz: [
             {
-              question: "Which of the following is NOT a built-in exception class in Ruby?",
-              options: [
-                "ArgumentError",
-                "ZeroDivisionError",
-                "NullPointerException",
-                "NoMethodError"
-              ],
-              correctAnswer: 2,
-              explanation: "NullPointerException is not a built-in exception class in Ruby. It's a common exception in Java, but in Ruby, the equivalent would be NoMethodError (when calling a method on nil) or a specific message like 'undefined method for nil:NilClass'. The other options - ArgumentError, ZeroDivisionError, and NoMethodError - are all built-in Ruby exception classes."
+              question: "In Ruby, what block always executes regardless of whether an exception was raised or caught?",
+              options: ["ensure", "else", "finally", "rescue"],
+              correctAnswer: 0,
+              explanation: "The 'ensure' block in Ruby (equivalent to 'finally' in some other languages) always executes regardless of whether an exception was raised or caught. It's typically used for cleanup operations like closing files or database connections."
             }
           ],
           flashcards: [
             {
-              front: "What's the difference between raise and fail in Ruby?",
-              back: "In Ruby, 'raise' and 'fail' are aliases for the same method and can be used interchangeably to raise exceptions. However, there's a community convention that 'raise' is preferred when raising a new exception, while 'fail' is sometimes used when signaling a failure in the current method. This is just a style preference, not a technical difference."
+              front: "What is the purpose of the 'rescue' block in Ruby?",
+              back: "The 'rescue' block in Ruby's exception handling is used to catch exceptions raised in the corresponding 'begin' block. It allows you to handle specific types of errors and take appropriate actions, preventing the program from crashing."
             },
             {
-              front: "What should you inherit from when creating custom exception classes in Ruby?",
-              back: "In Ruby, custom exception classes should typically inherit from StandardError or one of its subclasses, not directly from Exception. This is because rescue without a specific class catches StandardError and its subclasses, but not other Exception subclasses like SystemExit, SignalException, and fatal errors. This design allows system-level exceptions to bypass regular rescue clauses."
+              front: "What happens when you use the 'retry' keyword in a rescue block?",
+              back: "When you use 'retry' in a rescue block, execution jumps back to the beginning of the associated 'begin' block, allowing you to attempt the operation again. This is useful for retrying operations that may fail temporarily (like network requests)."
             }
           ]
         },
         {
-          id: "ruby-file-io",
-          title: "File I/O and Input/Output",
-          description: "Working with files and I/O operations in Ruby",
+          id: "ruby-files",
+          title: "File I/O",
+          description: "Reading and writing files in Ruby",
           content: `
-# File I/O and Input/Output in Ruby
+# File I/O in Ruby
 
-Ruby provides robust capabilities for reading from and writing to files, as well as handling standard input and output.
+Ruby provides a rich set of tools for working with files, making it easy to read from and write to external files.
           `,
           codeExamples: [
             {
-              title: "File Reading and Writing",
+              title: "Reading and Writing Files",
               code: `# Writing to a file
 File.open("example.txt", "w") do |file|
-  file.puts "Line 1"
-  file.puts "Line 2"
-  file.puts "Line 3"
+  file.puts "Hello, Ruby!"
+  file.puts "This is a test file."
+  file.puts "Line three."
 end
 
-# Reading an entire file at once
+puts "File created!"
+
+# Reading from a file
+puts "\\nReading entire file at once:"
 content = File.read("example.txt")
-puts "File content:"
 puts content
 
-# Reading a file line by line
-puts "\\nReading line by line:"
+# Reading file line by line
+puts "\\nReading file line by line:"
 File.open("example.txt", "r") do |file|
   file.each_line do |line|
-    puts "Line: #{line.chomp}"  # chomp removes the newline character
+    puts "Line: #{line.chomp}"
   end
 end
 
-# Reading with readlines
-puts "\\nReading with readlines:"
-lines = File.readlines("example.txt")
-lines.each_with_index do |line, index|
-  puts "Line #{index + 1}: #{line.chomp}"
-end
-
-# Appending to a file
+# Writing to a file (appending)
 File.open("example.txt", "a") do |file|
-  file.puts "Line 4 (appended)"
+  file.puts "This line was appended."
 end
 
-puts "\\nFile after appending:"
+puts "\\nAfter appending:"
 puts File.read("example.txt")
 
+# Checking if a file exists
+if File.exist?("example.txt")
+  puts "\\nFile exists."
+else
+  puts "\\nFile does not exist."
+end
+
+# Getting file information
+puts "\\nFile information:"
+puts "Size: #{File.size("example.txt")} bytes"
+puts "Directory: #{File.dirname(__FILE__)}"
+puts "Last modified: #{File.mtime("example.txt")}"
+
 # Reading and writing binary data
-File.open("binary.dat", "wb") do |file|  # 'b' for binary mode
-  file.write [0xFF, 0x00, 0xAA, 0x55].pack('C*')  # Pack bytes
+File.open("binary.dat", "wb") do |file|
+  file.write([0xFF, 0x00, 0xAA, 0x55].pack("C*"))
 end
 
-bindata = File.binread("binary.dat")
-puts "\\nBinary data (bytes):"
-puts bindata.bytes.map { |b| b.to_s(16).upcase.rjust(2, '0') }.join(' ')
+binary_data = File.binread("binary.dat")
+puts "\\nBinary data (bytes): #{binary_data.bytes}"
 
-# File information
-file = "example.txt"
-puts "\\nFile information for #{file}:"
-puts "Exists? #{File.exist?(file)}"
-puts "File? #{File.file?(file)}"
-puts "Directory? #{File.directory?(file)}"
-puts "Size: #{File.size(file)} bytes"
-puts "Modification time: #{File.mtime(file)}"
+# Working with directories
+puts "\\nCurrent directory: #{Dir.pwd}"
+puts "Files in current directory: #{Dir.entries(".")}"
 
-# File operations
-new_name = "renamed.txt"
-File.rename(file, new_name) if File.exist?(file)
-puts "\\nRenamed file exists? #{File.exist?(new_name)}"
+# Creating a directory
+Dir.mkdir("test_dir") unless Dir.exist?("test_dir")
+puts "Directory created."
 
-# File.delete(new_name)  # Uncomment to delete the file
-# puts "File deleted. Exists? #{File.exist?(new_name)}"
+# Removing files and directories
+File.delete("binary.dat") if File.exist?("binary.dat")
+Dir.rmdir("test_dir") if Dir.exist?("test_dir")
+puts "Cleanup complete."
 
-# Directory operations
-Dir.mkdir("example_dir") unless Dir.exist?("example_dir")
-puts "\\nDirectory created."
+# Using file modes
+# "r" - Read-only (default)
+# "w" - Write-only (creates a new file or truncates existing file)
+# "a" - Append (writes to end of file)
+# "r+" - Read-write, starts at beginning
+# "w+" - Read-write, truncates existing file
+# "a+" - Read-write, starts at end
+# "b" - Binary file mode (may be combined with above)
 
-puts "Files in current directory:"
-Dir.glob("*").each do |entry|
-  puts "#{entry} (#{File.directory?(entry) ? 'directory' : 'file'})"
-end
-
-# Dir.rmdir("example_dir")  # Uncomment to remove the directory
-# puts "Directory removed."`,
-              explanation: "This example demonstrates file I/O operations in Ruby, including writing to files, reading files (entire file, line by line, or with readlines), appending to files, and working with binary data. It also shows how to get file information (existence, size, modification time), perform file operations (rename, delete), and work with directories (create, list contents, remove). Note that some lines are commented out to prevent actual deletion of files and directories."
-            },
-            {
-              title: "Standard I/O and Advanced File Operations",
-              code: `# Standard Input
-puts "Enter your name:"
-name = gets.chomp  # gets reads a line from standard input, chomp removes newline
-puts "Hello, #{name}!"
-
-# Reading multiple lines from standard input
-puts "Enter multiple lines (Ctrl+D to end on Unix/Linux, Ctrl+Z on Windows):"
-lines = $stdin.readlines
-puts "You entered #{lines.length} lines:"
-lines.each_with_index do |line, index|
-  puts "#{index + 1}: #{line.chomp}"
-end
-
-# Standard Output and Standard Error
-$stdout.puts "This goes to standard output."
-$stderr.puts "This goes to standard error."
-
-# Redirecting output
-original_stdout = $stdout
-$stdout = File.open("output.log", "w")
-puts "This goes to the log file."
-$stdout = original_stdout
-puts "Back to console output."
-
-# Working with paths
+# File path operations
 require 'pathname'
 
-path = Pathname.new("example/path/to/file.txt")
-puts "Pathname operations:"
-puts "Directory: #{path.dirname}"
-puts "Basename: #{path.basename}"
+path = Pathname.new("example.txt")
+puts "\\nPathname operations:"
+puts "Base name: #{path.basename}"
 puts "Extension: #{path.extname}"
-puts "Absolute? #{path.absolute?}"
+puts "Directory: #{path.dirname}"
+puts "Absolute path: #{path.realpath}"
 
-# Joining paths
-puts "Joined path: #{File.join('path', 'to', 'file.txt')}"
-
-# Expanding path (resolving relative paths)
-puts "Expanded path: #{File.expand_path('~/documents')}"  # Resolves ~ to home directory
-
-# File permissions
-File.open("permission_example.txt", "w") do |file|
-  file.puts "This file will have specific permissions."
-end
-
-# Set permissions (chmod)
-File.chmod(0644, "permission_example.txt")  # -rw-r--r--
-
-# Check permissions
-puts "File permissions:"
-puts "Readable? #{File.readable?("permission_example.txt")}"
-puts "Writable? #{File.writable?("permission_example.txt")}"
-puts "Executable? #{File.executable?("permission_example.txt")}"
-
-# Temporary files
-require 'tempfile'
-
-temp = Tempfile.new('example')
-temp.puts "This is temporary content."
-temp.close
-
-puts "Temporary file path: #{temp.path}"
-puts "Temp file content: #{File.read(temp.path)}"
-temp.unlink  # Delete the temporary file
-
-# Working with CSV
-require 'csv'
-
-# Writing CSV
-CSV.open("data.csv", "w") do |csv|
-  csv << ["Name", "Age", "City"]
-  csv << ["Alice", 30, "New York"]
-  csv << ["Bob", 25, "Chicago"]
-  csv << ["Charlie", 35, "Los Angeles"]
-end
-
-# Reading CSV
-puts "\\nCSV content:"
-CSV.foreach("data.csv", headers: true) do |row|
-  puts "#{row["Name"]} is #{row["Age"]} years old and lives in #{row["City"]}"
-end
-
-# Working with JSON
-require 'json'
-
-# Creating JSON
-person = {
-  name: "Alice",
-  age: 30,
-  address: {
-    city: "New York",
-    zip: "10001"
-  },
-  hobbies: ["reading", "hiking", "photography"]
-}
-
-json_string = JSON.generate(person)
-File.write("person.json", json_string)
-
-# Reading JSON
-parsed = JSON.parse(File.read("person.json"))
-puts "\\nParsed JSON:"
-puts "Name: #{parsed["name"]}"
-puts "Age: #{parsed["age"]}"
-puts "City: #{parsed["address"]["city"]}"
-puts "Hobbies: #{parsed["hobbies"].join(", ")}"`,
-              explanation: "This example covers standard I/O operations (input from the keyboard, output to the console), advanced file operations, working with paths, file permissions, temporary files, and working with structured data formats like CSV and JSON. It demonstrates how to read from standard input, redirect standard output, join and expand paths, set and check file permissions, create and use temporary files, and read/write CSV and JSON files. These capabilities make Ruby well-suited for a wide range of file and data processing tasks."
+# Cleanup
+File.delete("example.txt") if File.exist?("example.txt")`,
+              explanation: "This example demonstrates various file operations in Ruby, including opening files for reading, writing, and appending, reading entire files or line by line, checking if files exist, getting file information, working with binary data, creating and removing directories, understanding file modes, and using the Pathname class for path manipulations."
             }
           ],
           quiz: [
             {
-              question: "Which mode should you use to append to an existing file in Ruby?",
-              options: [
-                "\"r\"",
-                "\"w\"",
-                "\"a\"",
-                "\"b\""
-              ],
+              question: "What file mode should you use to append to a file in Ruby?",
+              options: ["r", "w", "a", "r+"],
               correctAnswer: 2,
-              explanation: "To append to an existing file in Ruby, you should use mode \"a\" (append). Mode \"r\" is for reading only, \"w\" is for writing (but it truncates the file first, erasing any existing content), and \"b\" is not a mode by itself but can be combined with other modes for binary operations (like \"rb\" or \"wb\")."
+              explanation: "The 'a' file mode is used to open a file for appending, which means writing to the end of the file without overwriting existing content. If the file doesn't exist, it will be created."
             }
           ],
           flashcards: [
             {
-              front: "What's the difference between File.read and File.readlines in Ruby?",
-              back: "File.read reads the entire file content as a single string, while File.readlines reads the file line by line and returns an array of lines (including newline characters, unless a different separator is specified). For large files, File.readlines can be more memory-efficient if you need to process the file line by line, while File.read is simpler when you need the entire content as a string."
+              front: "What is the difference between File.read and File.readlines in Ruby?",
+              back: "File.read reads the entire file content as a single string. File.readlines reads the file and returns an array of lines, preserving newline characters. File.read is better for small files, while File.readlines is useful when you need to process a file line by line."
             },
             {
-              front: "What is the purpose of the 'chomp' method in Ruby file I/O?",
-              back: "The 'chomp' method in Ruby removes the trailing newline character(s) from a string. It's commonly used with 'gets' and when reading lines from files to strip the newline that's automatically included at the end of each line. For example, 'gets.chomp' reads a line from standard input and removes the trailing newline, making it easier to work with user input."
+              front: "How do you ensure a file is properly closed in Ruby?",
+              back: "The best practice is to use a block with File.open: File.open('file.txt', 'r') do |file| ... end. Ruby automatically closes the file when the block exits, even if an exception occurs. Alternatively, you can manually call file.close after operations, preferably in an ensure block."
+            }
+          ]
+        },
+        {
+          id: "ruby-gems",
+          title: "Gems and Bundler",
+          description: "Working with Ruby libraries and dependencies",
+          content: `
+# Gems and Bundler in Ruby
+
+Gems are packaged Ruby libraries or applications, and Bundler is a tool for managing gem dependencies.
+          `,
+          codeExamples: [
+            {
+              title: "Working with Gems and Bundler",
+              code: `# Installing a gem from the command line
+# $ gem install nokogiri
+
+# Using an installed gem
+require 'date'
+
+today = Date.today
+puts "Today is #{today}"
+puts "Tomorrow is #{today + 1}"
+
+# Creating a Gemfile for bundler
+=begin
+# Example Gemfile
+source 'https://rubygems.org'
+
+gem 'nokogiri', '~> 1.12'
+gem 'sinatra', require: 'sinatra/base'
+gem 'rake', '~> 13.0'
+
+group :development, :test do
+  gem 'rspec', '~> 3.10'
+  gem 'pry'
+end
+
+group :production do
+  gem 'pg'
+end
+=end
+
+# Installing gems from a Gemfile
+# $ bundle install
+
+# Using gems with bundler
+=begin
+# Example of using bundler in a script
+#!/usr/bin/env ruby
+require 'bundler/setup'  # Set up gems listed in the Gemfile
+require 'nokogiri'
+require 'open-uri'
+
+# Use the nokogiri gem
+document = Nokogiri::HTML(URI.open('https://example.com'))
+puts document.title
+=end
+
+# Creating a simple gem directory structure
+=begin
+# my_gem/
+# ├── bin/
+# │   └── my_gem
+# ├── lib/
+# │   ├── my_gem.rb
+# │   └── my_gem/
+# │       └── version.rb
+# ├── spec/
+# │   └── my_gem_spec.rb
+# ├── Gemfile
+# ├── Rakefile
+# ├── README.md
+# ├── LICENSE.txt
+# └── my_gem.gemspec
+=end
+
+# Example gemspec file
+=begin
+# my_gem.gemspec
+require_relative 'lib/my_gem/version'
+
+Gem::Specification.new do |spec|
+  spec.name          = "my_gem"
+  spec.version       = MyGem::VERSION
+  spec.authors       = ["Your Name"]
+  spec.email         = ["your.email@example.com"]
+  spec.summary       = "Short summary of your gem"
+  spec.description   = "Longer description of your gem"
+  spec.homepage      = "https://github.com/yourusername/my_gem"
+  spec.license       = "MIT"
+  
+  spec.files         = Dir['lib/**/*', 'README.md']
+  spec.require_paths = ["lib"]
+  
+  spec.add_dependency "nokogiri", "~> 1.12"
+  spec.add_development_dependency "rspec", "~> 3.10"
+end
+=end
+
+# Example version file
+=begin
+# lib/my_gem/version.rb
+module MyGem
+  VERSION = "0.1.0"
+end
+=end
+
+# Example main gem file
+=begin
+# lib/my_gem.rb
+require "my_gem/version"
+
+module MyGem
+  class Error < StandardError; end
+  
+  # Your code goes here...
+  def self.hello
+    "Hello from MyGem!"
+  end
+end
+=end
+
+# Building and publishing a gem
+=begin
+# $ gem build my_gem.gemspec
+# $ gem push my_gem-0.1.0.gem
+=end
+
+# Using your own gem
+=begin
+# $ gem install my_gem
+=end
+
+puts "This is an example of gems and bundler usage"`,
+              explanation: "This example provides an overview of working with Ruby gems and Bundler. It shows how to install and use gems, create a Gemfile for dependency management, use Bundler to manage dependencies, and even create, build, and publish your own gems. The commented sections indicate terminal commands and file structures that can't be directly executed, but demonstrate the workflow."
+            }
+          ],
+          quiz: [
+            {
+              question: "What is the purpose of a Gemfile in a Ruby project?",
+              options: [
+                "To document the code structure",
+                "To specify dependencies (gems) that the project requires",
+                "To configure the Ruby interpreter",
+                "To create executable scripts"
+              ],
+              correctAnswer: 1,
+              explanation: "A Gemfile is used to specify the dependencies (gems) that a Ruby project requires, along with their versions. Bundler uses this file to manage dependencies consistently across different development and production environments."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is RubyGems?",
+              back: "RubyGems is Ruby's package manager, which allows you to download, install, and use libraries (gems) created by the Ruby community. It provides commands like 'gem install', 'gem update', and 'gem list' for managing gems on your system."
+            },
+            {
+              front: "What is Bundler and how does it differ from RubyGems?",
+              back: "Bundler is a dependency manager for Ruby that works with RubyGems. While RubyGems handles individual gems, Bundler manages a project's entire dependency graph, ensuring that all gems work together without conflicts. It uses a Gemfile to specify dependencies and a Gemfile.lock to record exact versions for consistent installations."
+            }
+          ]
+        },
+        {
+          id: "ruby-blocks",
+          title: "Blocks, Procs, and Lambdas",
+          description: "Working with closures in Ruby",
+          content: `
+# Blocks, Procs, and Lambdas in Ruby
+
+Ruby provides several ways to work with closures (chunks of code that can be passed around and executed later).
+          `,
+          codeExamples: [
+            {
+              title: "Blocks, Procs, and Lambdas",
+              code: `# Block with do...end
+[1, 2, 3].each do |num|
+  puts "Number: #{num}"
+end
+
+# Block with braces (for single-line blocks)
+[1, 2, 3].each { |num| puts "Number: #{num}" }
+
+# Methods that take blocks
+def say_hello
+  puts "Hello, before yield"
+  yield if block_given?  # Execute the block if one was given
+  puts "Hello, after yield"
+end
+
+say_hello do
+  puts "This is the block being executed"
+end
+
+# Block parameters
+def calculate(a, b)
+  result = yield(a, b) if block_given?
+  puts "The result is #{result}"
+end
+
+calculate(5, 3) { |x, y| x + y }     # Addition
+calculate(5, 3) { |x, y| x * y }     # Multiplication
+
+# Returning a value from a block
+names = ["Alice", "Bob", "Charlie"]
+upcase_names = names.map { |name| name.upcase }
+puts "Uppercase names: #{upcase_names}"
+
+# Creating a Proc object
+greeter = Proc.new { |name| puts "Hello, #{name}!" }
+greeter.call("World")  # Call the proc
+
+# Alternative Proc creation
+greeter = proc { |name| puts "Hello, #{name}!" }
+greeter.call("Ruby")
+
+# Procs don't check argument count
+greeter.call  # No error, name will be nil
+greeter.call("Alice", "Bob")  # Extra arguments are ignored
+
+# Creating a Lambda
+multiplier = lambda { |x, y| x * y }
+puts multiplier.call(5, 3)  # 15
+
+# Alternative Lambda syntax (stabby lambda)
+adder = ->(x, y) { x + y }
+puts adder.call(5, 3)  # 8
+
+# Lambdas check argument count
+begin
+  adder.call(5)  # Error: wrong number of arguments
+rescue ArgumentError => e
+  puts "Error: #{e.message}"
+end
+
+# Returning from a Proc vs. Lambda
+def proc_return
+  my_proc = Proc.new { return "Returned from Proc" }
+  my_proc.call
+  return "Returned from method"  # This is not reached
+end
+
+def lambda_return
+  my_lambda = lambda { return "Returned from Lambda" }
+  my_lambda.call
+  return "Returned from method"  # This is reached
+end
+
+puts proc_return    # "Returned from Proc"
+puts lambda_return  # "Returned from method"
+
+# Closures - capturing the surrounding context
+def create_multiplier(factor)
+  return Proc.new { |number| number * factor }
+end
+
+double = create_multiplier(2)
+triple = create_multiplier(3)
+
+puts double.call(5)  # 10
+puts triple.call(5)  # 15
+
+# Converting a block to a Proc with &
+def with_logging
+  puts "Starting method"
+  yield if block_given?
+  puts "Ending method"
+end
+
+# Storing the block as a Proc
+def store_block(&block)
+  @stored_block = block
+end
+
+def execute_stored_block
+  @stored_block.call if @stored_block
+end
+
+store_block { puts "This is a stored block" }
+execute_stored_block
+
+# Passing a Proc as a block
+multiply_by_2 = Proc.new { |num| num * 2 }
+[1, 2, 3].map(&multiply_by_2)  # Same as [1, 2, 3].map { |num| num * 2 }
+
+# Symbol to Proc shorthand
+names = ["alice", "bob", "charlie"]
+puts names.map(&:upcase)  # Same as names.map { |name| name.upcase }`,
+              explanation: "This example demonstrates blocks (anonymous chunks of code), Procs (stored blocks), and Lambdas (more function-like Procs) in Ruby. It shows how to create and use them, how they capture their surrounding environment (closures), and the differences between them, like how they handle returns and argument checking. It also shows the &block parameter for converting blocks to Procs, and the &:symbol shorthand for creating Procs from methods."
+            }
+          ],
+          quiz: [
+            {
+              question: "What is the main difference between a Proc and a Lambda in Ruby?",
+              options: [
+                "Lambdas can't be stored in variables, Procs can",
+                "Procs can capture their environment, Lambdas can't",
+                "Lambdas check the number of arguments, Procs don't",
+                "Procs can be called multiple times, Lambdas only once"
+              ],
+              correctAnswer: 2,
+              explanation: "The main difference is that Lambdas check the number of arguments and will raise an error if called with the wrong number, while Procs are more lenient (missing arguments become nil, extras are ignored). Additionally, 'return' in a Lambda returns from the Lambda itself, while 'return' in a Proc returns from the method where the Proc was defined."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is a block in Ruby?",
+              back: "A block in Ruby is an anonymous piece of code that can be passed to a method. It's enclosed in either do...end or curly braces {}, can take parameters between vertical bars |param|, and is invoked using the 'yield' keyword within the method."
+            },
+            {
+              front: "What does the '&' symbol do when used with a block parameter?",
+              back: "The '&' symbol before the last parameter in a method definition (def method(&block)) converts the block passed to the method into a Proc object, allowing it to be stored in a variable, passed to other methods, or called later with the .call method."
+            }
+          ]
+        },
+        {
+          id: "ruby-symbols",
+          title: "Symbols and Metaprogramming",
+          description: "Understanding symbols and metaprogramming in Ruby",
+          content: `
+# Symbols and Metaprogramming in Ruby
+
+Symbols are immutable, reusable identifiers, and metaprogramming allows you to write code that generates or manipulates code.
+          `,
+          codeExamples: [
+            {
+              title: "Symbols and Basic Metaprogramming",
+              code: `# Symbols
+string_name = "name"
+symbol_name = :name
+
+puts "String object ID: #{string_name.object_id}"
+puts "Another string: #{"name".object_id}"  # Different object_id
+
+puts "Symbol object ID: #{symbol_name.object_id}"
+puts "Another symbol: #{:name.object_id}"   # Same object_id
+
+# Symbols as hash keys (common use case)
+person_string = { "name" => "John", "age" => 30 }
+person_symbol = { name: "John", age: 30 }  # Shorthand for { :name => "John", :age => 30 }
+
+puts "Using string keys: #{person_string["name"]}"
+puts "Using symbol keys: #{person_symbol[:name]}"
+
+# Converting between strings and symbols
+puts "String to symbol: #{"hello".to_sym}"
+puts "Symbol to string: #{:hello.to_s}"
+
+# Basic metaprogramming
+
+# The 'send' method to call methods dynamically
+class Calculator
+  def add(a, b)
+    a + b
+  end
+  
+  def subtract(a, b)
+    a - b
+  end
+  
+  def multiply(a, b)
+    a * b
+  end
+  
+  def divide(a, b)
+    a / b
+  end
+end
+
+calc = Calculator.new
+operations = [:add, :subtract, :multiply, :divide]
+
+operations.each do |op|
+  result = calc.send(op, 10, 2)
+  puts "#{op}: 10 #{op} 2 = #{result}"
+end
+
+# The 'define_method' method to define methods dynamically
+class DynamicGreeter
+  GREETINGS = ["Hello", "Hi", "Hey", "Howdy"]
+  
+  GREETINGS.each do |greeting|
+    define_method("say_#{greeting.downcase}") do |name|
+      "#{greeting}, #{name}!"
+    end
+  end
+end
+
+greeter = DynamicGreeter.new
+puts greeter.say_hello("Alice")
+puts greeter.say_howdy("Bob")
+
+# Method_missing for handling calls to undefined methods
+class FlexibleHash
+  def initialize
+    @data = {}
+  end
+  
+  def method_missing(name, *args)
+    if name.to_s.end_with?("=")
+      # Setter method
+      key = name.to_s.chop.to_sym  # Remove the '=' and convert to symbol
+      @data[key] = args.first
+    else
+      # Getter method
+      @data[name]
+    end
+  end
+  
+  def respond_to_missing?(method_name, include_private = false)
+    true
+  end
+  
+  def inspect
+    @data.inspect
+  end
+end
+
+person = FlexibleHash.new
+person.name = "Charlie"
+person.age = 35
+puts "Name: #{person.name}, Age: #{person.age}"
+puts "Person hash: #{person.inspect}"
+
+# Eval family of methods (be cautious with these!)
+code = "puts 'This code is evaluated at runtime'"
+eval(code)  # Executes the string as code
+
+# instance_eval - change the context of self
+class Example
+  def initialize
+    @private_var = "I'm private"
+  end
+  
+  private
+  
+  def private_method
+    "This is a private method"
+  end
+end
+
+example = Example.new
+example.instance_eval do
+  puts @private_var  # Can access private instance variables
+  puts private_method  # Can call private methods
+end
+
+# class_eval (or module_eval) - add methods to a class
+String.class_eval do
+  def palindrome?
+    self == self.reverse
+  end
+end
+
+puts "racecar".palindrome?  # true
+puts "hello".palindrome?    # false`,
+              explanation: "This example covers symbols in Ruby, which are immutable, reusable identifiers, often used as hash keys because they're more memory-efficient than strings for this purpose. It also demonstrates metaprogramming techniques, including using send to call methods dynamically, define_method to create methods at runtime, method_missing to handle calls to undefined methods, and the eval family of methods to execute strings as code or change the execution context."
+            }
+          ],
+          quiz: [
+            {
+              question: "What happens when a method is called on an object in Ruby, but the method doesn't exist?",
+              options: [
+                "A NoMethodError is always raised",
+                "Ruby looks for a method_missing method and calls it if defined",
+                "Ruby creates the method dynamically",
+                "The program crashes immediately"
+              ],
+              correctAnswer: 1,
+              explanation: "When a method is called that doesn't exist, Ruby looks for a method_missing method on the object. If method_missing is defined, Ruby calls it with the method name and arguments. If method_missing isn't defined or doesn't handle the call, a NoMethodError is raised."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is metaprogramming in Ruby?",
+              back: "Metaprogramming is writing code that writes or manipulates code. In Ruby, it involves techniques like defining methods dynamically, intercepting calls to missing methods, extending classes at runtime, and evaluating code from strings. It allows for more flexible, concise, and powerful programming."
+            },
+            {
+              front: "Why are symbols often preferred over strings as hash keys in Ruby?",
+              back: "Symbols are preferred as hash keys because they're immutable and reused (the same symbol name points to the same object in memory), making them more memory-efficient and slightly faster for hash lookups. Additionally, the symbol: value syntax for hashes is more concise than the 'string' => value syntax."
             }
           ]
         },
@@ -2131,1072 +1669,304 @@ puts "Hobbies: #{parsed["hobbies"].join(", ")}"`,
           content: `
 # Regular Expressions in Ruby
 
-Regular expressions (regex or regexp) provide a powerful way to match patterns in strings.
+Regular expressions are powerful tools for pattern matching and text processing in Ruby.
           `,
           codeExamples: [
             {
-              title: "Basic Regular Expressions",
+              title: "Working with Regular Expressions",
               code: `# Creating regular expressions
-pattern1 = /ruby/        # Using literal notation
-pattern2 = %r{ruby}      # Alternative literal notation
-pattern3 = Regexp.new("ruby")  # Using constructor
+regex1 = /ruby/             # Literal notation
+regex2 = Regexp.new("ruby") # Constructor notation
 
 # Basic matching
-string = "I love Ruby programming"
-puts "Contains 'Ruby'? #{string =~ /Ruby/}"  # Returns index (7) or nil
-puts "Contains 'Ruby'? #{string.match(/Ruby/)}"  # Returns MatchData object or nil
+text = "I love ruby programming"
+puts text =~ /ruby/            # Returns index of match (7)
+puts text.match(/ruby/)        # Returns MatchData object
+puts text.match?(/javascript/) # Returns true/false (false)
 
-# Case sensitivity
-puts "Case sensitive: #{"ruby" =~ /Ruby/}"    # nil (no match)
-puts "Case insensitive: #{"ruby" =~ /Ruby/i}" # 0 (match at index 0)
+# Match operators
+puts "Match with =~: #{text =~ /ruby/}"
+puts "Match with !~: #{text !~ /ruby/}"   # True if no match
 
 # Character classes
-puts "Digit matches: #{"abc123" =~ /[0-9]/}"  # 3 (first digit)
-puts "Digit matches: #{"abc123" =~ /\\d/}"     # 3 (same as above)
-puts "Word char matches: #{"hello!" =~ /\\w/}" # 0 (first word character)
-puts "Whitespace matches: #{"a b" =~ /\\s/}"   # 1 (space character)
+digits = "Phone: 123-456-7890"
+puts "Digits: #{digits.scan(/\d/).join}" # Matches digits: 1234567890
+
+# Any digit: \d or [0-9]
+# Any non-digit: \D or [^0-9]
+# Any word character: \w or [a-zA-Z0-9_]
+# Any non-word character: \W or [^a-zA-Z0-9_]
+# Any whitespace: \s or [ \t\r\n\f]
+# Any non-whitespace: \S or [^ \t\r\n\f]
+
+# Custom character classes
+vowels = "apple banana cherry"
+puts "Vowels: #{vowels.scan(/[aeiou]/).join}"  # aaeaa
 
 # Negated character classes
-puts "Non-digit matches: #{"abc123" =~ /[^0-9]/}"  # 0 (first non-digit)
-puts "Non-digit matches: #{"abc123" =~ /\\D/}"     # 0 (same as above)
-puts "Non-word matches: #{"hello!" =~ /\\W/}"      # 5 (non-word character, the '!')
-puts "Non-whitespace matches: #{"a b" =~ /\\S/}"   # 0 (first non-whitespace)
+consonants = "ruby programming"
+puts "Not vowels or space: #{consonants.scan(/[^aeiou\s]/).join}"  # rbyprgmmng
 
 # Quantifiers
-puts "One or more digits: #{"abc123def" =~ /\\d+/}"        # 3 (matches "123")
-puts "Zero or more digits: #{"abcdef" =~ /\\d*/}"          # 0 (matches empty string)
-puts "Zero or one digit: #{"abc1def" =~ /\\d?/}"           # 0 (matches empty string)
-puts "Exactly 3 digits: #{"abc123def" =~ /\\d{3}/}"        # 3 (matches "123")
-puts "2 to 4 digits: #{"abc12345def" =~ /\\d{2,4}/}"       # 3 (matches "1234")
-puts "2 or more digits: #{"abc12345def" =~ /\\d{2,}/}"     # 3 (matches "12345")
+text = "The quick brown fox jumps over the lazy dog"
+puts "Words with 3-5 letters: #{text.scan(/\b\w{3,5}\b/)}"
+
+# * (0 or more times)
+# + (1 or more times)
+# ? (0 or 1 time)
+# {n} (exactly n times)
+# {n,} (n or more times)
+# {n,m} (between n and m times)
 
 # Anchors
-puts "Start of string: #{"Ruby" =~ /^R/}"      # 0 (R at start)
-puts "End of string: #{"Ruby" =~ /y$/}"        # 3 (y at end)
-puts "Word boundary: #{"Ruby code" =~ /\\bRuby\\b/}"  # 0 (Ruby as a whole word)
+puts "Words starting with 't': #{text.scan(/\bt\w+/i)}"   # The, the
+puts "Words ending with 'g': #{text.scan(/\w+g\b/)}"      # dog
 
-# Grouping and capturing
-match = "Ruby 3.1.2".match(/Ruby (\\d+)\\.(\\d+)\\.(\\d+)/)
-if match
-  puts "Full match: #{match[0]}"  # "Ruby 3.1.2"
-  puts "Major version: #{match[1]}"  # "3"
-  puts "Minor version: #{match[2]}"  # "1"
-  puts "Patch version: #{match[3]}"  # "2"
+# ^ (start of line)
+# $ (end of line)
+# \b (word boundary)
+# \B (non-word boundary)
+
+# Groups and captures
+phone = "Call me at 123-456-7890 or 987-654-3210"
+phone.scan(/(\d{3})-(\d{3})-(\d{4})/) do |area, prefix, line|
+  puts "Area: #{area}, Prefix: #{prefix}, Line: #{line}"
 end
 
 # Named captures
-match = "Ruby 3.1.2".match(/Ruby (?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)/)
-if match
-  puts "Using named captures:"
-  puts "Major version: #{match[:major]}"  # "3"
-  puts "Minor version: #{match[:minor]}"  # "1"
-  puts "Patch version: #{match[:patch]}"  # "2"
-end`,
-              explanation: "This example demonstrates basic regular expressions in Ruby, including different ways to create patterns, basic matching, case sensitivity options, character classes (\\d for digits, \\w for word characters, \\s for whitespace), quantifiers (+ for one or more, * for zero or more, ? for zero or one, {n} for exactly n, {n,m} for n to m), anchors (^ for start of string, $ for end of string, \\b for word boundary), grouping with parentheses for capturing matched parts, and named captures using (?<name>...) syntax."
-            },
-            {
-              title: "Advanced Regular Expressions",
-              code: `# Alternation (OR)
-puts "Matches 'cat' or 'dog': #{"I have a cat" =~ /cat|dog/}"  # 9
-puts "Matches 'cat' or 'dog': #{"I have a dog" =~ /cat|dog/}"  # 9
-
-# Grouping with alternation
-puts "Groups with OR: #{"catfish" =~ /cat(fish|nip)/}"  # 0 (matches 'catfish')
-puts "Groups with OR: #{"catnip" =~ /cat(fish|nip)/}"   # 0 (matches 'catnip')
-
-# Non-capturing groups
-match = "catfish".match(/cat(?:fish|nip)/)
-puts "Non-capturing group: #{match[0]}"  # "catfish"
-puts "No capture available: #{match[1]}"  # nil (no first capture)
-
-# Lookahead and lookbehind assertions
-puts "Positive lookahead: #{"password123" =~ /password(?=\\d)/}"   # 0 (matches if followed by a digit)
-puts "Negative lookahead: #{"password" =~ /password(?!\\d)/}"      # 0 (matches if NOT followed by a digit)
-puts "Positive lookbehind: #{"123password" =~ /(?<=\\d)password/}" # 3 (matches if preceded by a digit)
-puts "Negative lookbehind: #{"xpassword" =~ /(?<!\\d)password/}"   # 1 (matches if NOT preceded by a digit)
-
-# Modifiers
-puts "Multiline mode: #{"Line1\\nLine2" =~ /^Line2$/m}"  # 6 (^ and $ match start/end of lines)
-puts "Extended mode: #{
-  "abc" =~ /a  # Match 'a'
-             b  # followed by 'b'
-             c  # followed by 'c'
-            /x  # Extended mode ignores whitespace and comments
-}"  # 0
-
-# Greedy vs. non-greedy quantifiers
-text = "This is <em>emphasized</em> and <strong>strong</strong> text"
-greedy = text.scan(/<.+?>/)       # Non-greedy (matches each tag separately)
-puts "Non-greedy: #{greedy}"      # ["<em>", "</em>", "<strong>", "</strong>"]
-greedy = text.scan(/<.+>/)        # Greedy (matches from first < to last >)
-puts "Greedy: #{greedy}"          # ["<em>emphasized</em> and <strong>strong</strong>"]
-
-# Substitution with gsub
-phone = "123-456-7890"
-formatted = phone.gsub(/\\d{3}-\\d{3}-\\d{4}/, "(\\1) \\2-\\3")  # Doesn't work as written
-puts "Direct approach doesn't work: #{formatted}"
-
-# Proper way with captures
-formatted = phone.gsub(/(\\d{3})-(\\d{3})-(\\d{4})/, "(\\1) \\2-\\3")
-puts "With proper captures: #{formatted}"  # "(123) 456-7890"
-
-# Using gsub with a block
-formatted = phone.gsub(/(\\d{3})-(\\d{3})-(\\d{4})/) do |match|
-  "(" + $1 + ") " + $2 + "-" + $3
+date = "Date: 2023-11-23"
+if date =~ /Date: (?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+  puts "Year: #{$~[:year]}, Month: #{$~[:month]}, Day: #{$~[:day]}"
 end
-puts "Using global variables: #{formatted}"  # "(123) 456-7890"
 
-# Named captures in substitution
-formatted = phone.gsub(/(?<area>\\d{3})-(?<prefix>\\d{3})-(?<line>\\d{4})/, 
-                       "(\\k<area>) \\k<prefix>-\\k<line>")
-puts "Using named captures: #{formatted}"  # "(123) 456-7890"
+# Using scan with a block
+text.scan(/\w+/) do |word|
+  puts "Word: #{word}"
+end
 
-# Match and captures with scan
-emails = "Contact alice@example.com or bob@example.org for help"
-matches = emails.scan(/\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b/)
-puts "Extracted emails: #{matches}"  # ["alice@example.com", "bob@example.org"]
+# Gsub for replacement
+censored = "The damn cat broke the damn vase".gsub(/damn/, "****")
+puts censored  # The **** cat broke the **** vase
 
-# Extracting captures with scan
-log = "User 123 logged in at 08:30, User 456 logged in at 09:45"
-captures = log.scan(/User (\\d+) logged in at (\\d{2}:\\d{2})/)
-puts "Captures from scan: #{captures}"  # [["123", "08:30"], ["456", "09:45"]]
+# Gsub with regex groups
+formatted = "2023-11-23".gsub(/(\d{4})-(\d{2})-(\d{2})/, '\3/\2/\1')
+puts formatted  # 23/11/2023
 
-# Splitting with regex
-csv = "apple,banana,\"cherry,pie\",date"
-parts = csv.split(/,(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/)
-puts "Split CSV: #{parts}"  # ["apple", "banana", "\"cherry,pie\"", "date"]`,
-              explanation: "This example explores advanced regular expression features in Ruby, including alternation (pattern1|pattern2), non-capturing groups (?:pattern), lookahead (?=pattern), lookbehind (?<=pattern), modifiers (m for multiline, x for extended), greedy vs. non-greedy quantifiers (+? for non-greedy version of +), substitution with gsub using captures and blocks, extracting matches and captures with scan, and complex splitting with regex. These advanced techniques allow for sophisticated pattern matching and text processing in Ruby programs."
+# Matching modifiers
+# i - case insensitive
+puts "Case insensitive: #{"RUBY" =~ /ruby/i}"
+
+# m - multiline (. matches newline)
+multiline = "Line1\nLine2"
+puts "Multiline: #{multiline =~ /Line1.Line2/m}"
+
+# x - extended (whitespace is ignored, allows comments)
+complex_regex = %r{
+  \b      # word boundary
+  \w+     # one or more word characters
+  \b      # another word boundary
+}x
+
+# Using RegExp in string split
+csv = "apple,banana,cherry"
+puts "Split: #{csv.split(/,/)}"
+
+# Case Conversion
+url = "user-profile-page".gsub(/-([a-z])/) { $1.upcase }
+puts "Camel case: #{url}"  # userProfilePage`,
+              explanation: "This example demonstrates creating and using regular expressions in Ruby for pattern matching and text processing. It covers basic matching, character classes, quantifiers, anchors, groups and captures, replacement with gsub, matching modifiers, and various applications like extracting phone numbers, formatting dates, and case conversion."
             }
           ],
           quiz: [
             {
-              question: "Which of the following regular expressions will match all occurrences of 'cat' that are not part of a longer word?",
-              options: [
-                "/cat/",
-                "/\\bcat\\b/",
-                "/^cat$/",
-                "/(\\s|^)cat(\\s|$)/"
-              ],
-              correctAnswer: 1,
-              explanation: "The expression /\\bcat\\b/ is correct because \\b represents a word boundary, which matches positions where a word character is not followed or preceded by another word character. This ensures that 'cat' is matched as a whole word, not as part of words like 'catalog' or 'concatenate'. The pattern /^cat$/ would only match if 'cat' is the entire string, and /(\\s|^)cat(\\s|$)/ attempts to match similar behavior but misses word boundaries with punctuation."
+              question: "What is the output of \"hello world\".gsub(/[aeiou]/, '*')?",
+              options: ["h*ll* w*rld", "h*ll* world", "hello world", "***** *****"],
+              correctAnswer: 0,
+              explanation: "The gsub method with the regular expression /[aeiou]/ replaces all vowels with '*'. So \"hello world\" becomes \"h*ll* w*rld\" after the substitution."
             }
           ],
           flashcards: [
             {
-              front: "What's the difference between =~ and match? when using regular expressions in Ruby?",
-              back: "The =~ operator returns the position (index) of the first match or nil if there's no match. It's often used in conditional statements. The match? method (Ruby 2.4+) returns true if there's a match or false otherwise, which is more semantically clear for boolean checks. The match method returns a MatchData object containing details about the match, or nil if there's no match, useful for extracting captured groups."
+              front: "What is the difference between scan and match methods for regular expressions in Ruby?",
+              back: "match finds the first match of a pattern in a string and returns a MatchData object (or nil if no match). scan finds all matches of a pattern in a string and returns an array of all matched substrings or an array of arrays if the pattern contains capture groups."
             },
             {
-              front: "What are the common regex modifiers in Ruby and what do they do?",
-              back: "Common regex modifiers in Ruby include: i (case-insensitive matching), m (multiline mode, where ^ and $ match start/end of each line), x (extended mode, ignoring whitespace and allowing comments), and o (perform interpolation only once). They can be combined, like /pattern/im for both case-insensitive and multiline matching."
+              front: "What are common regex anchors in Ruby and what do they do?",
+              back: "Common anchors in Ruby regex are: ^ (matches the start of a line), $ (matches the end of a line), \\b (matches a word boundary), and \\B (matches a non-word boundary). Anchors don't match any character but rather a position in the string."
             }
           ]
         },
         {
-          id: "ruby-symbols",
-          title: "Symbols",
-          description: "Understanding and using symbols in Ruby",
+          id: "ruby-datatypes",
+          title: "Advanced Data Types",
+          description: "Working with advanced data types in Ruby",
           content: `
-# Symbols in Ruby
+# Advanced Data Types in Ruby
 
-Symbols are lightweight, immutable, reusable identifiers, often used as keys in hashes and for method names.
+Ruby offers several specialized data types beyond the basics, providing powerful tools for specific tasks.
           `,
           codeExamples: [
             {
-              title: "Working with Symbols",
-              code: `# Creating symbols
-symbol1 = :name
-symbol2 = :"name"  # Same as :name
-symbol3 = "name".to_sym  # Convert string to symbol
-symbol4 = "status".intern  # Another way to convert string to symbol
+              title: "Working with Advanced Data Types",
+              code: `# Range
+nums = 1..5  # Inclusive range (1, 2, 3, 4, 5)
+chars = 'a'...'e'  # Exclusive range (a, b, c, d)
 
-# Symbol comparison
-puts ":name == :name: #{:name == :name}"  # true
-puts ":name == :age: #{:name == :age}"    # false
-puts ":name == 'name': #{:name == 'name'}"  # false
+puts "Range to array: #{nums.to_a}"
+puts "First element: #{nums.first}"
+puts "Last element: #{nums.last}"
+puts "Include 3? #{nums.include?(3)}"
+puts "Include 6? #{nums.include?(6)}"
+puts "Min value: #{nums.min}"
+puts "Max value: #{nums.max}"
 
-# Object IDs (memory efficiency)
-puts "Symbol object IDs:"
-puts ":name.object_id: #{:name.object_id}"
-puts ":name.object_id again: #{:name.object_id}"  # Same ID, same object in memory
-
-puts "\\nString object IDs:"
-puts "'name'.object_id: #{'name'.object_id}"
-puts "'name'.object_id again: #{'name'.object_id}"  # Different IDs, different objects
-
-# Converting between symbols and strings
-name_symbol = :name
-name_string = name_symbol.to_s  # Convert symbol to string
-puts "Symbol to string: #{name_string.class}"  # String
-
-status_string = "status"
-status_symbol = status_string.to_sym  # Convert string to symbol
-puts "String to symbol: #{status_symbol.class}"  # Symbol
-
-# Symbols as hash keys (common use case)
-person_with_string_keys = {"name" => "John", "age" => 30, "city" => "New York"}
-person_with_symbol_keys = {:name => "John", :age => 30, :city => "New York"}
-person_with_new_syntax = {name: "John", age: 30, city: "New York"}  # Shorthand
-
-puts "\\nHash with string keys: #{person_with_string_keys}"
-puts "Hash with symbol keys: #{person_with_symbol_keys}"
-puts "Hash with symbol keys (new syntax): #{person_with_new_syntax}"
-
-# Accessing hash values
-puts "Accessing with string key: #{person_with_string_keys["name"]}"  # John
-puts "Accessing with symbol key: #{person_with_symbol_keys[:name]}"   # John
-puts "Accessing with symbol key (new syntax): #{person_with_new_syntax[:name]}"  # John
-
-# Dynamic symbols (created at runtime)
-key = "dynamic_key"
-dynamic_symbol = key.to_sym
-hash = {dynamic_symbol => "value"}
-puts "\\nDynamic symbol as key: #{hash}"  # {:dynamic_key=>"value"}
-
-# Symbol to proc
-names = ["john", "paul", "george", "ringo"]
-upcased = names.map(&:upcase)  # Shorthand for names.map { |name| name.upcase }
-puts "\\nUpcased with symbol to proc: #{upcased}"  # ["JOHN", "PAUL", "GEORGE", "RINGO"]
-
-# Symbols in method parameters (especially common for Rails)
-def configure(options = {})
-  puts "Host: #{options[:host] || 'localhost'}"
-  puts "Port: #{options[:port] || 3000}"
-  puts "Protocol: #{options[:protocol] || 'http'}"
+# Using ranges in case statements
+score = 85
+grade = case score
+  when 90..100 then 'A'
+  when 80...90 then 'B'
+  when 70...80 then 'C'
+  when 60...70 then 'D'
+  else 'F'
 end
+puts "Grade: #{grade}"
 
-configure(host: "example.com", port: 8080)
+# Set (requires 'set' library)
+require 'set'
 
-# Symbols as method names
-methods = String.instance_methods.grep(/case/)
-puts "\\nString methods with 'case':"
-methods.each { |method| puts "  #{method}" }
+set1 = Set.new([1, 2, 3, 3, 4, 5])  # Duplicate 3 is ignored
+set2 = Set.new([3, 4, 5, 6, 7])
 
-# Checking if a symbol exists
-all_symbols = Symbol.all_symbols
-puts "\\nTotal number of symbols: #{all_symbols.size}"
-puts "Contains :name? #{all_symbols.include?(:name)}"
-puts "Contains :nonexistent? #{all_symbols.include?(:nonexistent)}"`,
-              explanation: "This example demonstrates symbols in Ruby, which are immutable identifiers starting with a colon (:). It shows creating symbols, converting between symbols and strings, comparing symbols, and observing their memory efficiency through object IDs. Symbols are often used as hash keys and for method names, as shown in the example. The symbol-to-proc shorthand (&:method_name) is a powerful feature that leverages symbols for concise functional programming. Unlike strings, symbols with the same name are the same object in memory, making them more efficient for identifiers used repeatedly."
-            },
-            {
-              title: "Symbols for Metaprogramming",
-              code: `# Symbols for method names
-class SymbolExample
-  # Define methods dynamically
-  [:foo, :bar, :baz].each do |method_name|
-    define_method(method_name) do |arg = nil|
-      puts "Called method #{method_name} with argument: #{arg}"
-    end
-  end
-  
-  # Method that accepts a method name as a symbol
-  def call_method(method_name, *args)
-    if respond_to?(method_name)
-      send(method_name, *args)  # Call the method by name
-    else
-      puts "Method #{method_name} does not exist"
-    end
-  end
-  
-  # Dynamic attribute accessors
-  def method_missing(method_name, *args, &block)
-    method_str = method_name.to_s
-    
-    if method_str.end_with?('=') && args.size == 1
-      # Setter method (e.g., name=)
-      attribute = method_str.chop.to_sym  # Remove = and convert to symbol
-      instance_variable_set("@#{attribute}", args.first)
-    elsif method_str !~ /=/ && args.empty?
-      # Getter method (e.g., name)
-      instance_variable_get("@#{method_name}")
-    else
-      super  # Pass to the default method_missing handler
-    end
-  end
-  
-  # Prevent respond_to_missing? warning
-  def respond_to_missing?(method_name, include_private = false)
-    method_str = method_name.to_s
-    method_str.end_with?('=') || instance_variable_defined?("@#{method_name}") || super
-  end
-end
+puts "Set1: #{set1.inspect}"  # {1, 2, 3, 4, 5}
+puts "Set2: #{set2.inspect}"  # {3, 4, 5, 6, 7}
 
-example = SymbolExample.new
+# Set operations
+puts "Union: #{(set1 + set2).inspect}"        # {1, 2, 3, 4, 5, 6, 7}
+puts "Intersection: #{(set1 & set2).inspect}" # {3, 4, 5}
+puts "Difference: #{(set1 - set2).inspect}"   # {1, 2}
+puts "Exclusive OR: #{(set1 ^ set2).inspect}" # {1, 2, 6, 7}
 
-# Call the dynamically defined methods
-example.foo("hello")
-example.bar(42)
-example.baz
+# Time and Date
+require 'date'
+require 'time'
 
-# Call methods by name with send
-example.call_method(:foo, "dynamic call")
-example.call_method(:nonexistent)
+# Current time
+now = Time.now
+puts "Current time: #{now}"
+puts "Year: #{now.year}, Month: #{now.month}, Day: #{now.day}"
+puts "Hour: #{now.hour}, Min: #{now.min}, Sec: #{now.sec}"
+puts "Weekday: #{now.wday} (0=Sunday)"
+puts "Day of year: #{now.yday}"
 
-# Use dynamic attributes
-example.name = "John"
-example.age = 30
-puts "Name: #{example.name}, Age: #{example.age}"
+# Time manipulation
+tomorrow = now + (60 * 60 * 24)  # Add 24 hours in seconds
+puts "Tomorrow: #{tomorrow}"
 
-# Exploring a class's methods with symbols
-string_methods = String.instance_methods(false).sort
-puts "\\nSome String instance methods:"
-string_methods.first(5).each { |method| puts "  #{method}" }
+# Date class
+today = Date.today
+puts "Today: #{today}"
+puts "Next week: #{today + 7}"
+puts "3 months later: #{today >> 3}"
+puts "1 year ago: #{today << 12}"
 
-# Symbol matching with grep
-array_filter_methods = Array.instance_methods.grep(/filter|select|reject/)
-puts "\\nArray filter methods:"
-array_filter_methods.each { |method| puts "  #{method}" }
+# DateTime class (combines date and time)
+dt = DateTime.now
+puts "Current datetime: #{dt}"
+puts "ISO 8601: #{dt.iso8601}"
+puts "Current timezone: #{dt.zone}"
 
-# Dynamic dispatch with case statement
-def process_by_type(obj)
-  case obj
-  when Symbol
-    puts "Processing symbol: #{obj}"
-  when String
-    puts "Processing string: #{obj}"
-  when Numeric
-    puts "Processing number: #{obj}"
-  else
-    puts "Unknown type: #{obj.class}"
-  end
-end
+# Struct
+Person = Struct.new(:name, :age, :email)
 
-process_by_type(:symbol)
-process_by_type("string")
-process_by_type(42)
+person1 = Person.new("Alice", 30, "alice@example.com")
+person2 = Person.new("Bob", 25)
+person2.email = "bob@example.com"
 
-# Using symbols with tap for method chaining
-[1, 2, 3, 4, 5]
-  .select { |n| n.even? }
-  .tap { |arr| puts "After select: #{arr}" }
-  .map { |n| n * n }
-  .tap { |arr| puts "After map: #{arr}" }
+puts "Person1: #{person1.name}, #{person1.age}, #{person1.email}"
+puts "Person2: #{person2.to_a}"
 
-# Alternative using symbol to proc
-[1, 2, 3, 4, 5]
-  .select(&:even?)
-  .tap { |arr| puts "After select with symbol: #{arr}" }
-  .map { |n| n * n }`,
-              explanation: "This example explores more advanced uses of symbols in Ruby, particularly for metaprogramming. It demonstrates defining methods dynamically, calling methods by name using 'send', implementing dynamic attributes with 'method_missing', exploring a class's methods, filtering method names, dynamic dispatch based on object type, and using the 'symbol to proc' shorthand for method chaining. Symbols play a central role in Ruby's metaprogramming capabilities, allowing for flexible and dynamic code."
+# OpenStruct (requires 'ostruct' library)
+require 'ostruct'
+
+user = OpenStruct.new
+user.name = "Charlie"
+user.email = "charlie@example.com"
+user.active = true
+
+puts "User: #{user.name}, #{user.email}, Active: #{user.active}"
+
+# Enumerable module methods
+numbers = [1, 2, 3, 4, 5]
+
+puts "All greater than 0? #{numbers.all? { |n| n > 0 }}"   # true
+puts "Any greater than 4? #{numbers.any? { |n| n > 4 }}"   # true
+puts "Count of odd numbers: #{numbers.count { |n| n.odd? }}"  # 3
+puts "Inject (sum): #{numbers.inject(:+)}"  # 15
+puts "Group by odd/even: #{numbers.group_by { |n| n.odd? ? 'odd' : 'even' }}"
+
+# Matrix (requires 'matrix' library)
+require 'matrix'
+
+matrix1 = Matrix[[1, 2], [3, 4]]
+matrix2 = Matrix[[5, 6], [7, 8]]
+
+puts "Matrix1:\\n#{matrix1}"
+puts "Determinant: #{matrix1.determinant}"
+puts "Inverse:\\n#{matrix1.inverse}"
+puts "Matrix1 + Matrix2:\\n#{matrix1 + matrix2}"
+puts "Matrix1 * Matrix2:\\n#{matrix1 * matrix2}"
+
+# Complex numbers
+require 'complex'
+
+c1 = Complex(3, 4)  # 3 + 4i
+c2 = Complex(1, 2)  # 1 + 2i
+
+puts "Complex number: #{c1}"
+puts "Real part: #{c1.real}, Imaginary part: #{c1.imaginary}"
+puts "Absolute value (magnitude): #{c1.abs}"
+puts "Addition: #{c1 + c2}"
+puts "Multiplication: #{c1 * c2}"`,
+              explanation: "This example explores advanced data types in Ruby, including ranges for representing sequences, sets for unique collections, time and date classes for temporal operations, structs and OpenStruct for simple data structures, the Enumerable module's methods for collection operations, Matrix for linear algebra, and Complex for complex number mathematics. These specialized data types provide powerful tools for specific tasks in Ruby programming."
             }
           ],
           quiz: [
             {
-              question: "What is the primary advantage of using symbols over strings as hash keys in Ruby?",
+              question: "In Ruby, what is the main difference between a Struct and an OpenStruct?",
               options: [
-                "Symbols are easier to type with the colon prefix",
-                "Symbols are immutable, so they're safer to use as keys",
-                "Symbols always remain the same object with the same object ID, making them more memory-efficient",
-                "Symbols allow for the JSON-like syntax in hashes, e.g., {name: 'value'}"
+                "OpenStruct allows any attributes to be defined dynamically, while Struct requires attributes to be predefined",
+                "Struct can only contain string attributes, while OpenStruct can contain any type",
+                "Struct is for single values, while OpenStruct is for collections",
+                "Struct is built-in to Ruby, while OpenStruct requires an external gem"
               ],
-              correctAnswer: 2,
-              explanation: "The primary advantage of using symbols over strings as hash keys is memory efficiency. Each time you create a string, it's a new object with a new object ID, even if the content is the same. Symbols with the same name are always the same object with the same object ID, which makes them more memory-efficient when used repeatedly as hash keys. While symbols are indeed immutable and do enable the new hash syntax, their memory efficiency is the main reason they're preferred for hash keys."
+              correctAnswer: 0,
+              explanation: "The main difference is that Struct requires you to define its attributes when you create the class (Struct.new(:name, :age)), while OpenStruct allows you to define any attribute dynamically at runtime (obj.any_attribute = value). Struct is generally faster and more memory-efficient, while OpenStruct offers more flexibility."
             }
           ],
           flashcards: [
             {
-              front: "What is the &: syntax in Ruby and how is it used?",
-              back: "The &: syntax in Ruby converts a symbol to a proc, which is then passed to a method expecting a block. For example, array.map(&:upcase) is equivalent to array.map { |item| item.upcase }, and array.select(&:even?) is equivalent to array.select { |item| item.even? }. This shorthand works because & calls to_proc on the symbol, and Symbol#to_proc returns a proc that calls the method named by the symbol on its argument."
+              front: "What is the difference between an inclusive range (1..5) and an exclusive range (1...5) in Ruby?",
+              back: "An inclusive range (1..5) includes both the start and end values, representing 1, 2, 3, 4, 5. An exclusive range (1...5) includes the start value but excludes the end value, representing 1, 2, 3, 4."
             },
             {
-              front: "What's the difference between :name and 'name' in Ruby?",
-              back: ":name is a Symbol, which is immutable, has a fixed object ID, and is more memory-efficient for identifiers used repeatedly. 'name' is a String, which is mutable, has a new object ID each time it's created, and has many more built-in methods for text manipulation. Symbols are ideal for identifiers like hash keys and method names, while strings are better for text that needs to be manipulated."
-            }
-          ]
-        },
-        {
-          id: "ruby-metaprogramming",
-          title: "Metaprogramming",
-          description: "Writing code that writes or modifies code in Ruby",
-          content: `
-# Metaprogramming in Ruby
-
-Metaprogramming is writing code that writes or modifies code, allowing for dynamic program behavior and code generation.
-          `,
-          codeExamples: [
-            {
-              title: "Dynamic Method Definition and Object Introspection",
-              code: `# Class with dynamic method definition
-class Product
-  attr_accessor :name, :price, :category
-  
-  def initialize(name, price, category)
-    @name = name
-    @price = price
-    @category = category
-  end
-  
-  # Define methods dynamically
-  def self.define_discount_method(name, discount_percentage)
-    define_method("#{name}_price") do
-      price * (1 - discount_percentage / 100.0)
-    end
-  end
-end
-
-# Define discount methods
-Product.define_discount_method(:sale, 10)      # 10% off
-Product.define_discount_method(:clearance, 50) # 50% off
-
-# Create a product
-product = Product.new("Laptop", 1000, "Electronics")
-
-# Use the dynamically defined methods
-puts "Regular price: $#{product.price}"
-puts "Sale price: $#{product.sale_price}"          # $900.0
-puts "Clearance price: $#{product.clearance_price}" # $500.0
-
-# Check which methods are available
-puts "\\nProduct instance methods:"
-puts product.methods(false).sort # Show only methods defined in the class
-
-# Object introspection
-puts "\\nObject introspection:"
-puts "Class: #{product.class}"
-puts "Is a Product? #{product.is_a?(Product)}"
-puts "Responds to 'sale_price'? #{product.respond_to?(:sale_price)}"
-puts "Instance variables: #{product.instance_variables}"
-
-# Get and set instance variables by name
-puts "\\nDynamic instance variable access:"
-puts "price: #{product.instance_variable_get(:@price)}"
-product.instance_variable_set(:@price, 1200)
-puts "new price: #{product.price}"
-
-# Get class's ancestors
-puts "\\nClass hierarchy:"
-puts Product.ancestors.inspect
-
-# Open a class and add methods (monkey patching)
-class String
-  def shout
-    upcase + "!"
-  end
-end
-
-puts "hello".shout  # "HELLO!"
-
-# Class methods and singleton methods
-class Example
-  # Class method
-  def self.class_method
-    "This is a class method"
-  end
-  
-  # Instance method
-  def instance_method
-    "This is an instance method"
-  end
-end
-
-obj = Example.new
-puts Example.class_method  # Call class method
-puts obj.instance_method   # Call instance method
-
-# Add a singleton method (a method only available to this instance)
-def obj.unique_method
-  "This method only exists on this instance"
-end
-
-puts obj.unique_method  # "This method only exists on this instance"
-
-# Try calling it on another instance
-another_obj = Example.new
-# another_obj.unique_method  # NoMethodError
-
-# Check an object's singleton methods
-puts "\\nSingleton methods:"
-puts obj.singleton_methods.inspect`,
-              explanation: "This example demonstrates basic metaprogramming techniques in Ruby. It shows dynamic method definition using 'define_method', object introspection to examine an object's properties and capabilities, dynamic instance variable access, class hierarchy exploration, monkey patching (modifying existing classes), and singleton methods (methods available only to specific instances). These techniques allow for flexible and dynamic programming styles, making Ruby particularly well-suited for creating domain-specific languages and adaptable frameworks."
-            },
-            {
-              title: "Advanced Metaprogramming",
-              code: `# Method missing and dynamic dispatch
-class DynamicFinder
-  def initialize(data)
-    @data = data
-  end
-  
-  def method_missing(method_name, *args, &block)
-    method_str = method_name.to_s
-    
-    # Handle find_by_* methods
-    if method_str.start_with?('find_by_')
-      attribute = method_str[8..-1]  # Extract the attribute name
-      value = args.first             # Get the search value
-      
-      # Find the matching items
-      @data.select do |item|
-        item.respond_to?(attribute.to_sym) && 
-          item.send(attribute.to_sym) == value
-      end
-    else
-      super  # Pass to the default method_missing handler
-    end
-  end
-  
-  # Always define respond_to_missing? when using method_missing
-  def respond_to_missing?(method_name, include_private = false)
-    method_str = method_name.to_s
-    method_str.start_with?('find_by_') || super
-  end
-end
-
-# Example data
-Person = Struct.new(:name, :age, :city)
-people = [
-  Person.new("Alice", 30, "New York"),
-  Person.new("Bob", 25, "Boston"),
-  Person.new("Charlie", 30, "Chicago"),
-  Person.new("Diana", 35, "New York")
-]
-
-finder = DynamicFinder.new(people)
-
-# Use dynamic finder methods
-puts "People age 30:"
-finder.find_by_age(30).each { |p| puts "  #{p.name}" }
-
-puts "\\nPeople in New York:"
-finder.find_by_city("New York").each { |p| puts "  #{p.name}" }
-
-# Class-level methods with class_eval
-class Person
-  attr_accessor :name, :age
-  
-  def initialize(name, age)
-    @name = name
-    @age = age
-  end
-end
-
-# Add new functionality to the Person class
-Person.class_eval do
-  # Add a new instance method
-  def greeting
-    "Hello, I'm #{@name}"
-  end
-  
-  # Add new class method
-  def self.create_adult(name)
-    new(name, 18)
-  end
-end
-
-person = Person.new("Alice", 30)
-puts "\\nDynamically added method: #{person.greeting}"
-adult = Person.create_adult("Teen")
-puts "Created with class method: #{adult.name}, #{adult.age}"
-
-# Adding methods to a specific instance with instance_eval
-person.instance_eval do
-  def special_greeting
-    "Special greeting from #{@name}"
-  end
-end
-
-puts person.special_greeting
-
-# Creating attributes dynamically with attr_accessor
-class DynamicAttributes
-  def self.attributes(*names)
-    names.each do |name|
-      # Create getter method
-      define_method(name) do
-        instance_variable_get("@#{name}")
-      end
-      
-      # Create setter method
-      define_method("#{name}=") do |value|
-        instance_variable_set("@#{name}", value)
-      end
-    end
-  end
-end
-
-class Car < DynamicAttributes
-  attributes :make, :model, :year
-  
-  def initialize(make, model, year)
-    @make = make
-    @model = model
-    @year = year
-  end
-end
-
-car = Car.new("Toyota", "Corolla", 2020)
-puts "\\nDynamic attributes: #{car.make} #{car.model} (#{car.year})"
-
-# Metaprogramming with instance_variable_set and define_method
-class ActiveRecord
-  def initialize(attributes = {})
-    attributes.each do |attribute, value|
-      instance_variable_set("@#{attribute}", value)
-    end
-  end
-  
-  def self.define_attribute_methods(*attributes)
-    attributes.each do |attribute|
-      # Define getter
-      define_method(attribute) do
-        instance_variable_get("@#{attribute}")
-      end
-      
-      # Define setter
-      define_method("#{attribute}=") do |value|
-        instance_variable_set("@#{attribute}", value)
-      end
-    end
-  end
-end
-
-class User < ActiveRecord
-  define_attribute_methods :name, :email, :password
-end
-
-user = User.new({name: "John", email: "john@example.com"})
-user.password = "secret"
-
-puts "\\nUser info:"
-puts "  Name: #{user.name}"
-puts "  Email: #{user.email}"
-puts "  Password: #{user.password}"`,
-              explanation: "This example explores advanced metaprogramming techniques in Ruby. It demonstrates using 'method_missing' to handle dynamic method calls like ActiveRecord's 'find_by_attribute' methods, 'class_eval' to add methods to a class, 'instance_eval' to add methods to specific instances, creating attributes dynamically with 'attr_accessor'-like functionality, and implementing a simple ActiveRecord-like pattern for defining and setting attributes. These powerful metaprogramming capabilities enable Ruby to create flexible, expressive frameworks like Rails, where much of the code is generated at runtime."
-            }
-          ],
-          quiz: [
-            {
-              question: "What is the key difference between define_method and class_eval in Ruby metaprogramming?",
-              options: [
-                "define_method can only create instance methods, while class_eval can create both instance and class methods",
-                "define_method creates a method individually, while class_eval executes arbitrary code within a class's context",
-                "define_method creates class methods, while class_eval creates instance methods",
-                "There is no difference; they're interchangeable approaches"
-              ],
-              correctAnswer: 1,
-              explanation: "define_method creates a single method at a time, and the code is evaluated when the method is called. class_eval executes code within the context of a class, allowing you to define multiple methods, add class variables, or perform any other operations within the class scope. With class_eval, you can use regular def syntax to define methods, while define_method requires you to provide a block that becomes the method's body."
-            }
-          ],
-          flashcards: [
-            {
-              front: "What is method_missing in Ruby and when would you use it?",
-              back: "method_missing is a method that's called when an object receives a message (method call) it doesn't understand. By overriding method_missing, you can implement dynamic method handling, like catching all calls to find_by_* methods in ActiveRecord. It's useful for dynamic proxies, creating DSLs, and implementing ghost methods. Always define respond_to_missing? alongside method_missing to ensure proper behavior with respond_to?."
-            },
-            {
-              front: "What's the difference between class_eval and instance_eval in Ruby?",
-              back: "class_eval (or module_eval) executes code in the context of a class or module, allowing you to define instance methods or modify class properties. Any methods defined with def inside class_eval become instance methods. instance_eval executes code in the context of a specific object instance, allowing you to define singleton methods that exist only on that instance. This distinction is crucial for metaprogramming to modify either classes or specific instances."
-            }
-          ]
-        },
-        {
-          id: "ruby-gems",
-          title: "RubyGems and Bundler",
-          description: "Managing Ruby libraries and dependencies",
-          content: `
-# RubyGems and Bundler
-
-RubyGems is Ruby's package manager, and Bundler is a tool for managing gem dependencies in Ruby applications.
-          `,
-          codeExamples: [
-            {
-              title: "Using RubyGems",
-              code: `# This is mostly a command-line based workflow, but here's a summary of commands:
-
-# Installing a gem
-# gem install nokogiri
-
-# Installing a specific version
-# gem install rails -v 6.1.4
-
-# Listing installed gems
-# gem list
-
-# Getting info about a gem
-# gem info nokogiri
-
-# Searching for gems
-# gem search -r regex
-
-# Updating gems
-# gem update rails
-
-# Uninstalling gems
-# gem uninstall nokogiri
-
-# Creating a new gem (scaffolding)
-# bundle gem my_new_gem
-
-# Using RubyGems in code
-require 'nokogiri'  # Require a gem in your Ruby code
-
-html = <<-HTML
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Sample Document</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-  <p>This is a sample HTML document.</p>
-  <ul>
-    <li>Item 1</li>
-    <li>Item 2</li>
-    <li>Item 3</li>
-  </ul>
-</body>
-</html>
-HTML
-
-# Using the nokogiri gem to parse HTML (if it were installed)
-# doc = Nokogiri::HTML(html)
-# puts doc.at_css('title').text  # "Sample Document"
-# puts doc.at_css('h1').text     # "Hello, World!"
-# puts doc.css('li').map(&:text) # ["Item 1", "Item 2", "Item 3"]
-
-# A Gemfile specifies project dependencies
-# Example Gemfile content:
-=begin
-source 'https://rubygems.org'
-
-gem 'rails', '~> 6.1.4'
-gem 'pg', '~> 1.2.3'
-gem 'puma', '~> 5.4'
-gem 'nokogiri', '~> 1.12.3'
-
-group :development do
-  gem 'listen', '~> 3.7'
-  gem 'spring'
-end
-
-group :test do
-  gem 'rspec', '~> 3.10'
-  gem 'capybara', '~> 3.35'
-end
-=end
-
-# After creating a Gemfile, you can install the dependencies:
-# bundle install
-
-# Updating dependencies:
-# bundle update
-
-# Running a command with bundler:
-# bundle exec rspec
-
-# Checking outdated gems:
-# bundle outdated
-
-# Showing dependency graph:
-# bundle viz
-
-# Creating a gem with Bundler
-
-# First, create a new gem scaffold:
-# bundle gem awesome_gem
-
-# This creates a directory structure like:
-=begin
-awesome_gem/
-├── .git/
-├── .gitignore
-├── Gemfile
-├── LICENSE.txt
-├── README.md
-├── Rakefile
-├── bin/
-│   ├── console
-│   └── setup
-├── awesome_gem.gemspec
-└── lib/
-    ├── awesome_gem/
-    │   └── version.rb
-    └── awesome_gem.rb
-=end
-
-# Example gem structure:
-
-# lib/awesome_gem.rb
-=begin
-require "awesome_gem/version"
-
-module AwesomeGem
-  class Error < StandardError; end
-  
-  def self.hello
-    puts "Hello from AwesomeGem!"
-  end
-end
-=end
-
-# lib/awesome_gem/version.rb
-=begin
-module AwesomeGem
-  VERSION = "0.1.0"
-end
-=end
-
-# awesome_gem.gemspec
-=begin
-require_relative 'lib/awesome_gem/version'
-
-Gem::Specification.new do |spec|
-  spec.name          = "awesome_gem"
-  spec.version       = AwesomeGem::VERSION
-  spec.authors       = ["Your Name"]
-  spec.email         = ["your.email@example.com"]
-
-  spec.summary       = "A short summary"
-  spec.description   = "A longer description"
-  spec.homepage      = "https://github.com/yourusername/awesome_gem"
-  spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
-
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = spec.homepage
-
-  # Specify which files should be added to the gem when it is released.
-  spec.files = Dir.glob("{bin,lib}/**/*") + %w[LICENSE.txt README.md]
-  
-  spec.bindir        = "bin"
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "rspec", "~> 3.10"
-  spec.add_development_dependency "rake", "~> 13.0"
-end
-=end
-
-# Building and installing your gem:
-# gem build awesome_gem.gemspec
-# gem install ./awesome_gem-0.1.0.gem
-
-# Publishing to RubyGems.org:
-# gem push awesome_gem-0.1.0.gem`,
-              explanation: "This example provides an overview of RubyGems, Ruby's package manager. It shows common gem commands for installing, updating, and managing gems, how to require gems in Ruby code (with an example using Nokogiri for HTML parsing), and the structure of a Gemfile for managing project dependencies. It also demonstrates how to create a new gem using Bundler, including the directory structure, main code files, and gemspec configuration. Note that actual gem installation and HTML parsing are commented out since this is a code example, not a live environment."
-            },
-            {
-              title: "Bundler and Dependency Management",
-              code: `# Creating a Gemfile for your project
-=begin
-# Gemfile
-source 'https://rubygems.org'
-
-# Gems with specific version constraints
-gem 'rails', '6.1.4'                # Exact version
-gem 'pg', '~> 1.2.3'                # Pessimistic version constraint (~> allows minor updates)
-gem 'puma', '>= 5.4'                # Greater than or equal to
-gem 'nokogiri', '~> 1.12', '>= 1.12.3'  # Combined constraints
-
-# Gems from git repositories
-gem 'rails_admin', git: 'https://github.com/rails-admin/rails_admin.git'
-gem 'custom_gem', git: 'https://github.com/user/custom_gem.git', branch: 'master'
-
-# Gems with conditions
-gem 'sqlite3', platforms: [:ruby, :mswin, :mingw]  # Only on certain platforms
-gem 'tzinfo-data', platforms: [:mingw, :mswin]     # Windows-only gems
-
-# Group gems by environment
-group :development, :test do
-  gem 'rspec-rails', '~> 5.0'
-  gem 'factory_bot_rails', '~> 6.2'
-  gem 'faker', '~> 2.18'
-end
-
-group :development do
-  gem 'listen', '~> 3.7'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0'
-  gem 'web-console', '>= 4.1.0'
-end
-
-group :test do
-  gem 'capybara', '~> 3.35'
-  gem 'selenium-webdriver', '~> 3.142'
-  gem 'webdrivers', '~> 4.6'
-end
-
-group :production do
-  gem 'redis', '~> 4.4'
-  gem 'sidekiq', '~> 6.2'
-end
-
-# Gems from a different source
-source 'https://gems.example.com' do
-  gem 'private_gem'
-end
-
-# Gems with require option
-gem 'awesome_print', require: 'ap'
-gem 'rubyzip', require: 'zip'
-gem 'json', require: false  # Don't automatically require
-=end
-
-# Gemfile.lock
-=begin
-GEM
-  remote: https://rubygems.org/
-  specs:
-    actioncable (6.1.4)
-      actionpack (= 6.1.4)
-      activesupport (= 6.1.4)
-      nio4r (~> 2.0)
-      websocket-driver (>= 0.6.1)
-    actionmailbox (6.1.4)
-      actionpack (= 6.1.4)
-      activejob (= 6.1.4)
-      activerecord (= 6.1.4)
-      activestorage (= 6.1.4)
-      activesupport (= 6.1.4)
-      mail (>= 2.7.1)
-    # ... more gem specs ...
-=end
-
-# Using Bundler in Ruby code
-=begin
-# Require everything in your Gemfile
-require 'bundler/setup'
-Bundler.require
-
-# Or require specific groups
-require 'bundler/setup'
-Bundler.require(:default, Rails.env)
-=end
-
-# .bundle/config (Bundler configuration)
-=begin
----
-BUNDLE_PATH: "vendor/bundle"
-BUNDLE_JOBS: "4"
-BUNDLE_RETRY: "3"
-BUNDLE_WITHOUT: "production"
-=end
-
-# Environment variables that affect Bundler
-=begin
-# BUNDLE_GEMFILE: Specify a different Gemfile location
-# export BUNDLE_GEMFILE=./Gemfile.custom
-
-# BUNDLE_PATH: Where to install gems
-# export BUNDLE_PATH=./vendor/bundle
-
-# BUNDLE_WITHOUT: Groups to skip
-# export BUNDLE_WITHOUT=development:test
-=end
-
-# Bundler commands
-=begin
-# Install gems
-$ bundle install
-
-# Install gems to a specific path
-$ bundle install --path vendor/bundle
-
-# Update all gems
-$ bundle update
-
-# Update specific gems
-$ bundle update nokogiri rails
-
-# Show outdated gems
-$ bundle outdated
-
-# Show where a gem is installed
-$ bundle info nokogiri
-
-# Run a command in context of the bundle
-$ bundle exec rspec
-
-# Clean old gem versions
-$ bundle clean --force
-
-# Deployment mode (strict versioning)
-$ bundle install --deployment
-
-# Generate a visual dependency graph
-$ bundle viz
-=end
-
-# Gemfile.lock explained
-=begin
-The Gemfile.lock contains:
-1. Exact versions of all gems (direct and transitive dependencies)
-2. Source information for each gem
-3. Dependency relationships
-4. Platform-specific information
-
-This ensures consistent installation across all environments.
-=end
-
-# Common Bundler workflow
-=begin
-1. Create/modify Gemfile
-2. Run 'bundle install' to update Gemfile.lock
-3. Commit both Gemfile and Gemfile.lock to version control
-4. On deployment or when another developer clones the repo:
-   - Run 'bundle install' to install exact versions from Gemfile.lock
-5. To update dependencies:
-   - Run 'bundle update [gem_name]'
-   - Review changes to Gemfile.lock
-   - Test thoroughly
-   - Commit updated Gemfile.lock
-=end
-
-# Bundler with different Ruby versions (using .ruby-version)
-=begin
-# .ruby-version
-3.0.2
-=end
-
-# Specifying Ruby version in Gemfile
-=begin
-# Gemfile
-source 'https://rubygems.org'
-
-ruby '3.0.2'
-
-# ... rest of Gemfile ...
-=end`,
-              explanation: "This example focuses on Bundler, the dependency manager for Ruby. It shows how to create a Gemfile with various version constraints, gem sources, and grouping options, explains the purpose of the Gemfile.lock file for reproducible builds, and demonstrates common Bundler commands for managing dependencies. It also covers advanced topics like Bundler configuration, environment variables, deployment options, and specifying Ruby versions. While this is primarily documentation rather than executable code, it provides a comprehensive overview of how to manage dependencies in Ruby projects."
-            }
-          ],
-          quiz: [
-            {
-              question: "What does the version constraint '~> 2.5.1' mean in a Gemfile?",
-              options: [
-                "Exactly version 2.5.1, no updates allowed",
-                "Greater than or equal to 2.5.1, but less than 2.6.0 (allows patch updates only)",
-                "Greater than or equal to 2.5.1, but less than 3.0.0 (allows minor and patch updates)",
-                "Any version starting with 2.5.1 (allows any updates including major versions)"
-              ],
-              correctAnswer: 1,
-              explanation: "The pessimistic version constraint '~> 2.5.1' is equivalent to '>= 2.5.1, < 2.6.0', meaning it allows patch updates (2.5.2, 2.5.3, etc.) but not minor or major updates (2.6.0, 3.0.0, etc.). If you want to allow minor updates too, you would use '~> 2.5' (equivalent to '>= 2.5, < 3.0')."
-            }
-          ],
-          flashcards: [
-            {
-              front: "What's the difference between Gemfile and Gemfile.lock?",
-              back: "The Gemfile specifies your project's dependencies with version constraints, but doesn't specify exact versions (e.g., '~> 1.2.3'). The Gemfile.lock is generated by Bundler and locks all gems to specific versions, including transitive dependencies. The Gemfile is maintained by the developer, while Gemfile.lock is generated automatically. Both should be committed to version control to ensure consistent installations across environments."
-            },
-            {
-              front: "What does 'bundle exec' do and why is it important?",
-              back: "'bundle exec' runs a command in the context of the current bundle, ensuring that the command uses the gem versions specified in your Gemfile.lock, rather than default gems that might be installed on the system. This is important to avoid version conflicts and ensure consistent behavior across development, testing, and production environments. For example, 'bundle exec rspec' ensures that RSpec runs with the version specified in your Gemfile.lock."
+              front: "How does Ruby's Set differ from an Array?",
+              back: "A Set in Ruby is a collection of unique elements with no duplicates allowed. It's optimized for fast lookups (checking if an element exists) and set operations like union, intersection, and difference. Arrays allow duplicate elements and maintain a specific order. Sets require the 'set' library to be required."
             }
           ]
         },
         {
           id: "ruby-testing",
-          title: "Testing Ruby Code",
-          description: "Unit, integration, and functional testing in Ruby",
+          title: "Testing in Ruby",
+          description: "Writing tests for your Ruby code",
           content: `
-# Testing Ruby Code
+# Testing in Ruby
 
-Testing is a crucial part of Ruby development, with rich frameworks and methodologies available.
+Testing is a crucial part of Ruby development, with several frameworks available to help ensure code correctness.
           `,
           codeExamples: [
             {
-              title: "RSpec: Behavior-Driven Development",
-              code: `# Example Class to Test
+              title: "Testing with MiniTest and RSpec",
+              code: `# Here's a simple class we want to test
 class Calculator
   def add(a, b)
     a + b
@@ -3216,715 +1986,1510 @@ class Calculator
   end
 end
 
-# RSpec Tests
-=begin
-# calculator_spec.rb
-require 'rspec'
-require_relative 'calculator'
+# Testing with MiniTest (built into Ruby)
+require 'minitest/autorun'
+
+class CalculatorTest < Minitest::Test
+  def setup
+    @calc = Calculator.new
+  end
+  
+  def test_add
+    assert_equal 4, @calc.add(2, 2)
+    assert_equal 0, @calc.add(-2, 2)
+    assert_equal -4, @calc.add(-2, -2)
+  end
+  
+  def test_subtract
+    assert_equal 0, @calc.subtract(2, 2)
+    assert_equal -4, @calc.subtract(-2, 2)
+    assert_equal 0, @calc.subtract(-2, -2)
+  end
+  
+  def test_multiply
+    assert_equal 4, @calc.multiply(2, 2)
+    assert_equal -4, @calc.multiply(-2, 2)
+    assert_equal 4, @calc.multiply(-2, -2)
+  end
+  
+  def test_divide
+    assert_equal 1, @calc.divide(2, 2)
+    assert_equal 2.5, @calc.divide(5, 2)
+    assert_equal -2.5, @calc.divide(-5, 2)
+  end
+  
+  def test_divide_by_zero
+    assert_raises ArgumentError do
+      @calc.divide(1, 0)
+    end
+  end
+end
+
+# MiniTest with spec-style syntax
+require 'minitest/autorun'
 
 describe Calculator do
-  let(:calculator) { Calculator.new }
+  before do
+    @calc = Calculator.new
+  end
   
-  describe '#add' do
-    it 'adds two numbers' do
-      expect(calculator.add(2, 3)).to eq(5)
+  describe "when doing addition" do
+    it "adds two positive numbers" do
+      _(@calc.add(2, 2)).must_equal 4
     end
     
-    it 'works with negative numbers' do
-      expect(calculator.add(2, -3)).to eq(-1)
+    it "adds a negative and positive number" do
+      _(@calc.add(-2, 2)).must_equal 0
     end
   end
   
-  describe '#subtract' do
-    it 'subtracts the second number from the first' do
-      expect(calculator.subtract(5, 3)).to eq(2)
-    end
-  end
-  
-  describe '#multiply' do
-    it 'multiplies two numbers' do
-      expect(calculator.multiply(2, 3)).to eq(6)
-    end
-    
-    it 'returns zero when multiplying by zero' do
-      expect(calculator.multiply(5, 0)).to eq(0)
-    end
-  end
-  
-  describe '#divide' do
-    it 'divides the first number by the second number' do
-      expect(calculator.divide(10, 2)).to eq(5.0)
-    end
-    
-    it 'returns a floating-point result' do
-      expect(calculator.divide(5, 2)).to eq(2.5)
-    end
-    
-    it 'raises an error when dividing by zero' do
-      expect { calculator.divide(10, 0) }.to raise_error(ArgumentError, "Cannot divide by zero")
+  describe "when dividing" do
+    it "raises an error when dividing by zero" do
+      _ { @calc.divide(1, 0) }.must_raise ArgumentError
     end
   end
 end
-=end
 
-# Running RSpec tests
-# $ rspec calculator_spec.rb
+# Testing with RSpec (requires 'rspec' gem)
+# This is commented out since it requires RSpec to be installed
 
-# Using matchers in RSpec
 =begin
-describe 'RSpec matchers examples' do
-  # Equality matchers
-  it 'demonstrates equality matchers' do
-    expect(5).to eq(5)                # Equality (==)
-    expect('hello').to eql('hello')   # Equality with same type
-    expect([1, 2]).to equal([1, 2])   # Same object identity
-    expect(5).to be(5)                # Same object identity
-    expect(5).to be_within(0.01).of(5.001)  # Close to a value
+require 'rspec'
+require_relative 'calculator'  # Assuming calculator class is in calculator.rb
+
+RSpec.describe Calculator do
+  let(:calc) { Calculator.new }
+  
+  describe "#add" do
+    it "adds two positive numbers" do
+      expect(calc.add(2, 2)).to eq(4)
+    end
+    
+    it "adds a negative and positive number" do
+      expect(calc.add(-2, 2)).to eq(0)
+    end
+    
+    it "adds two negative numbers" do
+      expect(calc.add(-2, -2)).to eq(-4)
+    end
   end
   
-  # Comparison matchers
-  it 'demonstrates comparison matchers' do
-    expect(10).to be > 5
-    expect(5).to be < 10
-    expect(10).to be >= 10
-    expect(10).to be <= 10
-    expect(5).to be_between(1, 10)
-  end
-  
-  # Class/type matchers
-  it 'demonstrates class/type matchers' do
-    expect('hello').to be_an_instance_of(String)
-    expect(5).to be_an(Integer)
-    expect('hello').to be_a(String)
-    expect([]).to be_an(Array)
-  end
-  
-  # Truthiness matchers
-  it 'demonstrates truthiness matchers' do
-    expect(true).to be_truthy
-    expect(false).to be_falsey
-    expect(nil).to be_nil
-    expect(1).to be_truthy
-    expect(0).to be_truthy  # 0 is truthy in Ruby
-  end
-  
-  # Collection matchers
-  it 'demonstrates collection matchers' do
-    expect([1, 2, 3]).to include(1)
-    expect([1, 2, 3]).to include(1, 3)
-    expect('hello').to include('ell')
-    expect({ a: 1, b: 2 }).to include(:a)
-    expect([1, 2, 3]).to contain_exactly(3, 2, 1)  # Same elements, any order
-    expect([1, 2, 3]).to match_array([3, 2, 1])    # Same as contain_exactly
-    expect([1, 2, 3]).to start_with(1)
-    expect([1, 2, 3]).to end_with(3)
-  end
-  
-  # Exception matchers
-  it 'demonstrates exception matchers' do
-    expect { raise "error" }.to raise_error
-    expect { raise "specific error" }.to raise_error("specific error")
-    expect { raise ArgumentError }.to raise_error(ArgumentError)
-  end
-  
-  # Predicate matchers
-  it 'demonstrates predicate matchers' do
-    expect([]).to be_empty          # calls empty? method
-    expect(5).to be_positive        # calls positive? method
-    expect(5).not_to be_zero        # calls zero? method
-    expect(5).to be_integer         # calls integer? method
-  end
-  
-  # Change matchers
-  it 'demonstrates change matchers' do
-    array = [1, 2, 3]
-    expect { array.push(4) }.to change { array.length }.by(1)
-    expect { array.push(5) }.to change { array.length }.from(4).to(5)
-    expect { array.pop }.to change { array.length }.by(-1)
+  describe "#divide" do
+    it "divides two numbers" do
+      expect(calc.divide(10, 2)).to eq(5)
+    end
+    
+    it "returns floating point when needed" do
+      expect(calc.divide(5, 2)).to eq(2.5)
+    end
+    
+    it "raises an error when dividing by zero" do
+      expect { calc.divide(1, 0) }.to raise_error(ArgumentError)
+    end
   end
 end
 =end
 
-# Example mocks and stubs in RSpec
+# Test doubles (mocks and stubs) in RSpec
 =begin
 class WeatherService
-  def current_temperature(city)
-    # Imagine this connects to an external API
-    # In reality, it would return the temperature in Celsius
+  def temperature(city)
+    # Imagine this makes a network request to get the temperature
+    # For this example, we'll simulate a hard-coded response
+    return 72 if city == "San Francisco"
+    raise "Unknown city"
   end
 end
 
 class WeatherReport
-  def initialize(weather_service)
-    @weather_service = weather_service
+  def initialize(service)
+    @service = service
   end
   
-  def generate_report(city)
-    temp = @weather_service.current_temperature(city)
-    if temp < 0
-      "It's freezing in #{city}!"
-    elsif temp < 15
-      "It's cool in #{city}."
-    else
-      "It's warm in #{city}."
-    end
+  def display_temperature(city)
+    temp = @service.temperature(city)
+    "The temperature in #{city} is #{temp}°F"
   end
 end
 
-describe WeatherReport do
-  let(:weather_service) { instance_double("WeatherService") }
-  let(:report) { WeatherReport.new(weather_service) }
-  
-  describe '#generate_report' do
-    it 'reports freezing weather when temperature is below 0' do
-      allow(weather_service).to receive(:current_temperature).with("Oslo").and_return(-5)
-      expect(report.generate_report("Oslo")).to eq("It's freezing in Oslo!")
-    end
-    
-    it 'reports cool weather when temperature is between 0 and 15' do
-      allow(weather_service).to receive(:current_temperature).with("London").and_return(10)
-      expect(report.generate_report("London")).to eq("It's cool in London.")
-    end
-    
-    it 'reports warm weather when temperature is 15 or above' do
-      allow(weather_service).to receive(:current_temperature).with("Rome").and_return(25)
-      expect(report.generate_report("Rome")).to eq("It's warm in Rome.")
-    end
-    
-    it 'verifies that the weather service is called with the right city' do
-      expect(weather_service).to receive(:current_temperature).with("Paris").and_return(20)
-      report.generate_report("Paris")
-    end
-  end
-end
-=end`,
-              explanation: "This example demonstrates RSpec, a behavior-driven development (BDD) testing framework for Ruby. It shows how to write tests for a Calculator class, covering basic expectations, test organization with describe/it blocks, and the 'let' helper for creating test objects. It also provides a comprehensive overview of RSpec matchers for equality, comparison, type checking, truthiness, collections, exceptions, predicates, and changes. Finally, it demonstrates mocking and stubbing external dependencies, which is crucial for unit testing isolated components."
-            },
-            {
-              title: "Minitest and Test Helpers",
-              code: `# Minitest is built into Ruby's standard library
-
-require 'minitest/autorun'
-
-# Class to test
-class Product
-  attr_reader :name, :price
-  
-  def initialize(name, price)
-    @name = name
-    @price = price
-  end
-  
-  def discount(percentage)
-    @price * (1 - percentage / 100.0)
-  end
-  
-  def on_sale?
-    @price < 50
-  end
-end
-
-# Unit tests with Minitest::Test
-class ProductTest < Minitest::Test
-  def setup
-    @product = Product.new("Ruby Book", 40)
-    @expensive_product = Product.new("Ruby Course", 200)
-  end
-  
-  def test_initialization
-    assert_equal "Ruby Book", @product.name
-    assert_equal 40, @product.price
-  end
-  
-  def test_discount
-    assert_equal 36, @product.discount(10)
-    assert_equal 20, @product.discount(50)
-  end
-  
-  def test_on_sale
-    assert @product.on_sale?
-    refute @expensive_product.on_sale?
-  end
-end
-
-# Spec-style syntax with Minitest::Spec
-describe Product do
-  before do
-    @product = Product.new("Ruby Book", 40)
-    @expensive_product = Product.new("Ruby Course", 200)
-  end
-  
-  describe "initialization" do
-    it "sets the name and price attributes" do
-      _(@product.name).must_equal "Ruby Book"
-      _(@product.price).must_equal 40
-    end
-  end
-  
-  describe "#discount" do
-    it "calculates the discounted price" do
-      _(@product.discount(10)).must_equal 36
-      _(@product.discount(50)).must_equal 20
-    end
-  end
-  
-  describe "#on_sale?" do
-    it "returns true for products under $50" do
-      _(@product.on_sale?).must_equal true
-      _(@expensive_product.on_sale?).must_equal false
-    end
-  end
-end
-
-# Mock objects in Minitest
-class OrderProcessor
-  def initialize(payment_gateway)
-    @payment_gateway = payment_gateway
-  end
-  
-  def process_order(order)
-    if @payment_gateway.charge(order.total_amount)
-      order.status = "paid"
-      true
-    else
-      order.status = "payment_failed"
-      false
-    end
-  end
-end
-
-class Order
-  attr_accessor :total_amount, :status
-  
-  def initialize(total_amount)
-    @total_amount = total_amount
-    @status = "pending"
-  end
-end
-
-describe OrderProcessor do
-  describe "#process_order" do
-    it "marks the order as paid when payment succeeds" do
-      order = Order.new(100)
-      payment_gateway = Minitest::Mock.new
+RSpec.describe WeatherReport do
+  describe "#display_temperature" do
+    it "formats the temperature for display" do
+      # Create a mock/double of the WeatherService
+      service = double("WeatherService")
       
-      payment_gateway.expect :charge, true, [100]
+      # Set up the expectation that temperature will be called with "Miami" and should return 85
+      allow(service).to receive(:temperature).with("Miami").and_return(85)
       
-      processor = OrderProcessor.new(payment_gateway)
-      result = processor.process_order(order)
+      # Create a WeatherReport with our mock service
+      report = WeatherReport.new(service)
       
-      _(result).must_equal true
-      _(order.status).must_equal "paid"
-      payment_gateway.verify
+      # Test that the display_temperature method works correctly
+      expect(report.display_temperature("Miami")).to eq("The temperature in Miami is 85°F")
     end
-    
-    it "marks the order as failed when payment fails" do
-      order = Order.new(100)
-      payment_gateway = Minitest::Mock.new
-      
-      payment_gateway.expect :charge, false, [100]
-      
-      processor = OrderProcessor.new(payment_gateway)
-      result = processor.process_order(order)
-      
-      _(result).must_equal false
-      _(order.status).must_equal "payment_failed"
-      payment_gateway.verify
-    end
-  end
-end
-
-# Fixtures and test data
-class TestFixtures
-  def self.sample_products
-    [
-      Product.new("Book", 20),
-      Product.new("Course", 199),
-      Product.new("Ticket", 50)
-    ]
-  end
-end
-
-describe "Using fixtures" do
-  it "can use fixture data" do
-    products = TestFixtures.sample_products
-    _(products.length).must_equal 3
-    _(products.first.name).must_equal "Book"
-  end
-end
-
-# Customizing test output with reporters
-class CustomReporter < Minitest::Reporters::DefaultReporter
-  def record(result)
-    super
-    puts "Just finished running: #{result.name}"
-  end
-end
-
-# Minitest::Reporters.use! CustomReporter.new
-
-# Testing Rails applications with Minitest
-=begin
-# app/models/user.rb
-class User < ApplicationRecord
-  validates :email, presence: true, uniqueness: true
-  validates :name, presence: true
-  
-  has_many :posts
-  
-  def full_name
-    "#{name} <#{email}>"
-  end
-end
-
-# test/models/user_test.rb
-require "test_helper"
-
-class UserTest < ActiveSupport::TestCase
-  test "valid user" do
-    user = User.new(name: "John", email: "john@example.com")
-    assert user.valid?
-  end
-  
-  test "invalid without email" do
-    user = User.new(name: "John")
-    refute user.valid?
-    assert_not_nil user.errors[:email]
-  end
-  
-  test "invalid without name" do
-    user = User.new(email: "john@example.com")
-    refute user.valid?
-    assert_not_nil user.errors[:name]
-  end
-  
-  test "full_name returns name and email" do
-    user = User.new(name: "John", email: "john@example.com")
-    assert_equal "John <john@example.com>", user.full_name
   end
 end
 =end
 
-# Integration testing with Capybara
+# Ruby's built-in Test::Unit (older style)
 =begin
-# test/system/users_test.rb
-require "application_system_test_case"
+require 'test/unit'
 
-class UsersTest < ApplicationSystemTestCase
-  test "visiting the index" do
-    visit users_url
-    assert_selector "h1", text: "Users"
+class TestCalculator < Test::Unit::TestCase
+  def setup
+    @calc = Calculator.new
   end
   
-  test "creating a User" do
-    visit users_url
-    click_on "New User"
-    
-    fill_in "Email", with: "john@example.com"
-    fill_in "Name", with: "John Doe"
-    click_on "Create User"
-    
-    assert_text "User was successfully created"
-    click_on "Back"
+  def test_add
+    assert_equal 4, @calc.add(2, 2)
+  end
+  
+  def test_divide_by_zero
+    assert_raise ArgumentError do
+      @calc.divide(1, 0)
+    end
   end
 end
 =end`,
-              explanation: "This example demonstrates testing in Ruby using Minitest, which is part of Ruby's standard library. It shows both the traditional assertion-based syntax (Minitest::Test) and the spec-style syntax (Minitest::Spec) for different preferences. The code includes examples of setup and teardown, assertions and expectations, mocking objects, using fixtures for test data, and customizing test output with reporters. It also touches on testing Rails applications with Minitest, including model testing and system tests with Capybara for browser-based testing. Minitest is a lightweight alternative to RSpec with a smaller API and faster execution time."
+              explanation: "This example demonstrates testing in Ruby, primarily using Minitest, which is built into the Ruby standard library. It shows both Minitest's traditional assert-style syntax and its spec-style syntax for behavior-driven development (BDD). The example also includes commented-out examples of testing with RSpec (a popular external testing framework), showing how to create test doubles (mocks) for isolating components in unit tests, and a brief example of the older Test::Unit framework. The code tests a simple Calculator class, verifying that its methods work correctly and that it raises appropriate errors."
             }
           ],
           quiz: [
             {
-              question: "What is the main difference between RSpec and Minitest in Ruby testing?",
+              question: "What is the main difference between MiniTest and RSpec in Ruby?",
               options: [
-                "RSpec is part of Ruby's standard library while Minitest requires a gem installation",
-                "RSpec only supports unit testing while Minitest supports integration testing",
-                "Minitest is part of Ruby's standard library and offers both assertion and spec-style syntax, while RSpec is a separate gem with a more DSL-focused approach",
-                "Minitest only supports Rails applications while RSpec works with any Ruby code"
+                "MiniTest can only test classes, while RSpec can test modules too",
+                "RSpec is built into Ruby, while MiniTest needs to be installed as a gem",
+                "MiniTest is built into Ruby, while RSpec needs to be installed as a gem",
+                "MiniTest only supports assert-style testing, not spec-style testing"
               ],
               correctAnswer: 2,
-              explanation: "Minitest is included in Ruby's standard library, making it immediately available without additional gems. It offers both a traditional assertion-based syntax (assert_equal) and a spec-style syntax (must_equal). RSpec is a separate gem with a more extensive domain-specific language (DSL) focused on behavior-driven development (BDD). Both frameworks can test any Ruby code, including Rails applications, and support all types of testing (unit, integration, system)."
+              explanation: "MiniTest is included in the Ruby standard library, so it's available without installing any additional gems. RSpec, on the other hand, is an external library that you need to install as a gem. Both support various testing styles, though RSpec was specifically designed for behavior-driven development (BDD)."
             }
           ],
           flashcards: [
             {
-              front: "What's the difference between a mock and a stub in testing?",
-              back: "A stub provides canned answers to method calls during a test without caring if or how they're called. It's used when you want to control the indirect inputs of the test. A mock not only provides canned answers but also verifies that specific methods are called with specific arguments. It's used when you want to test the interaction between objects. In RSpec: stubs use 'allow(...).to receive', mocks use 'expect(...).to receive'."
+              front: "What is the difference between assert-style and spec-style testing?",
+              back: "Assert-style testing (traditional in MiniTest and Test::Unit) focuses on making assertions about the state of the system using methods like assert_equal. Spec-style testing (BDD style in RSpec and MiniTest's spec DSL) uses a more natural language approach with describe/it blocks and expectation syntax like expect(x).to eq(y) or x.must_equal y."
             },
             {
-              front: "What is the purpose of the 'let' helper in RSpec?",
-              back: "The 'let' helper in RSpec lazily defines a memoized helper method that can be used in multiple examples in a test group. It's evaluated only when it's first invoked and then cached for the remainder of the example. This makes tests more efficient and DRY by avoiding redundant setup code. 'let!' is a variant that executes the block immediately, rather than lazily, which is useful when you need side effects during setup."
+              front: "What is a test double (or mock) in Ruby testing?",
+              back: "A test double is an object that stands in for a real object in a test. It allows you to isolate the code you're testing by removing dependencies on other components. Common types of test doubles include stubs (providing canned answers), mocks (verifying method calls), and fakes (simplified implementations). In RSpec, you can create doubles with the double method and set expectations with allow and expect."
             }
           ]
         },
         {
-          id: "ruby-rails",
-          title: "Introduction to Ruby on Rails",
-          description: "Overview of the Ruby on Rails web framework",
+          id: "ruby-security",
+          title: "Security Best Practices",
+          description: "Understanding security considerations in Ruby",
           content: `
-# Introduction to Ruby on Rails
+# Security Best Practices in Ruby
 
-Ruby on Rails is a web application framework written in Ruby that follows the Model-View-Controller (MVC) pattern.
+Writing secure code is essential in any language, and Ruby provides tools and patterns to help developers avoid common security pitfalls.
           `,
           codeExamples: [
             {
-              title: "Rails Basics and MVC Structure",
-              code: `# Creating a new Rails application
-# $ rails new blog
-# $ cd blog
+              title: "Security Best Practices in Ruby",
+              code: `# 1. Input Validation and Sanitization
 
-# Project Structure
+# Bad example - vulnerable to SQL Injection
+def find_user_unsafe(username)
+  # Don't do this in real code!
+  query = "SELECT * FROM users WHERE username = '#{username}'"
+  # Execute query...
+end
+
+# Good example - parameterized query
+def find_user_safe(username)
+  # Using prepared statements (pseudocode)
+  query = "SELECT * FROM users WHERE username = ?"
+  # execute_with_params(query, username)
+end
+
+# 2. Avoiding Command Injection
+
+# Bad example - vulnerable to command injection
+def execute_command_unsafe(filename)
+  # Don't do this in real code!
+  system("ls #{filename}")  # Attacker could input "; rm -rf /"
+end
+
+# Good example - safe execution
+def execute_command_safe(filename)
+  # Using arrays to prevent command injection
+  system("ls", filename)
+end
+
+# 3. Secure Password Handling
+
+# Bad example - storing passwords in plain text
+def unsafe_authentication(username, password)
+  user = find_user(username)
+  if user && user.password == password  # Plain text comparison
+    # Grant access
+  end
+end
+
+# Good example - using secure password hashing
+require 'bcrypt'
+
+def create_user_secure(username, password)
+  # Store hashed password
+  password_hash = BCrypt::Password.create(password)
+  # Save user with password_hash
+end
+
+def secure_authentication(username, password)
+  user = find_user(username)
+  if user && BCrypt::Password.new(user.password_hash) == password
+    # Grant access
+  end
+end
+
+# 4. Mass Assignment Vulnerability
+
+# Bad example - vulnerable to mass assignment
+class User
+  attr_accessor :name, :email, :admin  # admin should not be mass-assignable
+  
+  def initialize(attributes = {})
+    attributes.each do |key, value|
+      self.send("#{key}=", value)  # Dangerous!
+    end
+  end
+end
+
+# Good example - explicit attribute setting
+class SafeUser
+  attr_accessor :name, :email
+  attr_reader :admin  # No setter for admin
+  
+  def initialize(attributes = {})
+    @name = attributes[:name]
+    @email = attributes[:email]
+    @admin = false  # Set explicitly, not from input
+  end
+  
+  # Admin can only be set through a controlled method
+  def make_admin
+    # Check authorization here
+    @admin = true
+  end
+end
+
+# 5. Cross-Site Scripting (XSS) Prevention
+
+# Bad example - vulnerable to XSS
+def render_comment_unsafe(comment)
+  "<div class='comment'>#{comment}</div>"  # Comment could contain malicious JavaScript
+end
+
+# Good example - escaping HTML
+require 'cgi'
+
+def render_comment_safe(comment)
+  escaped_comment = CGI.escapeHTML(comment)
+  "<div class='comment'>#{escaped_comment}</div>"
+end
+
+# 6. Preventing Timing Attacks
+
+# Bad example - vulnerable to timing attacks
+def compare_secret_unsafe(a, b)
+  a == b  # Comparison time varies based on how many characters match
+end
+
+# Good example - constant-time comparison
+require 'openssl'
+
+def compare_secret_safe(a, b)
+  OpenSSL::HMAC.hexdigest("SHA256", a, "") == OpenSSL::HMAC.hexdigest("SHA256", b, "")
+end
+
+# 7. Safe Deserialization
+
+# Bad example - dangerous deserialization
+def unsafe_deserialize(data)
+  Marshal.load(data)  # Could execute arbitrary code
+end
+
+# Good example - using safer JSON
+require 'json'
+
+def safe_deserialize(data)
+  JSON.parse(data)  # JSON is safer than Marshal
+end
+
+# 8. Environment Variable Protection
+
+# Bad example - hardcoded credentials
+API_KEY = "1234567890abcdef"
+
+# Good example - using environment variables
+API_KEY = ENV['API_KEY']
+
+# 9. Regular Expression DoS (ReDoS) Prevention
+
+# Bad example - vulnerable to ReDoS
+def validate_email_unsafe(email)
+  email =~ /^([a-zA-Z0-9]+([\.+_-][a-zA-Z0-9]+)*)@(([a-zA-Z0-9]+((\.|[-]{1,2})[a-zA-Z0-9]+)*)\.[a-zA-Z]{2,6})$/
+end
+
+# Good example - simpler regex with limits
+def validate_email_safe(email)
+  return false if email.length > 100  # Set reasonable limits
+  email =~ /\A[^@\s]+@[^@\s]+\.[^@\s]+\z/
+end
+
+# 10. Secure Random Generation
+
+# Bad example - predictable tokens
+def generate_token_unsafe
+  rand(10000...99999).to_s
+end
+
+# Good example - cryptographically secure random tokens
+require 'securerandom'
+
+def generate_token_safe
+  SecureRandom.hex(16)  # 32 character hex string
+end
+
+# Example usage of secure practices
+def demo_security_practices
+  puts "Secure token: #{generate_token_safe}"
+  
+  # Safely deserialize data
+  begin
+    data = '{"name":"John","email":"john@example.com"}'
+    user_data = safe_deserialize(data)
+    puts "User: #{user_data['name']}"
+  rescue JSON::ParserError => e
+    puts "Invalid data format"
+  end
+  
+  # Safe HTML rendering
+  comment = "<script>alert('XSS')</script>Hello"
+  puts "Safe HTML: #{render_comment_safe(comment)}"
+end
+
+demo_security_practices`,
+              explanation: "This example covers key security best practices in Ruby, including preventing SQL injection through parameterized queries, avoiding command injection vulnerabilities, secure password handling with bcrypt, preventing mass assignment vulnerabilities, escaping HTML to prevent XSS, using constant-time comparisons to prevent timing attacks, safe deserialization, protecting sensitive data like API keys, preventing regular expression DoS attacks, and generating secure random tokens. These practices help defend against common vulnerabilities in web applications."
+            }
+          ],
+          quiz: [
+            {
+              question: "In Ruby, which method provides a more secure way to execute system commands with user input?",
+              options: [
+                "system(\"command #{user_input}\")",
+                "exec(\"command #{user_input}\")",
+                "system(\"command\", user_input)",
+                "`command #{user_input}`"
+              ],
+              correctAnswer: 2,
+              explanation: "The system(\"command\", user_input) syntax (passing multiple arguments to system) is more secure because it prevents command injection. The shell doesn't interpret the arguments, so special characters in user_input aren't treated as shell commands. The other options interpolate user input directly into the command string, which is vulnerable to command injection."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is SQL Injection and how can it be prevented in Ruby?",
+              back: "SQL Injection is an attack where malicious SQL code is inserted into queries, potentially allowing data theft or manipulation. In Ruby, prevent it by using parameterized queries (prepared statements) instead of string interpolation in SQL, or using an ORM like Active Record with safe methods like User.where(name: params[:name]) that automatically sanitize inputs."
+            },
+            {
+              front: "Why is BCrypt recommended for password storage in Ruby?",
+              back: "BCrypt is recommended because it's a slow, adaptive hash function designed specifically for passwords. It incorporates a salt to protect against rainbow table attacks and deliberately takes time to compute, making brute-force attacks more difficult. Its work factor can be adjusted as computers get faster. In Ruby, it's easily used via the bcrypt gem with BCrypt::Password.create and BCrypt::Password.new."
+            }
+          ]
+        },
+        {
+          id: "ruby-performance",
+          title: "Performance Optimization",
+          description: "Improving the performance of Ruby applications",
+          content: `
+# Performance Optimization in Ruby
+
+While Ruby prioritizes developer productivity over raw speed, there are many techniques to optimize performance when needed.
+          `,
+          codeExamples: [
+            {
+              title: "Performance Optimization Techniques",
+              code: `# 1. Measuring Performance
+
+# Using Benchmark module
+require 'benchmark'
+
+# Basic benchmarking
+Benchmark.bm(7) do |x|
+  x.report("slow:") { 100_000.times { 1 + 2 } }
+  x.report("fast:") { 100_000.times { 3 } }
+end
+
+# Compare multiple implementations
+def slow_sum(n)
+  sum = 0
+  1.upto(n) { |i| sum += i }
+  sum
+end
+
+def fast_sum(n)
+  n * (n + 1) / 2  # Mathematical formula
+end
+
+n = 1_000_000
+Benchmark.bm(10) do |x|
+  x.report("iterative:") { slow_sum(n) }
+  x.report("formula:") { fast_sum(n) }
+end
+
+# Using benchmark/ips for more detailed analysis
+require 'benchmark/ips'
+
+Benchmark.ips do |x|
+  x.report("slow") { slow_sum(1000) }
+  x.report("fast") { fast_sum(1000) }
+  x.compare!
+end
+
+# 2. String Optimization
+
+# Inefficient string concatenation
+def build_string_slow(n)
+  result = ""
+  n.times { |i| result += "item#{i}" }
+  result
+end
+
+# Efficient string concatenation
+def build_string_fast(n)
+  result = []
+  n.times { |i| result << "item#{i}" }
+  result.join
+end
+
+# String interpolation vs concatenation
+def string_concat(name, age)
+  "Name: " + name + ", Age: " + age.to_s
+end
+
+def string_interpolation(name, age)
+  "Name: #{name}, Age: #{age}"
+end
+
+# Heredoc for large strings
+long_text = <<~HEREDOC
+  This is a multi-line text.
+  It's much cleaner than concatenating
+  multiple strings with +.
+HEREDOC
+
+# 3. Array and Hash Optimization
+
+# Pre-allocating arrays
+def preallocate_example(n)
+  # Preallocate space
+  array = Array.new(n)
+  n.times { |i| array[i] = i * i }
+  array
+end
+
+# Inefficient array manipulation
+def manipulate_array_slow(array)
+  result = []
+  array.each do |x|
+    result << x * 2 if x % 2 == 0
+  end
+  result
+end
+
+# More efficient array manipulation
+def manipulate_array_fast(array)
+  array.select { |x| x % 2 == 0 }.map { |x| x * 2 }
+end
+
+# Even more efficient (single pass)
+def manipulate_array_fastest(array)
+  array.each_with_object([]) do |x, result|
+    result << x * 2 if x % 2 == 0
+  end
+end
+
+# 4. Symbol vs String as Hash Keys
+
+str_hash = {}
+sym_hash = {}
+
+# Fill hashes
+1_000.times do |i|
+  str_key = "key#{i}"
+  sym_key = :"key#{i}"
+  str_hash[str_key] = i
+  sym_hash[sym_key] = i
+end
+
+Benchmark.bm(10) do |x|
+  x.report("string:") { 10_000.times { str_hash["key500"] } }
+  x.report("symbol:") { 10_000.times { sym_hash[:key500] } }
+end
+
+# 5. Memoization for expensive operations
+
+# Without memoization
+def fibonacci_slow(n)
+  return n if n <= 1
+  fibonacci_slow(n-1) + fibonacci_slow(n-2)
+end
+
+# With memoization
+def fibonacci_fast(n, memo = {})
+  return memo[n] if memo.has_key?(n)
+  return n if n <= 1
+  
+  memo[n] = fibonacci_fast(n-1, memo) + fibonacci_fast(n-2, memo)
+end
+
+# 6. Lazy Enumerators
+
+# Eager evaluation (processes all elements)
+def first_even_square_eager(array)
+  array.select { |x| x % 2 == 0 }.map { |x| x * x }.first
+end
+
+# Lazy evaluation (stops after finding the first one)
+def first_even_square_lazy(array)
+  array.lazy.select { |x| x % 2 == 0 }.map { |x| x * x }.first
+end
+
+# 7. Using Specialized Data Structures
+
+require 'set'
+
+# Using Array for uniqueness (slower)
+def unique_items_array(items)
+  result = []
+  items.each do |item|
+    result << item unless result.include?(item)
+  end
+  result
+end
+
+# Using Set (faster for lookups)
+def unique_items_set(items)
+  Set.new(items).to_a
+end
+
+# 8. Avoiding method_missing overhead
+
+# Slow due to method_missing overhead
+class SlowDynamicAttributes
+  def initialize
+    @attributes = {}
+  end
+  
+  def method_missing(method_name, *args)
+    attribute = method_name.to_s
+    if attribute.end_with?("=")
+      @attributes[attribute.chop] = args.first
+    else
+      @attributes[attribute]
+    end
+  end
+end
+
+# Faster with defined methods
+class FastDynamicAttributes
+  def initialize
+    @attributes = {}
+  end
+  
+  def set(name, value)
+    @attributes[name.to_s] = value
+  end
+  
+  def get(name)
+    @attributes[name.to_s]
+  end
+end
+
+# 9. Using Freeze to prevent modifications
+
+# Define a frozen string
+GREETING = "Hello, world!".freeze
+
+def greet_user(name)
+  "#{GREETING} Welcome, #{name}!"
+end
+
+# 10. Native extensions for critical paths (pseudocode)
+# For truly performance-critical code, Ruby can call C extensions.
+# Example of using a gem with native extensions:
+# gem 'nokogiri'  # Has native C extensions for XML parsing
+# gem 'sqlite3'   # Has native extensions for database access
+
+puts "Performance optimization examples completed."`,
+              explanation: "This example demonstrates various techniques for optimizing Ruby code performance, including using the Benchmark module to measure performance, optimizing string operations, array and hash manipulations, using symbols instead of strings for hash keys, implementing memoization for expensive calculations, using lazy enumerators to avoid unnecessary work, choosing appropriate data structures like Set for uniqueness checks, avoiding method_missing overhead, and freezing objects to prevent unnecessary object allocations. These techniques can significantly improve performance in critical parts of Ruby applications."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which of these is typically the fastest way to build a large string in Ruby?",
+              options: [
+                "result = ''; 1000.times { |i| result += i.to_s }",
+                "1000.times.map(&:to_s).join",
+                "result = ''; 1000.times { |i| result << i.to_s }",
+                "1000.times.inject('') { |result, i| result + i.to_s }"
+              ],
+              correctAnswer: 1,
+              explanation: "The fastest approach is typically to use map to create an array of strings and then join them at the end: 1000.times.map(&:to_s).join. This avoids repeatedly creating new string objects, which happens with += concatenation. The << operator is better than + but still requires converting each number to a string individually. The inject approach suffers from the same issues as +=."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is memoization in Ruby and why is it useful for performance?",
+              back: "Memoization is a technique where you cache the results of expensive function calls and return the cached result when the same inputs occur again. It's implemented by storing results in a hash table, typically using a method's parameters as keys. This is especially useful for recursive algorithms (like Fibonacci) or any computation where the same values are calculated repeatedly."
+            },
+            {
+              front: "What is the difference between eager and lazy evaluation in Ruby?",
+              back: "Eager evaluation (Ruby's default) processes all elements in a collection immediately. Lazy evaluation (using the .lazy method on enumerables) defers processing until the values are actually needed. Lazy evaluation can significantly improve performance when working with large collections where you only need a subset of results, as it avoids unnecessary computation."
+            }
+          ]
+        },
+        {
+          id: "ruby-concurrency",
+          title: "Concurrency and Parallelism",
+          description: "Handling concurrent operations in Ruby",
+          content: `
+# Concurrency and Parallelism in Ruby
+
+Ruby offers several tools for handling concurrent and parallel operations, allowing your programs to do multiple things at once.
+          `,
+          codeExamples: [
+            {
+              title: "Concurrency and Parallelism Techniques",
+              code: `# NOTE: Some examples would need to be run in a proper Ruby environment
+
+# 1. Threads
+require 'thread'
+
+# Basic thread creation
+thread = Thread.new do
+  puts "Started thread"
+  sleep 1
+  puts "Thread completed"
+end
+
+puts "Main thread continues..."
+thread.join  # Wait for thread to finish
+puts "All done!"
+
+# Running multiple threads
+threads = []
+5.times do |i|
+  threads << Thread.new(i) do |index|
+    puts "Thread #{index} started"
+    sleep rand(0.1..0.5)
+    puts "Thread #{index} completed"
+  end
+end
+
+# Wait for all threads to complete
+threads.each(&:join)
+puts "All threads completed"
+
+# Thread safety issues with shared data
+counter = 0
+threads = 10.times.map do
+  Thread.new do
+    1000.times do
+      counter += 1  # Not thread-safe!
+    end
+  end
+end
+threads.each(&:join)
+puts "Counter: #{counter}"  # Might not be 10,000 due to race conditions
+
+# 2. Mutexes for thread safety
+counter = 0
+mutex = Mutex.new
+
+threads = 10.times.map do
+  Thread.new do
+    1000.times do
+      mutex.synchronize do
+        counter += 1  # Thread-safe
+      end
+    end
+  end
+end
+threads.each(&:join)
+puts "Thread-safe counter: #{counter}"  # Should be 10,000
+
+# 3. Queue for thread communication
+queue = Queue.new  # Thread-safe queue
+
+# Producer thread
+producer = Thread.new do
+  5.times do |i|
+    sleep rand(0.1..0.5)
+    queue << "Item #{i}"
+    puts "Produced item #{i}"
+  end
+end
+
+# Consumer threads
+consumers = 2.times.map do |consumer_id|
+  Thread.new do
+    while producer.alive? || !queue.empty?
+      begin
+        item = queue.pop(true)  # non-blocking
+        puts "Consumer #{consumer_id} got: #{item}"
+        sleep rand(0.1..0.5)
+      rescue ThreadError
+        # Queue is empty, wait a bit
+        sleep 0.1
+      end
+    end
+  end
+end
+
+producer.join
+consumers.each(&:join)
+
+# 4. Thread pools
+require 'concurrent'
+
+# Using concurrent-ruby's thread pool
+pool = Concurrent::FixedThreadPool.new(5)
+
+10.times do |i|
+  pool.post do
+    puts "Task #{i} started"
+    sleep rand(0.5..2)
+    puts "Task #{i} completed"
+  end
+end
+
+pool.shutdown
+pool.wait_for_termination
+
+# 5. Fibers (cooperative concurrency)
+fiber = Fiber.new do
+  puts "Fiber started"
+  Fiber.yield "First yield"
+  puts "Fiber resumed"
+  Fiber.yield "Second yield"
+  puts "Fiber resumed again"
+  "Fiber completed"
+end
+
+puts fiber.resume   # Start the fiber, prints "Fiber started" and returns "First yield"
+puts fiber.resume   # Resume the fiber, prints "Fiber resumed" and returns "Second yield"
+puts fiber.resume   # Resume again, prints "Fiber resumed again" and returns "Fiber completed"
+
+# 6. Ractor (parallel execution in Ruby 3+)
+# Note: This requires Ruby 3.0 or later
 =begin
-blog/
-├── app/                    # Application code
-│   ├── controllers/        # Controller classes
-│   ├── models/             # Model classes
-│   ├── views/              # View templates
-│   ├── helpers/            # View helper methods
-│   ├── assets/             # JavaScript, CSS, images
-│   ├── mailers/            # Email classes
-│   ├── jobs/               # Background job classes
-│   └── channels/           # Action Cable channels
-├── bin/                    # Executables
-├── config/                 # Configuration files
-│   ├── routes.rb           # URL routing
-│   ├── database.yml        # Database configuration
-│   ├── application.rb      # App configuration
-│   └── environments/       # Environment configs
-├── db/                     # Database files
-│   ├── migrate/            # Database migrations
-│   └── seeds.rb            # Seed data
-├── lib/                    # Library code
-├── log/                    # Log files
-├── public/                 # Public files
-├── test/ or spec/          # Tests
-├── vendor/                 # Third-party code
-├── Gemfile                 # Gem dependencies
-├── Gemfile.lock            # Locked gem versions
-└── README.md               # Project README
+# Creating a Ractor
+r = Ractor.new do
+  # This code runs in parallel
+  puts "Ractor started"
+  received = Ractor.receive
+  puts "Ractor received: #{received}"
+  "Message from Ractor"
+end
+
+# Send message to Ractor
+r.send("Hello from main Ractor")
+
+# Receive message from Ractor
+result = r.take
+puts "Main received: #{result}"
+
+# Multiple Ractors
+ractors = 3.times.map do |i|
+  Ractor.new(i) do |index|
+    # Each Ractor runs in parallel
+    sleep 1
+    "Result from Ractor #{index}"
+  end
+end
+
+# Get results from all Ractors
+results = ractors.map(&:take)
+puts "Results: #{results.inspect}"
 =end
 
-# Model (app/models/article.rb)
+# 7. Processes with fork (Unix-like systems only)
 =begin
-class Article < ApplicationRecord
-  has_many :comments, dependent: :destroy
+puts "Parent process: #{Process.pid}"
+
+3.times do |i|
+  fork do
+    # This runs in a separate process
+    puts "Child process #{i}: #{Process.pid}"
+    sleep rand(1..3)
+    puts "Child process #{i} exiting"
+    exit
+  end
+end
+
+# Wait for all child processes to finish
+Process.waitall
+puts "All child processes finished"
+=end
+
+# 8. Async/Await with Async gem
+=begin
+require 'async'
+
+Async do |task|
+  # Create several tasks
+  5.times do |i|
+    task.async do
+      puts "Task #{i} started"
+      # Simulate I/O operation
+      sleep rand(0.5..2)
+      puts "Task #{i} completed"
+    end
+  end
   
-  validates :title, presence: true
-  validates :body, presence: true, length: { minimum: 10 }
+  # All tasks complete automatically at the end of the Async block
+  puts "All tasks submitted"
+end
+
+puts "All tasks completed"
+=end
+
+# 9. Combining threads with timeout
+require 'timeout'
+
+begin
+  Timeout.timeout(2) do
+    # This block needs to complete within 2 seconds
+    puts "Starting long operation..."
+    sleep 3  # Simulates a long operation
+    puts "Completed long operation"  # This won't be printed
+  end
+rescue Timeout::Error
+  puts "Operation timed out!"
+end
+
+# 10. Thread-local variables
+Thread.current[:user_id] = 123
+
+thread = Thread.new do
+  # Each thread has its own thread-local variables
+  puts "Thread local from parent: #{Thread.current[:user_id]}"
+  Thread.current[:user_id] = 456
+  puts "Thread local after change: #{Thread.current[:user_id]}"
+end
+
+thread.join
+puts "Main thread's user_id: #{Thread.current[:user_id]}"  # Still 123
+
+puts "Concurrency examples completed"`,
+              explanation: "This example demonstrates various concurrency and parallelism techniques in Ruby. It covers basic threads, mutexes for thread safety, queues for thread communication, thread pools for controlling resource usage, fibers for cooperative concurrency, Ractors for parallel execution (Ruby 3+), processes with fork, async/await patterns with the Async gem, thread timeouts, and thread-local variables. Some examples (Ractor, fork, Async) are commented out as they require specific Ruby versions or gems."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which of the following Ruby concurrency mechanisms provides true parallelism in CRuby (MRI)?",
+              options: [
+                "Threads",
+                "Fibers",
+                "Processes (via fork)",
+                "Mutexes"
+              ],
+              correctAnswer: 2,
+              explanation: "In CRuby (MRI), threads are subject to the Global Interpreter Lock (GIL), which prevents multiple threads from executing Ruby code in parallel. Fibers provide cooperative concurrency but not parallelism. Processes created with fork run as separate OS processes, each with their own Ruby interpreter, allowing true parallelism. Mutexes are synchronization primitives, not concurrency mechanisms themselves."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is the Global Interpreter Lock (GIL) in Ruby and how does it affect concurrency?",
+              back: "The Global Interpreter Lock (GIL) is a mechanism in CRuby (MRI) that prevents multiple Ruby threads from executing code simultaneously. Only one thread can execute Ruby code at any given time, which means threads don't provide true parallelism for CPU-bound tasks. The GIL helps with thread safety for the interpreter, but for parallel execution, you need to use processes, native extensions, or alternative Ruby implementations like JRuby or TruffleRuby."
+            },
+            {
+              front: "What is the difference between concurrency and parallelism in Ruby?",
+              back: "Concurrency is about dealing with many things at once (like handling multiple tasks by interleaving their execution). Parallelism is about doing many things at once (executing multiple tasks simultaneously on multiple processors). Ruby threads provide concurrency, but due to the GIL in CRuby, they don't provide parallelism for CPU-bound tasks. For true parallelism in CRuby, you can use processes (fork), Ractors (Ruby 3+), or native extensions."
+            }
+          ]
+        },
+        {
+          id: "ruby-dsl",
+          title: "Domain-Specific Languages",
+          description: "Creating and using DSLs in Ruby",
+          content: `
+# Domain-Specific Languages (DSLs) in Ruby
+
+Ruby's flexible syntax makes it ideal for creating domain-specific languages, which are mini-languages tailored to specific problem domains.
+          `,
+          codeExamples: [
+            {
+              title: "Creating and Using DSLs",
+              code: `# 1. What are DSLs?
+# Domain-Specific Languages are mini-languages tailored to specific problems.
+# Ruby is great for DSLs because of its flexible syntax.
+# Examples of Ruby DSLs include:
+#  - RSpec for testing
+#  - Rails routes
+#  - Sinatra for web apps
+#  - Rake for task automation
+
+# 2. Building a simple DSL for a recipe book
+
+class Recipe
+  attr_reader :name, :ingredients, :steps
   
-  def summary
-    body.truncate(100)
+  def initialize(name, &block)
+    @name = name
+    @ingredients = []
+    @steps = []
+    
+    # Execute the block in the context of this instance
+    instance_eval(&block) if block_given?
+  end
+  
+  # DSL methods
+  def ingredient(name, options = {})
+    quantity = options[:quantity] || "some"
+    unit = options[:unit] || ""
+    @ingredients << "#{quantity} #{unit} #{name}".strip
+  end
+  
+  def step(description)
+    @steps << description
+  end
+  
+  # Method to display the recipe
+  def display
+    puts "Recipe: #{@name}"
+    puts "\nIngredients:"
+    @ingredients.each_with_index do |ingredient, index|
+      puts "#{index + 1}. #{ingredient}"
+    end
+    
+    puts "\nSteps:"
+    @steps.each_with_index do |step, index|
+      puts "#{index + 1}. #{step}"
+    end
+  end
+end
+
+# Using our recipe DSL
+pancakes = Recipe.new("Pancakes") do
+  ingredient "flour", quantity: 2, unit: "cups"
+  ingredient "sugar", quantity: 2, unit: "tbsp"
+  ingredient "baking powder", quantity: 1, unit: "tbsp"
+  ingredient "salt", quantity: 0.5, unit: "tsp"
+  ingredient "milk", quantity: 1.5, unit: "cups"
+  ingredient "eggs", quantity: 2
+  ingredient "butter", quantity: 2, unit: "tbsp", note: "melted"
+  
+  step "Mix the dry ingredients (flour, sugar, baking powder, salt)."
+  step "In another bowl, whisk milk and eggs together."
+  step "Add melted butter to the wet ingredients."
+  step "Combine wet ingredients with dry ingredients and mix until just combined."
+  step "Heat a lightly oiled griddle or frying pan over medium-high heat."
+  step "Pour batter onto the griddle, about 1/4 cup for each pancake."
+  step "Cook until bubbles form and the edges are dry."
+  step "Flip and cook until browned on the other side."
+  step "Serve hot with maple syrup."
+end
+
+pancakes.display
+
+# 3. Building a DSL for a simple state machine
+
+class StateMachine
+  def initialize(&block)
+    @states = {}
+    @current_state = nil
+    
+    instance_eval(&block) if block_given?
+  end
+  
+  def initial(state)
+    @current_state = state
+  end
+  
+  def state(name, &block)
+    @states[name] = {
+      actions: {},
+      on_enter: nil,
+      on_exit: nil
+    }
+    
+    # Create a state configurator object
+    state_config = StateConfig.new(@states[name])
+    state_config.instance_eval(&block) if block_given?
+  end
+  
+  def trigger(event)
+    return unless @current_state
+    
+    state_data = @states[@current_state]
+    return unless state_data && state_data[:actions][event]
+    
+    # Execute exit action for current state
+    state_data[:on_exit]&.call
+    
+    # Transition to new state
+    new_state = state_data[:actions][event]
+    @current_state = new_state
+    
+    # Execute enter action for new state
+    @states[new_state][:on_enter]&.call
+    
+    puts "Transitioned to #{new_state}"
+  end
+  
+  def current_state
+    @current_state
+  end
+  
+  # Inner class for state configuration
+  class StateConfig
+    def initialize(state_data)
+      @state_data = state_data
+    end
+    
+    def on_enter(&block)
+      @state_data[:on_enter] = block
+    end
+    
+    def on_exit(&block)
+      @state_data[:on_exit] = block
+    end
+    
+    def transition(event, target)
+      @state_data[:actions][event] = target
+    end
+  end
+end
+
+# Using our state machine DSL
+traffic_light = StateMachine.new do
+  initial :red
+  
+  state :red do
+    on_enter { puts "Red light is on. Stop!" }
+    on_exit { puts "Red light is turning off" }
+    
+    transition :timer, :green
+  end
+  
+  state :green do
+    on_enter { puts "Green light is on. Go!" }
+    on_exit { puts "Green light is turning off" }
+    
+    transition :timer, :yellow
+  end
+  
+  state :yellow do
+    on_enter { puts "Yellow light is on. Prepare to stop!" }
+    on_exit { puts "Yellow light is turning off" }
+    
+    transition :timer, :red
+  end
+end
+
+puts "Initial state: #{traffic_light.current_state}"
+traffic_light.trigger(:timer)  # red -> green
+traffic_light.trigger(:timer)  # green -> yellow
+traffic_light.trigger(:timer)  # yellow -> red
+
+# 4. Method chaining for a query builder DSL
+
+class QueryBuilder
+  def initialize
+    @table = nil
+    @selected_columns = []
+    @conditions = []
+    @order_clauses = []
+    @limit_value = nil
+  end
+  
+  def select(*columns)
+    @selected_columns = columns.flatten
+    self  # Return self for method chaining
+  end
+  
+  def from(table)
+    @table = table
+    self
+  end
+  
+  def where(condition)
+    @conditions << condition
+    self
+  end
+  
+  def order_by(column, direction = :asc)
+    @order_clauses << "#{column} #{direction.to_s.upcase}"
+    self
+  end
+  
+  def limit(value)
+    @limit_value = value
+    self
+  end
+  
+  def to_sql
+    columns = @selected_columns.empty? ? "*" : @selected_columns.join(", ")
+    sql = "SELECT #{columns} FROM #{@table}"
+    
+    unless @conditions.empty?
+      sql += " WHERE #{@conditions.join(' AND ')}"
+    end
+    
+    unless @order_clauses.empty?
+      sql += " ORDER BY #{@order_clauses.join(', ')}"
+    end
+    
+    if @limit_value
+      sql += " LIMIT #{@limit_value}"
+    end
+    
+    sql
+  end
+end
+
+# Using the query builder DSL
+query = QueryBuilder.new
+          .select(:id, :name, :email)
+          .from(:users)
+          .where("age > 18")
+          .where("status = 'active'")
+          .order_by(:name)
+          .limit(10)
+
+puts "\nGenerated SQL:"
+puts query.to_sql
+
+# 5. Block parameters for a test DSL
+
+class TestSuite
+  def initialize(name)
+    @name = name
+    @setup_block = nil
+    @teardown_block = nil
+    @tests = {}
+  end
+  
+  def setup(&block)
+    @setup_block = block
+  end
+  
+  def teardown(&block)
+    @teardown_block = block
+  end
+  
+  def test(name, &block)
+    @tests[name] = block
+  end
+  
+  def run
+    puts "Running test suite: #{@name}"
+    
+    @tests.each do |name, test_block|
+      puts "\n  Test: #{name}"
+      begin
+        # Run setup if defined
+        @setup_block.call if @setup_block
+        
+        # Run the test
+        test_block.call
+        puts "    ✓ Passed"
+      rescue => e
+        puts "    ✗ Failed: #{e.message}"
+      ensure
+        # Run teardown if defined
+        @teardown_block.call if @teardown_block
+      end
+    end
+  end
+end
+
+# Using the test DSL
+calculator_tests = TestSuite.new("Calculator Tests")
+
+calculator_tests.setup do
+  # This would set up test environment
+  puts "    Setting up test..."
+  @calculator = Object.new  # In real code, this would be the actual class
+end
+
+calculator_tests.teardown do
+  # This would clean up after each test
+  puts "    Cleaning up..."
+end
+
+calculator_tests.test("addition") do
+  # This would be the actual test
+  puts "    Testing addition..."
+  # assert_equal(4, @calculator.add(2, 2))
+end
+
+calculator_tests.test("subtraction") do
+  puts "    Testing subtraction..."
+  # assert_equal(5, @calculator.subtract(10, 5))
+end
+
+calculator_tests.run
+
+puts "\nDSL examples completed"`,
+              explanation: "This example demonstrates how to create Domain-Specific Languages (DSLs) in Ruby. It includes a recipe book DSL for defining recipes with ingredients and steps, a state machine DSL for modeling state transitions, a SQL query builder DSL using method chaining, and a testing DSL similar to RSpec or Minitest. These examples show various Ruby techniques for creating expressive, readable DSLs, including instance_eval for executing blocks in a specific context, method chaining for fluent interfaces, and blocks with parameters."
+            }
+          ],
+          quiz: [
+            {
+              question: "What Ruby method is commonly used to run a block in the context of an object, making it ideal for DSLs?",
+              options: [
+                "block.call",
+                "eval",
+                "instance_eval",
+                "yield"
+              ],
+              correctAnswer: 2,
+              explanation: "instance_eval is commonly used in DSLs because it executes a block in the context of the receiver object, making the object's instance variables and methods available as if they were local. This allows for a clean DSL syntax without having to pass the object explicitly. In the example, Recipe.new('Pancakes') { ingredient... } uses instance_eval to make ingredient and step methods available directly in the block."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What makes Ruby particularly well-suited for creating DSLs?",
+              back: "Ruby's features that make it ideal for DSLs include: flexible syntax with optional parentheses and semicolons, blocks and closures, method_missing for handling undefined methods, instance_eval for changing execution context, symbol-to-proc shortcuts, and meta-programming capabilities. These allow developers to create expressive, readable mini-languages tailored to specific domains."
+            },
+            {
+              front: "What is the difference between an internal and external DSL in Ruby?",
+              back: "An internal DSL (like the examples shown) uses Ruby's own syntax and is executed as Ruby code. It's easier to implement but constrained by Ruby's syntax. An external DSL has its own custom syntax that's parsed separately from Ruby (like a configuration language) and requires building a parser. Internal DSLs are more common in Ruby due to the language's flexibility."
+            }
+          ]
+        },
+        {
+          id: "ruby-web",
+          title: "Web Development",
+          description: "Building web applications with Ruby",
+          content: `
+# Web Development with Ruby
+
+Ruby has several frameworks and libraries for web development, with Ruby on Rails being the most popular.
+          `,
+          codeExamples: [
+            {
+              title: "Web Development with Ruby",
+              code: `# 1. Simple Web Server with WEBrick
+require 'webrick'
+
+=begin
+# Create a basic HTTP server
+server = WEBrick::HTTPServer.new(Port: 8000)
+
+# Define a simple request handler
+server.mount_proc '/' do |req, res|
+  res.body = "Hello, World! The time is #{Time.now}"
+  res.content_type = 'text/plain'
+end
+
+# Define a handler for a specific path
+server.mount_proc '/about' do |req, res|
+  res.body = "This is a simple Ruby web server using WEBrick."
+  res.content_type = 'text/plain'
+end
+
+# Start the server (use trap to allow Ctrl+C shutdown)
+trap('INT') { server.shutdown }
+server.start
+=end
+
+# 2. Sinatra - Lightweight Web Framework
+require 'sinatra'
+
+=begin
+# Basic route
+get '/' do
+  "Hello, World from Sinatra!"
+end
+
+# Route with parameters
+get '/hello/:name' do
+  "Hello, #{params[:name]}!"
+end
+
+# Multiple HTTP methods
+get '/users/:id' do
+  "Showing user #{params[:id]}"
+end
+
+post '/users' do
+  "Creating a new user"
+end
+
+put '/users/:id' do
+  "Updating user #{params[:id]}"
+end
+
+delete '/users/:id' do
+  "Deleting user #{params[:id]}"
+end
+
+# Serving JSON
+get '/api/users' do
+  content_type :json
+  { users: ['Alice', 'Bob', 'Charlie'] }.to_json
+end
+
+# Serving a template
+get '/template' do
+  erb :index, locals: { title: "Sinatra Template", message: "Hello from a template!" }
+end
+=end
+
+# 3. Ruby on Rails (Framework Overview)
+# Rails follows the MVC (Model-View-Controller) pattern
+
+# Example Rails Model (app/models/user.rb)
+=begin
+class User < ApplicationRecord
+  has_many :posts
+  has_secure_password
+  
+  validates :email, presence: true, uniqueness: true
+  validates :username, presence: true, length: { minimum: 3, maximum: 50 }
+  
+  before_save :downcase_email
+  
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+  
+  private
+  
+  def downcase_email
+    self.email = email.downcase
   end
 end
 =end
 
-# Controller (app/controllers/articles_controller.rb)
+# Example Rails Controller (app/controllers/users_controller.rb)
 =begin
-class ArticlesController < ApplicationController
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, except: [:new, :create]
   
-  # GET /articles
   def index
-    @articles = Article.all
+    @users = User.all
   end
   
-  # GET /articles/1
   def show
   end
   
-  # GET /articles/new
   def new
-    @article = Article.new
+    @user = User.new
   end
   
-  # GET /articles/1/edit
-  def edit
-  end
-  
-  # POST /articles
   def create
-    @article = Article.new(article_params)
+    @user = User.new(user_params)
     
-    if @article.save
-      redirect_to @article, notice: 'Article was successfully created.'
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.'
     else
       render :new
     end
   end
   
-  # PATCH/PUT /articles/1
+  def edit
+  end
+  
   def update
-    if @article.update(article_params)
-      redirect_to @article, notice: 'Article was successfully updated.'
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
     else
       render :edit
     end
   end
   
-  # DELETE /articles/1
   def destroy
-    @article.destroy
-    redirect_to articles_url, notice: 'Article was successfully destroyed.'
+    @user.destroy
+    redirect_to users_url, notice: 'User was successfully destroyed.'
   end
   
   private
   
-  def set_article
-    @article = Article.find(params[:id])
+  def set_user
+    @user = User.find(params[:id])
   end
   
-  def article_params
-    params.require(:article).permit(:title, :body)
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end
 =end
 
-# View (app/views/articles/index.html.erb)
+# Example Rails View (app/views/users/show.html.erb)
 =begin
-<h1>Articles</h1>
+<h1><%= @user.username %></h1>
 
-<% @articles.each do |article| %>
-  <div class="article">
-    <h2><%= link_to article.title, article %></h2>
-    <p><%= article.summary %></p>
-  </div>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Joined:</strong>
+  <%= @user.created_at.strftime('%B %d, %Y') %>
+</p>
+
+<% if @user.posts.any? %>
+  <h2>Posts (<%= @user.posts.count %>)</h2>
+  <ul>
+    <% @user.posts.each do |post| %>
+      <li><%= link_to post.title, post %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No posts yet.</p>
 <% end %>
 
-<%= link_to "New Article", new_article_path, class: "button" %>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
 =end
 
-# View (app/views/articles/show.html.erb)
-=begin
-<article>
-  <h1><%= @article.title %></h1>
-  <div class="content">
-    <%= @article.body %>
-  </div>
-</article>
-
-<div class="actions">
-  <%= link_to "Edit", edit_article_path(@article) %> |
-  <%= link_to "Back", articles_path %> |
-  <%= link_to "Delete", article_path(@article),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>
-</div>
-=end
-
-# Routes (config/routes.rb)
+# 4. Rails Routes (config/routes.rb)
 =begin
 Rails.application.routes.draw do
-  resources :articles do
-    resources :comments
+  # Root route
+  root 'home#index'
+  
+  # RESTful resources
+  resources :users
+  resources :posts
+  
+  # Nested resources
+  resources :users do
+    resources :posts, only: [:index]
   end
   
-  root "articles#index"
-end
-=end
-
-# Database Migration (db/migrate/20210715123456_create_articles.rb)
-=begin
-class CreateArticles < ActiveRecord::Migration[6.1]
-  def change
-    create_table :articles do |t|
-      t.string :title
-      t.text :body
-      
-      t.timestamps
+  # Custom routes
+  get 'about', to: 'static#about'
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  
+  # API namespace
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index, :show]
     end
   end
+  
+  # Route with constraints
+  get 'profile/:username', to: 'users#show', as: :user_profile, 
+                          constraints: { username: /[a-zA-Z0-9_]+/ }
 end
 =end
 
-# Commands and Workflow
-=begin
-# Generate a model
-$ rails generate model Article title:string body:text
-
-# Run migrations
-$ rails db:migrate
-
-# Generate a controller
-$ rails generate controller Articles index show new edit
-
-# Start the server
-$ rails server
-
-# Rails console (for debugging/exploration)
-$ rails console
-=end`,
-              explanation: "This example provides an overview of Ruby on Rails, a full-stack web framework following the Model-View-Controller (MVC) architecture. It covers the project structure, showing how models (for data and business logic), controllers (for handling requests), and views (for rendering responses) work together. The code includes examples of a basic Article model with validations, a RESTful ArticlesController with CRUD operations, ERB views for displaying articles, routes configuration, and database migrations. It also mentions common Rails commands for generating code, running migrations, and starting the server. While this is a high-level overview, it demonstrates Rails' convention-over-configuration philosophy that makes web development faster and more structured."
-            },
-            {
-              title: "Rails Associations and Active Record",
-              code: `# Active Record Associations
-
-# Models with associations
-
-# app/models/user.rb
-=begin
-class User < ApplicationRecord
-  has_many :articles, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  
-  validates :email, presence: true, uniqueness: true
-  validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
-  
-  has_secure_password
-end
-=end
-
-# app/models/article.rb
-=begin
-class Article < ApplicationRecord
-  belongs_to :user
-  has_many :comments, dependent: :destroy
-  has_many :article_categories
-  has_many :categories, through: :article_categories
-  has_one_attached :featured_image
-  
-  validates :title, presence: true
-  validates :body, presence: true, length: { minimum: 10 }
-  
-  scope :published, -> { where(published: true) }
-  scope :recent, -> { order(created_at: :desc).limit(5) }
-  
-  def self.search(query)
-    where("title LIKE ? OR body LIKE ?", "%#{query}%", "%#{query}%")
-  end
-end
-=end
-
-# app/models/comment.rb
-=begin
-class Comment < ApplicationRecord
-  belongs_to :article
-  belongs_to :user
-  
-  validates :body, presence: true
-end
-=end
-
-# app/models/category.rb
-=begin
-class Category < ApplicationRecord
-  has_many :article_categories
-  has_many :articles, through: :article_categories
-  
-  validates :name, presence: true, uniqueness: true
-end
-=end
-
-# app/models/article_category.rb (Join Model)
-=begin
-class ArticleCategory < ApplicationRecord
-  belongs_to :article
-  belongs_to :category
-end
-=end
-
-# Active Record Migrations
-
-# Creating tables
+# 5. Rails Active Record Migrations
+# (db/migrate/20210101120000_create_users.rb)
 =begin
 class CreateUsers < ActiveRecord::Migration[6.1]
   def change
@@ -3932,6 +3497,9 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :username, null: false
       t.string :email, null: false
       t.string :password_digest
+      t.string :first_name
+      t.string :last_name
+      t.boolean :admin, default: false
       
       t.timestamps
     end
@@ -3942,844 +3510,2029 @@ class CreateUsers < ActiveRecord::Migration[6.1]
 end
 =end
 
-# Adding a reference/foreign key
-=begin
-class AddUserToArticles < ActiveRecord::Migration[6.1]
-  def change
-    add_reference :articles, :user, null: false, foreign_key: true
-  end
-end
-=end
-
-# Join table for many-to-many
-=begin
-class CreateArticleCategories < ActiveRecord::Migration[6.1]
-  def change
-    create_table :article_categories do |t|
-      t.references :article, null: false, foreign_key: true
-      t.references :category, null: false, foreign_key: true
-      
-      t.timestamps
-    end
-    
-    add_index :article_categories, [:article_id, :category_id], unique: true
-  end
-end
-=end
-
-# Active Record Querying
-
-# Basic queries
-=begin
-# Find a record by ID
-user = User.find(1)
-
-# Find a record by attribute
-user = User.find_by(email: "user@example.com")
-
-# Get all records
-all_articles = Article.all
-
-# Get first/last record
-first_article = Article.first
-last_article = Article.last
-
-# Count records
-article_count = Article.count
-=end
-
-# Query methods
-=begin
-# Where clause
-recent_articles = Article.where(published: true).order(created_at: :desc)
-
-# Multiple conditions
-featured_articles = Article.where(published: true, featured: true)
-
-# OR conditions
-results = Article.where("title LIKE ? OR body LIKE ?", "%search%", "%search%")
-
-# Ordering
-ordered_articles = Article.order(created_at: :desc)
-
-# Limit and offset
-paginated = Article.limit(10).offset(0)  # First 10
-paginated = Article.limit(10).offset(10) # Next 10
-=end
-
-# Loading associations
-=begin
-# Eager loading to avoid N+1 queries
-articles = Article.includes(:user, :categories).where(published: true)
-
-# Joining tables
-popular_articles = Article.joins(:comments)
-                         .select("articles.*, COUNT(comments.id) as comments_count")
-                         .group("articles.id")
-                         .order("comments_count DESC")
-=end
-
-# Scopes and class methods
-=begin
-# Using the scope defined in the model
-recent_published = Article.published.recent
-
-# Using the class method
-search_results = Article.search("Ruby")
-=end
-
-# Callbacks
-=begin
-class Article < ApplicationRecord
-  # Callbacks
-  before_validation :normalize_title
-  after_create :notify_subscribers
-  before_destroy :check_deletable
-  
-  private
-  
-  def normalize_title
-    self.title = title.strip.titleize if title.present?
-  end
-  
-  def notify_subscribers
-    # Logic to notify subscribers about new article
-  end
-  
-  def check_deletable
-    throw(:abort) if published? && created_at < 1.day.ago
-  end
-end
-=end
-
-# Validations
+# 6. Rails Active Record Associations
 =begin
 class User < ApplicationRecord
-  # Presence validations
-  validates :email, :username, presence: true
+  has_many :posts, dependent: :destroy
+  has_many :comments
+  has_many :likes
+  has_one :profile
+  belongs_to :team, optional: true
+  has_and_belongs_to_many :roles
+  has_many :followed_users, through: :follows, source: :followed
+end
+
+class Post < ApplicationRecord
+  belongs_to :user
+  has_many :comments, dependent: :destroy
+  has_many :likes, as: :likeable
+  has_many :liking_users, through: :likes, source: :user
+end
+=end
+
+# 7. Rails Action Mailer
+=begin
+# app/mailers/user_mailer.rb
+class UserMailer < ApplicationMailer
+  default from: 'notifications@example.com'
   
-  # Uniqueness validation
-  validates :email, uniqueness: { case_sensitive: false }
+  def welcome_email
+    @user = params[:user]
+    @url = 'http://example.com/login'
+    
+    mail(
+      to: @user.email,
+      subject: 'Welcome to Our Application'
+    )
+  end
   
-  # Format validation
-  validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
+  def password_reset
+    @user = params[:user]
+    @token = params[:token]
+    @url = edit_password_reset_url(@token)
+    
+    mail to: @user.email, subject: 'Password Reset Instructions'
+  end
+end
+
+# app/views/user_mailer/welcome_email.html.erb
+# <h1>Welcome to Example App, <%= @user.name %></h1>
+# <p>
+#   You have successfully signed up to example.com,
+#   your username is: <%= @user.username %>.<br>
+# </p>
+# <p>
+#   To login to the site, just follow this link: <%= @url %>.
+# </p>
+# <p>Thanks for joining and have a great day!</p>
+=end
+
+# 8. Rails Action Cable (WebSockets)
+=begin
+# app/channels/chat_channel.rb
+class ChatChannel < ApplicationCable::Channel
+  def subscribed
+    stream_from "chat_#{params[:room]}"
+  end
   
-  # Length validation
-  validates :username, length: { minimum: 3, maximum: 20 }
+  def unsubscribed
+    # Any cleanup needed when channel is unsubscribed
+  end
   
-  # Custom validation
-  validate :password_complexity
+  def speak(data)
+    message = Message.create(
+      body: data['message'],
+      user: current_user,
+      room: params[:room]
+    )
+    
+    ActionCable.server.broadcast(
+      "chat_#{params[:room]}",
+      message: render_message(message)
+    )
+  end
   
   private
   
-  def password_complexity
-    return if password.blank?
-    
-    unless password.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{8,}$/)
-      errors.add(:password, "must include uppercase, lowercase, number, and special character")
+  def render_message(message)
+    ApplicationController.renderer.render(
+      partial: 'messages/message',
+      locals: { message: message }
+    )
+  end
+end
+=end
+
+# 9. Rails API-only Application
+=begin
+# app/controllers/api/v1/posts_controller.rb
+module Api
+  module V1
+    class PostsController < ApplicationController
+      before_action :set_post, only: [:show, :update, :destroy]
+      
+      # GET /api/v1/posts
+      def index
+        @posts = Post.includes(:user).all
+        
+        render json: @posts, include: :user
+      end
+      
+      # GET /api/v1/posts/1
+      def show
+        render json: @post, include: [:user, :comments]
+      end
+      
+      # POST /api/v1/posts
+      def create
+        @post = current_user.posts.build(post_params)
+        
+        if @post.save
+          render json: @post, status: :created
+        else
+          render json: { errors: @post.errors }, status: :unprocessable_entity
+        end
+      end
+      
+      # PATCH/PUT /api/v1/posts/1
+      def update
+        if @post.update(post_params)
+          render json: @post
+        else
+          render json: { errors: @post.errors }, status: :unprocessable_entity
+        end
+      end
+      
+      # DELETE /api/v1/posts/1
+      def destroy
+        @post.destroy
+        head :no_content
+      end
+      
+      private
+      
+      def set_post
+        @post = Post.find(params[:id])
+      end
+      
+      def post_params
+        params.require(:post).permit(:title, :content)
+      end
     end
   end
 end
-=end`,
-              explanation: "This example focuses on Active Record, Rails' Object-Relational Mapping (ORM) system, which handles database interactions and associations between models. It demonstrates different types of associations (has_many, belongs_to, has_one, many-to-many through a join model), database migrations for creating tables and relationships, and various querying techniques. Advanced features like scopes, callbacks, validations, eager loading, and joining tables are also covered. These patterns are central to Rails development, enabling developers to express complex database relationships and queries in clean, readable Ruby code instead of writing SQL directly."
+=end
+
+# 10. Other Ruby Web Frameworks
+# - Hanami (formerly Lotus) - https://hanamirb.org
+# - Grape - Ruby API framework - https://github.com/ruby-grape/grape
+# - Padrino - Lightweight framework built on Sinatra - http://padrinorb.com
+# - Roda - Routing tree web toolkit - https://roda.jeremyevans.net
+# - Cuba - Microframework - https://cuba.is
+
+puts "This is an overview of web development with Ruby. The examples above need to be run in proper web applications."`,
+              explanation: "This example provides an overview of web development with Ruby, covering several frameworks and techniques. It starts with a simple web server using WEBrick, then demonstrates Sinatra for lightweight web applications. Most of the example focuses on Ruby on Rails, the most popular Ruby web framework, showing its MVC architecture, models with associations and validations, controllers with RESTful actions, views using ERB templates, routing, database migrations, mailers, and WebSockets with Action Cable. It also covers API development with Rails. Most of the code is commented out as it represents fragments from various files in a typical web application structure."
             }
           ],
           quiz: [
             {
-              question: "In Ruby on Rails, what is the main purpose of the 'routes.rb' file?",
+              question: "Which of the following is NOT a Ruby web framework?",
               options: [
-                "To define database table schemas",
-                "To map URLs to controller actions",
-                "To configure database connection settings",
-                "To define relationships between models"
+                "Sinatra",
+                "Django",
+                "Rails",
+                "Hanami"
               ],
               correctAnswer: 1,
-              explanation: "The routes.rb file in Rails defines the application's URL structure, mapping incoming requests to controller actions. It determines which controller and action should handle a given URL pattern. This is a key part of Rails' RESTful design, allowing you to create resourceful routes with methods like 'resources :articles', which automatically sets up routes for CRUD operations (index, show, new, create, edit, update, destroy)."
+              explanation: "Django is a Python web framework, not a Ruby framework. Sinatra, Rails, and Hanami are all web frameworks built with Ruby. Rails is the most popular and comprehensive, Sinatra is lightweight and minimalist, and Hanami (formerly Lotus) is a newer framework that emphasizes clean architecture."
             }
           ],
           flashcards: [
             {
-              front: "What is the MVC pattern in Rails?",
-              back: "MVC (Model-View-Controller) is an architectural pattern that Rails follows. Models handle data and business logic, connecting to database tables and defining relationships, validations, and behavior. Views are templates that display data to users, usually written in ERB, HAML, or other template languages. Controllers handle incoming requests, interact with models to fetch or modify data, and render the appropriate views. This separation of concerns makes applications more maintainable and easier to understand."
+              front: "What is the MVC pattern in Ruby on Rails?",
+              back: "MVC (Model-View-Controller) is an architectural pattern Rails uses to organize code. Models handle data, logic, and rules, and interact with the database through Active Record. Views handle the presentation layer, typically using ERB or HAML templates. Controllers receive requests, interact with models, and render views or return data. This separation of concerns makes applications more maintainable and testable."
             },
             {
-              front: "What are the differences between has_many and belongs_to associations in Rails?",
-              back: "has_many establishes a one-to-many relationship from the model it's defined in, indicating it can have multiple instances of another model (e.g., User has_many :articles). belongs_to establishes the other side of the relationship, indicating a model belongs to a single instance of another model (e.g., Article belongs_to :user). belongs_to models typically contain the foreign key column and are considered the 'child' in the relationship. Using these together creates a properly linked bidirectional association."
+              front: "What is Active Record in Rails?",
+              back: "Active Record is Rails' ORM (Object-Relational Mapping) layer that provides an object-oriented interface to the database. It implements the Active Record pattern, where objects carry both persistent data and behavior. Key features include automatic mapping between tables and classes, associations between models (has_many, belongs_to, etc.), validations, callbacks, and migrations for managing database schema changes."
             }
           ]
         },
         {
-          id: "ruby-performance",
-          title: "Ruby Performance and Optimization",
-          description: "Techniques for improving Ruby code performance",
+          id: "ruby-debugging",
+          title: "Debugging and Profiling",
+          description: "Tools and techniques for debugging and profiling Ruby code",
           content: `
-# Ruby Performance and Optimization
+# Debugging and Profiling in Ruby
 
-Understanding how to optimize Ruby code for better performance and resource efficiency.
+Ruby offers various tools for debugging issues and profiling performance bottlenecks in your applications.
           `,
           codeExamples: [
             {
-              title: "Performance Analysis and Optimization Techniques",
-              code: `# Benchmarking code
+              title: "Debugging and Profiling Techniques",
+              code: `# 1. Basic Debugging Techniques
+
+# puts debugging
+def calculate_total(items)
+  puts "Items: #{items.inspect}"
+  total = 0
+  
+  items.each do |item|
+    puts "Processing item: #{item}"
+    price = item[:price]
+    quantity = item[:quantity]
+    subtotal = price * quantity
+    puts "Subtotal: #{subtotal}"
+    total += subtotal
+  end
+  
+  puts "Final total: #{total}"
+  total
+end
+
+items = [
+  {name: "Widget", price: 10, quantity: 2},
+  {name: "Gadget", price: 5, quantity: 3}
+]
+
+calculate_total(items)
+
+# Using p instead of puts (shows more detail)
+data = {name: "Ruby", version: "3.1.0", features: ["OOP", "Dynamic", "Flexible"]}
+p data  # Shows detailed output with quotes, symbols, etc.
+
+# Printing a call stack trace
+def method_a
+  method_b
+end
+
+def method_b
+  method_c
+end
+
+def method_c
+  puts "Call stack:"
+  puts caller
+end
+
+method_a
+
+# 2. Using the Ruby Debugger (byebug/debug)
+# Note: This would require the byebug or debug gem
+
+=begin
+def complex_calculation(n)
+  # In a real application, you would add a 'debugger' or 'binding.break' statement here
+  # debugger  # For byebug
+  # binding.break  # For debug.rb (Ruby 3.1+)
+  
+  result = 0
+  n.times do |i|
+    result += (i * i)
+  end
+  result
+end
+
+complex_calculation(10)
+=end
+
+# 3. Using IRB for Interactive Debugging
+# This would be run in an IRB session in a real application
+
+=begin
+# In irb:
+> require './my_script.rb'
+> obj = MyClass.new
+> obj.inspect  # Look at the object
+> obj.some_method(123)  # Try calling methods
+> exit  # Exit IRB
+=end
+
+# 4. Logging for Debugging
+
+require 'logger'
+
+# Create a logger
+logger = Logger.new(STDOUT)
+logger.level = Logger::INFO
+
+# Log levels: DEBUG, INFO, WARN, ERROR, FATAL
+logger.debug("This is a debug message")
+logger.info("This is an info message")
+logger.warn("This is a warning message")
+logger.error("This is an error message")
+logger.fatal("This is a fatal message")
+
+# Logging to a file
+# file_logger = Logger.new('application.log')
+
+# 5. Exception Handling for Debugging
+
+def divide(a, b)
+  begin
+    result = a / b
+  rescue ZeroDivisionError => e
+    puts "Error: Division by zero"
+    puts "Exception message: #{e.message}"
+    puts "Exception backtrace:"
+    puts e.backtrace
+    result = nil
+  end
+  result
+end
+
+puts divide(10, 2)
+puts divide(10, 0)
+
+# 6. Profiling Code Execution Time
+
 require 'benchmark'
 
-# Comparing different ways to concatenate strings
+def fibonacci_recursive(n)
+  return n if n <= 1
+  fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+end
+
+def fibonacci_iterative(n)
+  return n if n <= 1
+  
+  a, b = 0, 1
+  (2..n).each do |i|
+    a, b = b, a + b
+  end
+  b
+end
+
+n = 20
+
 Benchmark.bm(10) do |x|
-  x.report("String +:") do
-    result = ""
-    1000.times { |i| result += i.to_s }
-  end
-  
-  x.report("Array join:") do
-    result = []
-    1000.times { |i| result << i.to_s }
-    result.join
-  end
-  
-  x.report("String interp:") do
-    result = ""
-    1000.times { |i| result = "#{result}#{i}" }
-  end
-  
-  x.report("StringIO:") do
-    require 'stringio'
-    sio = StringIO.new
-    1000.times { |i| sio.write(i.to_s) }
-    result = sio.string
-  end
+  x.report("recursive:") { fibonacci_recursive(n) }
+  x.report("iterative:") { fibonacci_iterative(n) }
 end
 
-# Using benchmark-ips for iterations per second
+# 7. Using Ruby's Profiler
+# This requires the 'profile' standard library
+
 =begin
-require 'benchmark/ips'
+require 'profile'
 
-Benchmark.ips do |x|
-  x.report("String +:") { 
-    result = ""
-    100.times { |i| result += i.to_s }
-  }
-  
-  x.report("Array join:") { 
-    result = []
-    100.times { |i| result << i.to_s }
-    result.join
-  }
-  
-  x.compare!  # Compare the results
+def process_data(n)
+  result = []
+  n.times do |i|
+    result << fibonacci_recursive(i) if i.even?
+  end
+  result
 end
+
+process_data(20)  # This will be profiled
 =end
 
-# Ruby profilers
-=begin
-# Using ruby-prof
-require 'ruby-prof'
+# 8. Memory Profiling
+# This would require the 'memory_profiler' gem
 
-# Start profiling
-RubyProf.start
-
-# Code to profile
-result = []
-10000.times do |i|
-  result << i ** 2
-end
-
-# Stop profiling
-result = RubyProf.stop
-
-# Print results to console (flat format)
-printer = RubyProf::FlatPrinter.new(result)
-printer.print(STDOUT)
-
-# Or in a more detailed call graph format
-# printer = RubyProf::GraphPrinter.new(result)
-# printer.print(STDOUT)
-=end
-
-# Memory usage analysis
 =begin
 require 'memory_profiler'
 
 report = MemoryProfiler.report do
-  # Code to analyze
-  array = Array.new(1000) { Object.new }
+  # Code to profile
+  objects = []
+  1000.times do
+    objects << "string-#{rand(1000)}"
+  end
 end
 
 report.pretty_print
 =end
 
-# Common performance optimizations
+# 9. Using TracePoint API for Debugging
 
-# 1. Use efficient data structures
-def efficient_data_structures_example
-  # Hash lookups are O(1) vs Array lookups which are O(n)
-  puts "Hash vs Array lookups for 10,000 elements:"
+trace = TracePoint.new(:call) do |tp|
+  puts "Method called: #{tp.defined_class}##{tp.method_id}"
+end
+
+# Enable the trace for a specific block
+trace.enable do
+  calculate_total(items)
+end
+
+# 10. Object Inspection Methods
+
+class Person
+  attr_accessor :name, :age
   
-  array = (1..10_000).to_a
-  hash = Hash[array.map { |i| [i, true] }]
+  def initialize(name, age)
+    @name = name
+    @age = age
+    @private_data = "sensitive"
+  end
   
-  Benchmark.bm(10) do |x|
-    x.report("Array:") { array.include?(9999) }
-    x.report("Hash:") { hash.key?(9999) }
+  def to_s
+    "#{name}, #{age} years old"
+  end
+  
+  def inspect
+    "#<Person:#{object_id} name=#{name.inspect} age=#{age}>"
   end
 end
 
-# 2. Avoid unnecessary object creation
-def reduce_object_creation
-  puts "Impact of unnecessary object creation:"
-  
-  Benchmark.bm(10) do |x|
-    x.report("With new:") do
-      100_000.times do |i|
-        s = "Number: " + i.to_s  # Creates a new string each time
-      end
-    end
-    
-    x.report("Frozen:") do
-      prefix = "Number: ".freeze
-      100_000.times do |i|
-        s = prefix + i.to_s  # Reuses the frozen string
-      end
-    end
-  end
+person = Person.new("Alice", 30)
+
+# Different ways to inspect objects
+puts "person: #{person}"  # Uses to_s
+puts "inspect: #{person.inspect}"  # Uses inspect
+puts "instance variables: #{person.instance_variables}"
+puts "methods: #{person.methods - Object.methods}"  # Only Person's methods
+
+# Bonus: Getting a specific caller location
+def who_called_me
+  caller_info = caller_locations(1,1).first
+  "Called by #{caller_info.path}:#{caller_info.lineno} in #{caller_info.label}"
 end
 
-# 3. Use symbols instead of strings for hash keys
-def symbols_vs_strings
-  puts "Symbols vs Strings for hash keys:"
-  
-  Benchmark.bm(10) do |x|
-    string_hash = {}
-    symbol_hash = {}
-    
-    x.report("Strings:") do
-      1_000_000.times do |i|
-        string_hash["key"] = i
-        val = string_hash["key"]
-      end
-    end
-    
-    x.report("Symbols:") do
-      1_000_000.times do |i|
-        symbol_hash[:key] = i
-        val = symbol_hash[:key]
-      end
-    end
-  end
+def method_x
+  puts who_called_me
 end
 
-# 4. Memoization to avoid redundant calculations
-def fibonacci_slow(n)
-  return n if n <= 1
-  fibonacci_slow(n-1) + fibonacci_slow(n-2)
-end
+method_x
 
-def fibonacci_memoized(n, cache = {})
-  return n if n <= 1
-  cache[n] ||= fibonacci_memoized(n-1, cache) + fibonacci_memoized(n-2, cache)
-end
-
-def memoization_example
-  puts "Memoization for Fibonacci calculation:"
-  
-  n = 30
-  
-  Benchmark.bm(10) do |x|
-    # Uncomment to see slow version but beware, it's SLOW
-    # x.report("Slow:") { fibonacci_slow(n) }
-    x.report("Memoized:") { fibonacci_memoized(n) }
-  end
-end
-
-# 5. Avoid N+1 query problem (database specific)
-=begin
-# Bad (N+1 queries)
-posts = Post.all
-posts.each do |post|
-  puts post.user.name  # Each access to post.user is a separate query
-end
-
-# Good (eager loading)
-posts = Post.includes(:user)
-posts.each do |post|
-  puts post.user.name  # No additional queries
-end
-=end
-
-# 6. Block vs Proc vs lambda performance
-def block_proc_lambda_comparison
-  puts "Block vs Proc vs lambda performance:"
-  
-  Benchmark.bm(10) do |x|
-    x.report("Block:") do
-      sum = 0
-      1_000_000.times { |i| sum += i }
-    end
-    
-    x.report("Proc:") do
-      sum = 0
-      proc = Proc.new { |i| sum += i }
-      1_000_000.times { |i| proc.call(i) }
-    end
-    
-    x.report("lambda:") do
-      sum = 0
-      lambda_func = ->(i) { sum += i }
-      1_000_000.times { |i| lambda_func.call(i) }
-    end
-  end
-end
-
-# 7. Lazy enumeration for large collections
-def lazy_enumeration_example
-  puts "Eager vs Lazy enumeration:"
-  
-  Benchmark.bm(10) do |x|
-    x.report("Eager:") do
-      (1..10_000_000).map { |i| i * i }.first(10)
-    end
-    
-    x.report("Lazy:") do
-      (1..10_000_000).lazy.map { |i| i * i }.first(10)
-    end
-  end
-end
-
-# 8. String interpolation vs concatenation
-def string_operations_comparison
-  puts "String interpolation vs concatenation:"
-  
-  name = "Ruby"
-  
-  Benchmark.bm(15) do |x|
-    x.report("Concatenation:") do
-      1_000_000.times { s = "Hello, " + name + "!" }
-    end
-    
-    x.report("Interpolation:") do
-      1_000_000.times { s = "Hello, #{name}!" }
-    end
-  end
-end
-
-# 9. Use appropriate iterators
-def iterator_comparison
-  puts "Different iterators performance:"
-  
-  array = (1..100_000).to_a
-  
-  Benchmark.bm(15) do |x|
-    x.report("for loop:") do
-      sum = 0
-      for i in array
-        sum += i
-      end
-    end
-    
-    x.report("each:") do
-      sum = 0
-      array.each { |i| sum += i }
-    end
-    
-    x.report("each_with_index:") do
-      sum = 0
-      array.each_with_index { |num, idx| sum += num }
-    end
-    
-    x.report("while loop:") do
-      sum = 0
-      i = 0
-      while i < array.size
-        sum += array[i]
-        i += 1
-      end
-    end
-  end
-end
-
-# 10. Regular expressions optimization
-def regex_optimization
-  puts "Optimizing regular expressions:"
-  
-  text = "The quick brown fox jumps over the lazy dog." * 1000
-  
-  Benchmark.bm(15) do |x|
-    x.report("Simple regex:") do
-      text =~ /fox/
-    end
-    
-    x.report("Complex regex:") do
-      text =~ /f[a-z]x/
-    end
-    
-    x.report("Anchored regex:") do
-      text =~ /^The/  # Anchored to start
-    end
-    
-    x.report("Precompiled:") do
-      regex = /fox/
-      text =~ regex
-    end
-  end
-end
-
-# Run examples
-symbols_vs_strings
-reduce_object_creation
-string_operations_comparison
-iterator_comparison`,
-              explanation: "This example covers performance analysis and optimization techniques for Ruby code. It demonstrates how to benchmark and profile code using various tools like Benchmark, benchmark-ips, ruby-prof, and memory_profiler. It then explores common optimization strategies, including choosing efficient data structures (hashes over arrays for lookups), reducing object creation with frozen strings, using symbols instead of strings for hash keys, implementing memoization to avoid redundant calculations, solving the N+1 query problem in database operations, comparing block/proc/lambda performance, utilizing lazy enumeration for large collections, optimizing string operations, choosing appropriate iterators, and improving regular expression efficiency. These techniques help make Ruby code faster and more memory-efficient."
-            },
-            {
-              title: "Advanced Optimization Techniques",
-              code: `# Using native extensions with C
-
-# Example of a C extension (factorial.c)
-=begin
-#include <ruby.h>
-
-static VALUE rb_factorial(VALUE self, VALUE n_value) {
-    long n = NUM2LONG(n_value);
-    
-    if (n < 0) {
-        rb_raise(rb_eArgError, "Factorial of negative number is undefined");
-    }
-    
-    long result = 1;
-    for (long i = 2; i <= n; i++) {
-        result *= i;
-    }
-    
-    return LONG2NUM(result);
-}
-
-void Init_factorial() {
-    VALUE MathUtil = rb_define_module("MathUtil");
-    rb_define_singleton_method(MathUtil, "factorial", rb_factorial, 1);
-}
-=end
-
-# Using it from Ruby
-=begin
-require 'factorial'
-
-# Much faster than Ruby implementation
-puts MathUtil.factorial(20)
-=end
-
-# Parallelization with threads
-require 'thread'
-
-def parallel_processing
-  puts "Sequential vs Parallel processing:"
-  
-  numbers = (1..100).to_a
-  
-  Benchmark.bm(15) do |x|
-    x.report("Sequential:") do
-      results = numbers.map { |n| n ** 2 }
-    end
-    
-    x.report("Parallel (4):") do
-      # Split work into chunks
-      chunks = numbers.each_slice((numbers.size/4.0).ceil).to_a
-      
-      # Process each chunk in a separate thread
-      threads = chunks.map do |chunk|
-        Thread.new do
-          chunk.map { |n| n ** 2 }
-        end
-      end
-      
-      # Collect results
-      results = threads.flat_map(&:value)
-    end
-  end
-end
-
-# Using parallel gem for easier parallelization
-=begin
-require 'parallel'
-
-def parallel_gem_example
-  puts "Using parallel gem:"
-  
-  numbers = (1..100).to_a
-  
-  Benchmark.bm(15) do |x|
-    x.report("Sequential:") do
-      results = numbers.map { |n| n ** 2 }
-    end
-    
-    x.report("Parallel (CPU):") do
-      results = Parallel.map(numbers, in: :processes) { |n| n ** 2 }
-    end
-    
-    x.report("Parallel (2x):") do
-      results = Parallel.map(numbers, in: 2) { |n| n ** 2 }
-    end
-  end
-end
-=end
-
-# Using Fibers for cooperative concurrency
-def fibonacci_generator(max)
-  Fiber.new do
-    a, b = 0, 1
-    while a < max
-      Fiber.yield a
-      a, b = b, a + b
-    end
-  end
-end
-
-def fibers_example
-  fib = fibonacci_generator(100)
-  
-  puts "First 10 Fibonacci numbers using Fibers:"
-  10.times do
-    puts fib.resume
-  end
-end
-
-# Caching for expensive operations
-require 'digest'
-
-class ComputationCache
-  def initialize
-    @cache = {}
-  end
-  
-  def compute(input)
-    @cache[input] ||= begin
-      puts "Computing for #{input}..."
-      # Simulate expensive computation
-      sleep(0.1)
-      Digest::SHA256.hexdigest(input.to_s)
-    end
-  end
-end
-
-def caching_example
-  cache = ComputationCache.new
-  
-  puts "First call (not cached):"
-  time_first = Benchmark.realtime { result1 = cache.compute("test_input") }
-  puts "Time: #{time_first}"
-  
-  puts "\nSecond call (cached):"
-  time_second = Benchmark.realtime { result2 = cache.compute("test_input") }
-  puts "Time: #{time_second}"
-  
-  puts "\nSpeed improvement: #{(time_first / time_second).round(2)}x"
-end
-
-# Method caching with memoization
-class ExpensiveCalculator
-  def initialize
-    @memo = {}
-  end
-  
-  def factorial(n)
-    @memo[n] ||= begin
-      puts "Calculating factorial(#{n})..."
-      return 1 if n <= 1
-      n * factorial(n-1)
-    end
-  end
-  
-  # Alternative using Ruby 2.7+ pattern matching and numbered parameters
-  def factorial_with_pattern(n)
-    @memo[n] ||= begin
-      puts "Calculating factorial(#{n})..."
-      case n
-      in 0 | 1 then 1
-      else n * factorial_with_pattern(n-1)
-      end
-    end
-  end
-end
-
-def method_caching_example
-  calc = ExpensiveCalculator.new
-  
-  puts "First call sequence:"
-  calc.factorial(5)
-  
-  puts "\nSecond call (should use cached values):"
-  calc.factorial(5)
-  
-  puts "\nPartial cached call:"
-  calc.factorial(7)  # Should only calculate for 6 and 7
-end
-
-# Using faster data serialization formats
-=begin
-require 'json'
-require 'msgpack'
-require 'oj'  # Optimized JSON
-
-def serialization_comparison
-  data = { 
-    users: 1000.times.map { |i|
-      {
-        id: i,
-        name: "User #{i}",
-        email: "user#{i}@example.com",
-        roles: ["user", i % 10 == 0 ? "admin" : "member"]
-      }
-    }
-  }
-  
-  Benchmark.bm(15) do |x|
-    # Standard JSON
-    x.report("JSON:") do
-      json = JSON.generate(data)
-      parsed = JSON.parse(json)
-    end
-    
-    # Oj (optimized JSON)
-    x.report("Oj:") do
-      json = Oj.dump(data)
-      parsed = Oj.load(json)
-    end
-    
-    # MessagePack
-    x.report("MessagePack:") do
-      packed = MessagePack.pack(data)
-      unpacked = MessagePack.unpack(packed)
-    end
-  end
-end
-=end
-
-# Memory optimization techniques
-class MemoryOptimization
-  def String_vs_Symbol
-    puts "Memory usage: String vs Symbol"
-    
-    # Create 10,000 duplicate strings
-    strings = 10_000.times.map { "this_is_a_string" }
-    
-    # Create 10,000 duplicate symbols
-    symbols = 10_000.times.map { :this_is_a_symbol }
-    
-    # In reality, only one symbol is stored regardless of how many times it's used
-    puts "Unique object IDs in strings: #{strings.map(&:object_id).uniq.count}"
-    puts "Unique object IDs in symbols: #{symbols.map(&:object_id).uniq.count}"
-  end
-  
-  def frozen_string_literals
-    puts "\nImpact of frozen string literals:"
-    
-    # Regular strings
-    a = "string"
-    b = "string"
-    puts "Same object? #{a.object_id == b.object_id}"  # false
-    
-    # Frozen string literals
-    c = "frozen_string".freeze
-    d = "frozen_string".freeze
-    puts "Same object after freeze? #{c.object_id == d.object_id}"  # may be true with string deduplication
-    
-    # With magic comment '# frozen_string_literal: true', all strings would be frozen by default
-  end
-  
-  def using_flyweight_pattern
-    puts "\nFlyweight pattern for memory optimization:"
-    
-    class FlyweightFactory
-      def initialize
-        @flyweights = {}
-      end
-      
-      def get_flyweight(key)
-        @flyweights[key] ||= Flyweight.new(key)
-      end
-      
-      def flyweight_count
-        @flyweights.size
-      end
-    end
-    
-    class Flyweight
-      def initialize(shared_state)
-        @shared_state = shared_state
-      end
-      
-      def operation(unique_state)
-        # Use shared_state and unique_state to perform operation
-        "#{@shared_state}-#{unique_state}"
-      end
-    end
-    
-    # Using the flyweight pattern
-    factory = FlyweightFactory.new
-    
-    # Create 1000 operations with only 5 different shared states
-    1000.times do |i|
-      shared = "shared#{i % 5}"
-      flyweight = factory.get_flyweight(shared)
-      result = flyweight.operation("unique#{i}")
-    end
-    
-    puts "Total unique flyweights created: #{factory.flyweight_count}"  # Should be 5
-  end
-  
-  def run
-    String_vs_Symbol
-    frozen_string_literals
-    using_flyweight_pattern
-  end
-end
-
-# Demonstrate memory optimization
-memory_demo = MemoryOptimization.new
-memory_demo.run
-
-# Using JIT in Ruby 3.0+
-=begin
-# To run with JIT:
-# ruby --jit program.rb
-
-require 'benchmark'
-def fibonacci(n)
-  return n if n <= 1
-  fibonacci(n-1) + fibonacci(n-2)
-end
-
-puts "With or without JIT comparison:"
-puts "Note: Ruby must be run with --jit flag to see difference"
-
-Benchmark.bm(15) do |x|
-  x.report("Fibonacci(30):") do
-    fibonacci(30)
-  end
-end
-=end`,
-              explanation: "This example explores advanced Ruby optimization techniques beyond basic code improvements. It covers using C extensions for performance-critical code, parallelization with threads and the Parallel gem, cooperative concurrency with Fibers, various caching strategies (including method memoization), faster data serialization formats, and memory optimization techniques. The memory optimization section demonstrates important concepts like symbol vs string memory usage, frozen string literals for deduplication, and the Flyweight design pattern for sharing common objects. It also mentions Ruby 3's Just-In-Time (JIT) compilation feature. These advanced techniques are particularly valuable for Ruby applications handling large datasets, complex computations, or high traffic loads."
+puts "Debugging and profiling examples completed"`,
+              explanation: "This example demonstrates various techniques for debugging and profiling Ruby code. It starts with basic debugging using puts statements and p for detailed output, showing caller stack traces, and then covers more advanced tools like debuggers, interactive debugging with IRB, logging, exception handling for debugging, performance profiling with the Benchmark module, code profiling, memory profiling, and using Ruby's TracePoint API for method call tracing. It also shows different methods for inspecting objects during debugging. Many of the advanced examples reference external tools or gems that would need to be installed in a real environment."
             }
           ],
           quiz: [
             {
-              question: "Which of the following is generally the most memory-efficient way to concatenate many strings in Ruby?",
+              question: "In Ruby, what is the main difference between using puts and p for debugging?",
               options: [
-                "Using the + operator (str = str + new_str)",
-                "Using string interpolation (str = \"#{str}#{new_str}\")",
-                "Using an array and join (arr << new_str; str = arr.join)",
-                "Using StringIO (io.write(new_str); str = io.string)"
+                "puts is faster than p for large objects",
+                "p shows more detailed information including object type and structure",
+                "puts can only print strings, while p can print any object",
+                "p is a part of the Ruby debugger, puts is part of the standard library"
               ],
-              correctAnswer: 2,
-              explanation: "Using an array to collect string fragments and then joining them with join is generally the most memory-efficient approach for concatenating many strings. The + operator and interpolation create a new string object with each concatenation, leading to many intermediate objects. An array with join creates the strings once when collected and once when joined. StringIO is also efficient but slightly more complex and has overhead for simple cases. For a large number of concatenations, array.join significantly outperforms the alternatives."
+              correctAnswer: 1,
+              explanation: "The main difference is that p provides more detailed information about objects compared to puts. While puts calls to_s on objects and outputs a user-friendly representation, p calls inspect on objects, showing quotes around strings, showing symbols with their colon, and revealing object structure for arrays, hashes, and other objects. This makes p more useful for debugging complex objects."
             }
           ],
           flashcards: [
             {
-              front: "What is the N+1 query problem in Ruby/Rails applications and how can it be solved?",
-              back: "The N+1 query problem occurs when you fetch N records and then make an additional query for each record (resulting in N+1 database queries). For example, getting all posts and then querying for each post's author separately. This can be solved with eager loading: in Rails, use includes(), preload(), or eager_load() to fetch the associated records in a single query (e.g., Post.includes(:author) instead of Post.all followed by post.author for each post)."
+              front: "What is the caller method in Ruby and how is it useful for debugging?",
+              back: "The caller method in Ruby returns an array of strings containing the current execution stack trace — the locations of all methods currently in the execution stack. Each entry shows the file, line number, and method where the call originated. This is useful for debugging to see the path of execution that led to a particular point in your code, especially for tracking down where a method is being called from."
             },
             {
-              front: "What are the key differences between Proc, lambda, and blocks in Ruby, particularly regarding performance?",
-              back: "In terms of performance: Blocks are the fastest because they're built into the language and have the least overhead. Procs add a slight overhead because they're objects that need to be created and called. Lambdas add slightly more overhead than Procs due to their argument checking. Other differences include: blocks are not objects while Procs and lambdas are; lambdas check argument counts while Procs don't; and return statements in Procs return from the enclosing method while in lambdas they only return from the lambda itself."
+              front: "What is the primary purpose of the Benchmark module in Ruby?",
+              back: "The Benchmark module provides methods to measure and report the time used to execute Ruby code. It's primarily used to compare the performance of different implementations of the same functionality (e.g., different algorithms). Common methods include Benchmark.bm for basic benchmarking and Benchmark.ips (iterations per second, from the benchmark-ips gem) for more sophisticated measurements. This helps identify performance bottlenecks in your code."
+            }
+          ]
+        },
+        {
+          id: "ruby-design-patterns",
+          title: "Design Patterns",
+          description: "Common design patterns implemented in Ruby",
+          content: `
+# Design Patterns in Ruby
+
+Design patterns are reusable solutions to common software design problems. Ruby's flexible nature offers unique implementations of these patterns.
+          `,
+          codeExamples: [
+            {
+              title: "Common Design Patterns in Ruby",
+              code: `# 1. Singleton Pattern
+# Ensures a class has only one instance and provides a global point of access to it
+
+require 'singleton'
+
+class Logger
+  include Singleton
+  
+  def initialize
+    @logs = []
+  end
+  
+  def log(message)
+    @logs << "#{Time.now}: #{message}"
+    puts "Logged: #{message}"
+  end
+  
+  def logs
+    @logs.dup
+  end
+end
+
+# Usage
+Logger.instance.log("This is a log message")
+Logger.instance.log("Another log message")
+puts "Logs: #{Logger.instance.logs}"
+
+# 2. Factory Method Pattern
+# Defines an interface for creating an object, but lets subclasses decide which class to instantiate
+
+class Product
+  attr_reader :name
+  
+  def initialize(name)
+    @name = name
+  end
+end
+
+class ConcreteProductA < Product
+  def use
+    "Using concrete product A: #{name}"
+  end
+end
+
+class ConcreteProductB < Product
+  def use
+    "Using concrete product B: #{name}"
+  end
+end
+
+class Creator
+  def create_product(type, name)
+    case type
+    when :a
+      ConcreteProductA.new(name)
+    when :b
+      ConcreteProductB.new(name)
+    else
+      raise "Unknown product type"
+    end
+  end
+end
+
+# Usage
+creator = Creator.new
+product_a = creator.create_product(:a, "ProductA")
+product_b = creator.create_product(:b, "ProductB")
+
+puts product_a.use
+puts product_b.use
+
+# 3. Builder Pattern
+# Separates the construction of a complex object from its representation
+
+class Computer
+  attr_accessor :cpu, :memory, :storage, :gpu
+  
+  def to_s
+    "Computer with: CPU=#{cpu}, Memory=#{memory}GB, Storage=#{storage}GB, GPU=#{gpu}"
+  end
+end
+
+class ComputerBuilder
+  def initialize
+    @computer = Computer.new
+  end
+  
+  def build_cpu(cpu)
+    @computer.cpu = cpu
+    self
+  end
+  
+  def build_memory(memory)
+    @computer.memory = memory
+    self
+  end
+  
+  def build_storage(storage)
+    @computer.storage = storage
+    self
+  end
+  
+  def build_gpu(gpu)
+    @computer.gpu = gpu
+    self
+  end
+  
+  def computer
+    @computer
+  end
+end
+
+# Usage
+computer = ComputerBuilder.new
+             .build_cpu("Intel i7")
+             .build_memory(16)
+             .build_storage(512)
+             .build_gpu("NVIDIA RTX 3080")
+             .computer
+
+puts computer
+
+# 4. Observer Pattern
+# Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified
+
+module Subject
+  def initialize
+    @observers = []
+  end
+  
+  def add_observer(observer)
+    @observers << observer
+  end
+  
+  def remove_observer(observer)
+    @observers.delete(observer)
+  end
+  
+  def notify_observers
+    @observers.each { |observer| observer.update(self) }
+  end
+end
+
+class NewsPublisher
+  include Subject
+  
+  attr_reader :news
+  
+  def initialize
+    super
+    @news = []
+  end
+  
+  def add_news(news)
+    @news << news
+    notify_observers
+  end
+end
+
+class NewsSubscriber
+  def initialize(name)
+    @name = name
+  end
+  
+  def update(publisher)
+    puts "#{@name} received news: #{publisher.news.last}"
+  end
+end
+
+# Usage
+publisher = NewsPublisher.new
+subscriber1 = NewsSubscriber.new("Subscriber 1")
+subscriber2 = NewsSubscriber.new("Subscriber 2")
+
+publisher.add_observer(subscriber1)
+publisher.add_observer(subscriber2)
+
+publisher.add_news("Breaking news: Ruby 3.0 released!")
+
+# 5. Strategy Pattern
+# Defines a family of algorithms, encapsulates each one, and makes them interchangeable
+
+class Context
+  attr_writer :strategy
+  
+  def initialize(strategy)
+    @strategy = strategy
+  end
+  
+  def execute
+    @strategy.execute
+  end
+end
+
+class Strategy
+  def execute
+    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
+  end
+end
+
+class ConcreteStrategyA < Strategy
+  def execute
+    "Executing strategy A"
+  end
+end
+
+class ConcreteStrategyB < Strategy
+  def execute
+    "Executing strategy B"
+  end
+end
+
+# Usage
+context = Context.new(ConcreteStrategyA.new)
+puts context.execute
+
+context.strategy = ConcreteStrategyB.new
+puts context.execute
+
+# 6. Adapter Pattern
+# Allows the interface of an existing class to be used as another interface
+
+class OldSystem
+  def initialize(name)
+    @name = name
+  end
+  
+  def legacy_method
+    "Legacy system: #{@name}"
+  end
+end
+
+class NewSystem
+  def initialize(name)
+    @name = name
+  end
+  
+  def modern_method
+    "Modern system: #{@name}"
+  end
+end
+
+class Adapter
+  def initialize(adaptee)
+    @adaptee = adaptee
+  end
+  
+  def modern_method
+    if @adaptee.respond_to?(:modern_method)
+      @adaptee.modern_method
+    else
+      "Adapted: #{@adaptee.legacy_method}"
+    end
+  end
+end
+
+# Usage
+systems = [
+  NewSystem.new("System1"),
+  Adapter.new(OldSystem.new("System2"))
+]
+
+systems.each do |system|
+  puts system.modern_method
+end
+
+# 7. Decorator Pattern
+# Attaches additional responsibilities to an object dynamically
+
+class Component
+  def operation
+    "Basic component"
+  end
+end
+
+class Decorator
+  def initialize(component)
+    @component = component
+  end
+  
+  def operation
+    @component.operation
+  end
+end
+
+class ConcreteDecoratorA < Decorator
+  def operation
+    "#{super} with Decorator A"
+  end
+end
+
+class ConcreteDecoratorB < Decorator
+  def operation
+    "#{super} with Decorator B"
+  end
+end
+
+# Usage
+component = Component.new
+decorator_a = ConcreteDecoratorA.new(component)
+decorator_b = ConcreteDecoratorB.new(decorator_a)
+
+puts component.operation
+puts decorator_a.operation
+puts decorator_b.operation
+
+# 8. Template Method Pattern
+# Defines the skeleton of an algorithm in a method, deferring some steps to subclasses
+
+class AbstractClass
+  def template_method
+    step_one
+    step_two
+    step_three
+  end
+  
+  def step_one
+    puts "AbstractClass: Step One"
+  end
+  
+  def step_two
+    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
+  end
+  
+  def step_three
+    puts "AbstractClass: Step Three"
+  end
+end
+
+class ConcreteClass < AbstractClass
+  def step_two
+    puts "ConcreteClass: Step Two"
+  end
+end
+
+# Usage
+concrete = ConcreteClass.new
+concrete.template_method
+
+# 9. Command Pattern
+# Encapsulates a request as an object, allowing for parameterization of clients with different requests
+
+class Command
+  def execute
+    raise NotImplementedError
+  end
+end
+
+class LightOnCommand < Command
+  def initialize(light)
+    @light = light
+  end
+  
+  def execute
+    @light.turn_on
+  end
+end
+
+class LightOffCommand < Command
+  def initialize(light)
+    @light = light
+  end
+  
+  def execute
+    @light.turn_off
+  end
+end
+
+class Light
+  def turn_on
+    puts "Light is on"
+  end
+  
+  def turn_off
+    puts "Light is off"
+  end
+end
+
+class RemoteControl
+  def initialize
+    @commands = {}
+  end
+  
+  def set_command(slot, command)
+    @commands[slot] = command
+  end
+  
+  def press_button(slot)
+    @commands[slot].execute if @commands[slot]
+  end
+end
+
+# Usage
+light = Light.new
+light_on = LightOnCommand.new(light)
+light_off = LightOffCommand.new(light)
+
+remote = RemoteControl.new
+remote.set_command(:on, light_on)
+remote.set_command(:off, light_off)
+
+remote.press_button(:on)
+remote.press_button(:off)
+
+# 10. Proxy Pattern
+# Provides a surrogate or placeholder for another object to control access to it
+
+class RealObject
+  def perform
+    puts "RealObject: performing operation"
+  end
+end
+
+class Proxy
+  def initialize
+    @real_object = nil
+  end
+  
+  def perform
+    @real_object = RealObject.new unless @real_object
+    puts "Proxy: logging before forwarding to real object"
+    @real_object.perform
+    puts "Proxy: logging after forwarding"
+  end
+end
+
+# Usage
+proxy = Proxy.new
+proxy.perform
+
+puts "Design patterns examples completed"`,
+              explanation: "This example demonstrates ten common design patterns implemented in Ruby. The Singleton pattern ensures a class has only one instance. The Factory Method pattern defines an interface for creating objects. The Builder pattern separates construction from representation. The Observer pattern creates a one-to-many dependency between objects. The Strategy pattern makes algorithms interchangeable. The Adapter pattern converts one interface to another. The Decorator pattern adds responsibilities to objects dynamically. The Template Method pattern defers steps to subclasses. The Command pattern encapsulates requests as objects. The Proxy pattern controls access to objects. Each pattern solves a specific design problem and takes advantage of Ruby's flexible features like modules, blocks, and dynamic typing."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which design pattern is most appropriate when you need to ensure a class has only one instance across the entire application?",
+              options: [
+                "Factory Method",
+                "Singleton",
+                "Builder",
+                "Adapter"
+              ],
+              correctAnswer: 1,
+              explanation: "The Singleton pattern is specifically designed to ensure a class has only one instance and provides a global point of access to that instance. In Ruby, the Singleton module in the standard library makes it easy to implement this pattern by disabling the new method and providing an instance class method to access the single instance."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is the main purpose of the Builder design pattern?",
+              back: "The Builder pattern separates the construction of a complex object from its representation. It allows the same construction process to create different representations. This is useful when an object requires many steps to build it or when the construction needs to create different representations. In Ruby, it's often implemented with a fluent interface using method chaining."
+            },
+            {
+              front: "How does Ruby's implementation of design patterns differ from languages like Java or C++?",
+              back: "Ruby's implementation of design patterns tends to be more concise and flexible due to its dynamic nature, duck typing, modules, blocks, and metaprogramming capabilities. While traditional languages might use abstract classes and interfaces, Ruby often uses modules, mixins, blocks, and dynamic method definition. Many patterns that require complex structures in static languages can be implemented more elegantly in Ruby, sometimes to the point where they blend into the language itself."
+            }
+          ]
+        },
+        {
+          id: "ruby-functional",
+          title: "Functional Programming",
+          description: "Functional programming techniques in Ruby",
+          content: `
+# Functional Programming in Ruby
+
+While Ruby is primarily object-oriented, it supports many functional programming concepts that can make your code more concise and maintainable.
+          `,
+          codeExamples: [
+            {
+              title: "Functional Programming Techniques",
+              code: `# 1. First-class functions
+# Functions (methods) can be assigned to variables and passed as arguments
+
+# Method as a Proc object
+add = lambda { |a, b| a + b }
+subtract = lambda { |a, b| a - b }
+
+puts "2 + 3 = #{add.call(2, 3)}"
+puts "5 - 2 = #{subtract.call(5, 2)}"
+
+# Higher-order functions - functions that take other functions as arguments
+def apply_operation(a, b, operation)
+  operation.call(a, b)
+end
+
+puts "Apply add: #{apply_operation(5, 3, add)}"
+puts "Apply subtract: #{apply_operation(5, 3, subtract)}"
+
+# Symbol to proc for passing methods
+['apple', 'banana', 'cherry'].map(&:upcase)  # => ["APPLE", "BANANA", "CHERRY"]
+
+# 2. Pure functions
+# Functions that have no side effects and always return the same output for the same input
+
+# Pure function
+def add_numbers(a, b)
+  a + b  # Always returns the same result for the same inputs
+end
+
+# Impure function (has side effect)
+def add_with_side_effect(a, b)
+  result = a + b
+  puts "The result is #{result}"  # Side effect (output)
+  result
+end
+
+puts "Pure add: #{add_numbers(2, 3)}"
+puts "Impure add: #{add_with_side_effect(2, 3)}"
+
+# 3. Immutability
+# Once created, objects should not be modified
+
+# Using freeze for immutability
+point = [10, 20].freeze
+# point[0] = 5  # This would raise a FrozenError
+
+# Returning new objects instead of modifying
+def add_to_array(array, item)
+  # Return a new array with the item added rather than modifying the original
+  array + [item]
+end
+
+numbers = [1, 2, 3]
+new_numbers = add_to_array(numbers, 4)
+puts "Original array: #{numbers}"
+puts "New array: #{new_numbers}"
+
+# 4. Function composition
+# Combining functions to create new functions
+
+# Simple composition
+square = ->(x) { x * x }
+double = ->(x) { x * 2 }
+
+square_then_double = ->(x) { double.call(square.call(x)) }
+double_then_square = ->(x) { square.call(double.call(x)) }
+
+puts "3² × 2 = #{square_then_double.call(3)}"    # 18
+puts "3 × 2² = #{double_then_square.call(3)}"    # 36
+
+# Composition with reduce
+def compose(*functions)
+  ->(x) { functions.reverse.reduce(x) { |result, f| f.call(result) } }
+end
+
+add_one = ->(x) { x + 1 }
+multiply_by_two = ->(x) { x * 2 }
+subtract_three = ->(x) { x - 3 }
+
+composed = compose(subtract_three, multiply_by_two, add_one)
+puts "((5 + 1) × 2) - 3 = #{composed.call(5)}"  # 9
+
+# 5. Recursion
+# Functions that call themselves
+
+# Recursive factorial
+def factorial(n)
+  return 1 if n <= 1
+  n * factorial(n - 1)
+end
+
+puts "Factorial of 5: #{factorial(5)}"  # 120
+
+# Recursive Fibonacci
+def fibonacci(n)
+  return n if n <= 1
+  fibonacci(n - 1) + fibonacci(n - 2)
+end
+
+puts "Fibonacci of 10: #{fibonacci(10)}"  # 55
+
+# 6. Closures
+# Functions that capture their surrounding lexical environment
+
+def create_multiplier(factor)
+  ->(x) { x * factor }
+end
+
+double = create_multiplier(2)
+triple = create_multiplier(3)
+
+puts "Double 5: #{double.call(5)}"  # 10
+puts "Triple 5: #{triple.call(5)}"  # 15
+
+# 7. Currying
+# Transforming a function with multiple arguments into a sequence of functions, each with a single argument
+
+add = ->(a, b) { a + b }
+add_curried = add.curry
+
+add_five = add_curried.call(5)
+puts "5 + 3 = #{add_five.call(3)}"  # 8
+
+# 8. Partial application
+# Fixing a number of arguments to a function, producing another function of smaller arity
+
+def greet(greeting, name)
+  "#{greeting}, #{name}!"
+end
+
+hello = method(:greet).curry.call("Hello")
+bonjour = method(:greet).curry.call("Bonjour")
+
+puts hello.call("Alice")    # "Hello, Alice!"
+puts bonjour.call("Bob")    # "Bonjour, Bob!"
+
+# 9. Higher order array operations
+# map, filter, reduce for working with collections in a functional style
+
+numbers = [1, 2, 3, 4, 5]
+
+# Map - transform each element
+squares = numbers.map { |n| n * n }
+puts "Squares: #{squares}"  # [1, 4, 9, 16, 25]
+
+# Filter (select) - keep elements that match a condition
+even_numbers = numbers.select { |n| n.even? }
+puts "Even numbers: #{even_numbers}"  # [2, 4]
+
+# Reduce (inject) - combine elements to a single value
+sum = numbers.reduce(0) { |acc, n| acc + n }
+puts "Sum: #{sum}"  # 15
+
+product = numbers.reduce(1) { |acc, n| acc * n }
+puts "Product: #{product}"  # 120
+
+# 10. Function memoization
+# Caching results of expensive function calls for reuse
+
+def memoize(func)
+  cache = {}
+  ->(*args) {
+    key = args
+    if cache.has_key?(key)
+      puts "Cache hit for #{key}"
+      cache[key]
+    else
+      puts "Cache miss for #{key}"
+      cache[key] = func.call(*args)
+    end
+  }
+end
+
+expensive_fibonacci = memoize(->n {
+  return n if n <= 1
+  expensive_fibonacci.call(n - 1) + expensive_fibonacci.call(n - 2)
+})
+
+puts "Fibonacci(5): #{expensive_fibonacci.call(5)}"
+puts "Fibonacci(5) again: #{expensive_fibonacci.call(5)}"  # Uses cached result
+
+# 11. Lazy evaluation
+# Only computing values when they are needed
+
+# Infinite sequence of fibonacci numbers (lazy)
+fibonacci_sequence = Enumerator.new do |yielder|
+  a, b = 0, 1
+  loop do
+    yielder << a
+    a, b = b, a + b
+  end
+end.lazy
+
+puts "First 10 Fibonacci numbers:"
+puts fibonacci_sequence.take(10).to_a.inspect
+
+# 12. Pattern matching (Ruby 2.7+)
+# Destructuring data structures and matching patterns
+
+case [1, 2, 3]
+in [a, 2, 3]
+  puts "Matched with a = #{a}"
+end
+
+case {name: "Alice", age: 30}
+in {name: "Alice", age:}
+  puts "Alice is #{age} years old"
+end
+
+# 13. Functional-style pipeline with the then method (Ruby 2.6+)
+result = 5.then { |x| x + 1 }
+         .then { |x| x * 2 }
+         .then { |x| x - 3 }
+
+puts "Pipeline result: #{result}"  # ((5 + 1) * 2) - 3 = 9
+
+puts "Functional programming examples completed"`,
+              explanation: "This example demonstrates functional programming techniques in Ruby. It covers first-class functions, pure functions (no side effects), immutability using freeze, function composition, recursion, closures, currying, partial application, higher-order array operations (map, filter, reduce), function memoization for caching results, lazy evaluation for working with infinite sequences, pattern matching for destructuring data, and functional pipelines using the then method. These techniques can make code more concise, maintainable, and less prone to certain types of bugs by minimizing state and side effects."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which of the following is a key principle of functional programming demonstrated in the example?",
+              options: [
+                "Inheritance hierarchies",
+                "Immutability",
+                "Global state",
+                "Encapsulation"
+              ],
+              correctAnswer: 1,
+              explanation: "Immutability is a key principle of functional programming, where data structures are not modified after creation but instead new structures are created with the desired changes. This helps avoid side effects and makes code more predictable. The example demonstrates this by freezing objects and returning new arrays instead of modifying existing ones."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is a pure function in functional programming?",
+              back: "A pure function is a function that has no side effects (doesn't modify state outside its scope or interact with the outside world) and always returns the same output for the same input. Pure functions are easier to test, understand, and parallelize. In the example, add_numbers is a pure function, while add_with_side_effect is not because it has the side effect of printing to the console."
+            },
+            {
+              front: "What is the difference between currying and partial application in functional programming?",
+              back: "Currying transforms a function with multiple arguments into a sequence of functions, each taking a single argument. When called with one argument, it returns a new function that takes the next argument, and so on. Partial application, on the other hand, fixes a specific number of arguments to a function, producing another function of smaller arity. The difference is that currying always produces unary functions (taking one argument), while partial application can fix any number of arguments."
+            }
+          ]
+        },
+        {
+          id: "ruby-style",
+          title: "Ruby Style Guide",
+          description: "Best practices for writing clean and idiomatic Ruby code",
+          content: `
+# Ruby Style Guide
+
+Following consistent style guidelines makes your Ruby code more readable and maintainable.
+          `,
+          codeExamples: [
+            {
+              title: "Ruby Style Best Practices",
+              code: `# 1. Code Layout and Formatting
+
+# Use 2 spaces for indentation (not tabs)
+def good_indentation
+  if true
+    puts "Properly indented"
+  end
+end
+
+# Maximum line length is around 80-100 characters
+# Long lines should be broken up
+long_string = "This is a very long string that would exceed the recommended line" \
+              " length limit, so it should be broken up like this."
+
+# Spaces around operators
+result = 1 + 2 * 3 / 4
+
+# No space after opening or before closing parentheses
+def method_call(arg1, arg2)
+  # Good
+end
+
+# Space after commas
+[1, 2, 3, 4, 5]
+
+# 2. Naming Conventions
+
+# Snake_case for methods and variables
+def calculate_total_price(base_price, tax_rate)
+  # ...
+end
+
+# CamelCase for classes and modules
+class UserAuthentication
+  # ...
+end
+
+module TextFormatting
+  # ...
+end
+
+# SCREAMING_SNAKE_CASE for constants
+MAX_LOGIN_ATTEMPTS = 3
+DEFAULT_CONFIG = { timeout: 30, retries: 3 }.freeze
+
+# Predicate methods (return true/false) end with question mark
+def valid?
+  # ...
+end
+
+def admin?
+  # ...
+end
+
+# Dangerous methods (modify self) end with exclamation mark
+def save!
+  # ...
+end
+
+# 3. Classes and Modules
+
+# One class per file, named the same as the file (user.rb contains User class)
+
+# Prefer instance methods over class methods
+class User
+  # Good
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+  
+  # Use sparingly
+  def self.find_by_email(email)
+    # ...
+  end
+end
+
+# Order of class methods and attributes
+class Person
+  # extend and include go first
+  extend SomeModule
+  include AnotherModule
+  
+  # inner classes
+  class InnerClass
+    # ...
+  end
+  
+  # constants
+  SOME_CONSTANT = 20
+  
+  # attribute macros
+  attr_reader :name
+  
+  # other macros (if/whenever needed)
+  validates :name, presence: true
+  
+  # public class methods
+  def self.some_method
+    # ...
+  end
+  
+  # initialization goes between class methods and other instance methods
+  def initialize(name)
+    @name = name
+  end
+  
+  # public instance methods
+  def some_method
+    # ...
+  end
+  
+  # protected and private methods are grouped near the end
+  protected
+  
+  def some_protected_method
+    # ...
+  end
+  
+  private
+  
+  def some_private_method
+    # ...
+  end
+end
+
+# 4. Collections
+
+# Use %w for arrays of words
+cities = %w[New\ York London Paris Tokyo]
+
+# Use %i for arrays of symbols
+states = %i[Alabama Alaska Arizona Arkansas]
+
+# Use the Ruby 1.9+ hash syntax when keys are symbols
+# Good
+options = { font_size: 10, font_family: 'Arial' }
+
+# Avoid unless with multiple conditions or complex expressions
+# Good
+if age >= 18
+  puts "Adult"
+end
+
+# Bad
+# unless age < 18
+#   puts "Adult"
+# end
+
+# 5. Strings
+
+# Prefer string interpolation over concatenation
+name = "Alice"
+# Good
+greeting = "Hello, #{name}!"
+# Bad
+# greeting = "Hello, " + name + "!"
+
+# Use single quotes when not doing interpolation
+message = 'This is a simple message.'
+
+# 6. Conditionals
+
+# No parentheses around conditions
+if x > 10
+  # ...
+end
+
+# Use ternary operator for simple conditionals
+result = age >= 18 ? "Adult" : "Minor"
+
+# Use if/unless as modifiers for single-line conditions
+puts "Adult" if age >= 18
+return unless valid?
+
+# case statements
+case status
+when :active
+  activate_user
+when :inactive
+  deactivate_user
+else
+  raise "Invalid status"
+end
+
+# Avoid explicit returns
+def full_name(user)
+  "#{user.first_name} #{user.last_name}"
+end
+
+# Use the === operator with case
+case number
+when 0..9
+  puts "Single digit"
+when 10..99
+  puts "Two digits"
+else
+  puts "Three or more digits"
+end
+
+# 7. Methods
+
+# Use implicit returns (last expression is the return value)
+def full_name
+  "#{first_name} #{last_name}"
+end
+
+# Use keyword arguments for options
+def draw_line(from:, to:, color: "black", width: 1)
+  # ...
+end
+
+# Avoid more than 3 levels of nesting
+def parse_data
+  data.each do |item|
+    item.parts.each do |part|
+      # Avoid more nesting
+    end
+  end
+end
+
+# 8. Comments
+
+# Use RDoc/YARD syntax for documenting code
+# Good:
+
+# Calculates the total price including tax
+#
+# @param base_price [Float] the base price of the item
+# @param tax_rate [Float] the tax rate as a decimal
+# @return [Float] the total price
+def calculate_total_price(base_price, tax_rate)
+  base_price * (1 + tax_rate)
+end
+
+# 9. Exceptions
+
+# Use raise to raise exceptions
+raise ArgumentError, "Name cannot be blank" if name.blank?
+
+# Use meaningful exception classes
+class ValidationError < StandardError; end
+
+# Always use begin/rescue/end for exception handling
+begin
+  # code that might raise an exception
+rescue SpecificError => e
+  # handle specific error
+rescue => e
+  # handle any other error
+ensure
+  # ensure this runs regardless of exception
+end
+
+# 10. Collections Processing
+
+# Prefer iterators over for loops
+# Good
+[1, 2, 3].each { |n| puts n }
+
+# Bad
+# for n in [1, 2, 3]
+#   puts n
+# end
+
+# Use map instead of collect, find instead of detect, etc.
+squares = [1, 2, 3].map { |n| n * n }
+even = [1, 2, 3, 4].find { |n| n.even? }
+
+# 11. Metaprogramming
+
+# Avoid using method_missing unless absolutely necessary
+# Prefer using define_method for metaprogramming
+
+# 12. Misc
+
+# Avoid global variables ($var)
+# Good
+CONST_VAR = 'A constant'
+# Bad
+# $global_var = 'Global variable'
+
+# Use the -> syntax for creating lambdas with arguments
+add = ->(a, b) { a + b }
+puts add.call(1, 2)
+
+# Use the &: shorthand for block calls when possible
+names = ['alice', 'bob', 'charlie']
+names.map(&:capitalize)  # => ["Alice", "Bob", "Charlie"]
+
+# Use _ for unused block parameters
+hash.map { |_, v| v }
+
+# Use parallel assignment when applicable
+a, b = [1, 2]
+a, b = b, a  # swap variables
+
+# Use Ruby's built-in English versions of Boolean operators
+# Good
+if valid && ready?
+  # ...
+end
+
+# Bad
+# if valid and ready?
+#   # ...
+# end
+
+puts "Style guide examples completed"`,
+              explanation: "This example demonstrates Ruby style best practices based on community standards like the Ruby Style Guide and common conventions. It covers code layout, naming conventions, class and module organization, collections, strings, conditionals, methods, comments, exceptions, collections processing, metaprogramming best practices, and miscellaneous recommendations. Following these conventions makes Ruby code more readable, maintainable, and idiomatic. These practices are commonly enforced by tools like RuboCop."
+            }
+          ],
+          quiz: [
+            {
+              question: "According to Ruby style guidelines, what's the recommended naming convention for methods and variables?",
+              options: [
+                "CamelCase (e.g., CalculateTotal)",
+                "snake_case (e.g., calculate_total)",
+                "PascalCase (e.g., CalculateTotal)",
+                "SCREAMING_SNAKE_CASE (e.g., CALCULATE_TOTAL)"
+              ],
+              correctAnswer: 1,
+              explanation: "In Ruby, the recommended naming convention for methods and variables is snake_case, where words are lowercase and separated by underscores (e.g., calculate_total, first_name). Classes and modules use CamelCase (e.g., UserAuthentication), and constants use SCREAMING_SNAKE_CASE (e.g., MAX_LOGIN_ATTEMPTS)."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What does it mean when a Ruby method ends with a question mark (?)?",
+              back: "When a Ruby method name ends with a question mark (e.g., valid?, admin?), it indicates a 'predicate method' that returns a boolean value (true or false). This is a naming convention that makes the code more readable; the method answers a yes/no question about the object it's called on. For example, array.empty? returns true if the array has no elements."
+            },
+            {
+              front: "What does it mean when a Ruby method ends with an exclamation mark (!)?",
+              back: "When a Ruby method name ends with an exclamation mark (e.g., save!, delete!), it indicates a 'dangerous' or 'destructive' method that modifies its receiver or has some significant side effect. Often, there is a safer, non-destructive version without the exclamation mark. For example, array.sort returns a new sorted array, while array.sort! sorts the original array in place."
+            }
+          ]
+        },
+        {
+          id: "ruby-ecosystem",
+          title: "The Ruby Ecosystem",
+          description: "Understanding the Ruby ecosystem and community",
+          content: `
+# The Ruby Ecosystem
+
+The Ruby ecosystem consists of tools, libraries, frameworks, and a vibrant community that make Ruby a productive language for various applications.
+          `,
+          codeExamples: [
+            {
+              title: "Ruby Ecosystem Overview",
+              code: `# This is primarily informational content about the Ruby ecosystem
+# Most of these are references, not executable code
+
+# 1. Ruby Versions and Implementations
+
+# MRI/CRuby - The reference implementation of Ruby
+# ruby --version
+# ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux]
+
+# JRuby - Ruby on the JVM
+# jruby --version
+# jruby 9.4.2.0 (3.1.4) 2023-03-10
+
+# TruffleRuby - High-performance Ruby implementation
+# truffleruby --version
+# truffleruby 23.0.1, like ruby 3.1.4
+
+# 2. Package Management
+
+# RubyGems - Ruby's package manager
+# gem list # list installed gems
+# gem install nokogiri # install a gem
+
+# Bundler - Dependency management
+# bundle install # Install dependencies from Gemfile
+# bundle update # Update dependencies
+
+# Example Gemfile
+=begin
+source 'https://rubygems.org'
+
+gem 'rails', '~> 7.0.0'
+gem 'pg', '~> 1.1'
+gem 'puma', '~> 5.0'
+gem 'sass-rails', '>= 6'
+gem 'webpacker', '~> 5.0'
+gem 'turbolinks', '~> 5'
+
+group :development, :test do
+  gem 'byebug'
+  gem 'rspec-rails'
+end
+
+group :development do
+  gem 'web-console'
+  gem 'listen'
+  gem 'spring'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end
+=end
+
+# 3. Major Ruby Frameworks and Libraries
+
+# Web Frameworks
+puts "Ruby on Rails - Full-featured web framework: https://rubyonrails.org"
+puts "Sinatra - Lightweight web framework: http://sinatrarb.com"
+puts "Hanami - Modern web framework: https://hanamirb.org"
+puts "Grape - API framework: https://github.com/ruby-grape/grape"
+
+# Testing
+puts "RSpec - Testing framework: https://rspec.info"
+puts "Minitest - Built-in testing framework: https://github.com/minitest/minitest"
+puts "Cucumber - BDD testing: https://cucumber.io"
+puts "Capybara - Web application testing: https://github.com/teamcapybara/capybara"
+
+# Web Servers
+puts "Puma - Modern web server: https://puma.io"
+puts "Unicorn - HTTP server: https://bogomips.org/unicorn/"
+puts "Passenger - Production app server: https://www.phusionpassenger.com"
+
+# Background Processing
+puts "Sidekiq - Background job processing: https://sidekiq.org"
+puts "Resque - Job queue based on Redis: https://github.com/resque/resque"
+
+# Database Tools
+puts "Active Record - ORM (part of Rails): https://guides.rubyonrails.org/active_record_basics.html"
+puts "Sequel - Database toolkit: https://github.com/jeremyevans/sequel"
+
+# API Clients
+puts "HTTParty - Simple HTTP client: https://github.com/jnunemaker/httparty"
+puts "Faraday - HTTP client library: https://github.com/lostisland/faraday"
+
+# DevOps & Deployment
+puts "Capistrano - Deployment automation: https://capistranorb.com"
+puts "Mina - Fast deployer: https://github.com/mina-deploy/mina"
+
+# 4. Ruby Version Management
+
+# RVM - Ruby Version Manager
+# rvm install 3.2.0
+# rvm use 3.2.0
+
+# rbenv - Ruby environment manager
+# rbenv install 3.2.0
+# rbenv global 3.2.0
+
+# asdf - Multi-language version manager
+# asdf plugin add ruby
+# asdf install ruby 3.2.0
+# asdf global ruby 3.2.0
+
+# 5. Ruby Community and Resources
+
+# Community
+puts "RubyGems.org - Ruby package registry: https://rubygems.org"
+puts "Ruby Toolbox - Find gems by category: https://www.ruby-toolbox.com"
+puts "Ruby Weekly - Newsletter: https://rubyweekly.com"
+puts "Ruby Inside - Blog: https://rubyinside.com"
+
+# Documentation
+puts "Ruby-Doc.org - Official documentation: https://ruby-doc.org"
+puts "RubyGuides - Tutorials: https://www.rubyguides.com"
+
+# Conferences
+puts "RubyConf - Main conference: https://rubyconf.org"
+puts "RailsConf - Rails conference: https://railsconf.com"
+puts "RubyKaigi - Japanese Ruby conference: https://rubykaigi.org"
+
+# 6. Development Tools
+
+# Code Quality and Analysis
+puts "RuboCop - Linter and formatter: https://rubocop.org"
+puts "Brakeman - Security scanner: https://brakemanscanner.org"
+puts "Fasterer - Performance suggestions: https://github.com/DamirSvrtan/fasterer"
+
+# Debugging
+puts "Byebug - Debugger: https://github.com/deivid-rodriguez/byebug"
+puts "Pry - Enhanced REPL: https://pry.github.io"
+
+# Documentation
+puts "YARD - Documentation generator: https://yardoc.org"
+
+# 7. Ruby Code Structure Example
+
+# Example of a typical Ruby gem structure
+=begin
+my_gem/
+├── .gitignore
+├── .rubocop.yml
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── bin/
+│   ├── console
+│   └── setup
+├── lib/
+│   ├── my_gem.rb
+│   └── my_gem/
+│       ├── version.rb
+│       └── core.rb
+├── spec/
+│   ├── spec_helper.rb
+│   └── my_gem_spec.rb
+├── Gemfile
+├── LICENSE.txt
+├── README.md
+├── Rakefile
+└── my_gem.gemspec
+=end
+
+# 8. Ruby Package Registries
+
+# • RubyGems.org - The official Ruby package registry
+# • GitHub Packages - Can also host Ruby gems
+# • GemFury - Private gem hosting
+
+# 9. Typical Development Workflow
+
+puts "1. Create application structure (manually or with rails new)"
+puts "2. Set up version control (git init, git add, git commit)"
+puts "3. Define dependencies in Gemfile"
+puts "4. Install dependencies (bundle install)"
+puts "5. Write tests (RSpec, Minitest)"
+puts "6. Implement code to satisfy tests"
+puts "7. Check code quality (RuboCop)"
+puts "8. Run tests (rspec, rake test)"
+puts "9. Commit changes"
+puts "10. Deploy application (Capistrano, Heroku)"
+
+# 10. Popular Ruby Applications and Use Cases
+
+puts "Web Applications - Ruby on Rails, Sinatra"
+puts "APIs and Microservices - Rails API, Grape, Sinatra"
+puts "DevOps Tooling - Chef, Puppet"
+puts "Static Site Generation - Jekyll, Middleman"
+puts "Automation Scripts - Custom Ruby scripts"
+puts "Data Processing - Custom processing with gems like CSV, Nokogiri"
+
+# 11. Ruby Meta-programming Example
+
+module Accessor
+  def my_attr_accessor(*names)
+    names.each do |name|
+      # Create a getter method
+      define_method(name) do
+        instance_variable_get("@#{name}")
+      end
+      
+      # Create a setter method
+      define_method("#{name}=") do |value|
+        instance_variable_set("@#{name}", value)
+      end
+    end
+  end
+end
+
+class Person
+  extend Accessor
+  
+  my_attr_accessor :name, :age
+end
+
+person = Person.new
+person.name = "Ruby"
+person.age = 30
+puts "#{person.name} is #{person.age} years old"
+
+puts "Ruby ecosystem overview completed"`,
+              explanation: "This example provides an informational overview of the Ruby ecosystem, covering major components like Ruby implementations (MRI/CRuby, JRuby, TruffleRuby), package management with RubyGems and Bundler, popular frameworks and libraries (Rails, Sinatra, RSpec, etc.), version managers (RVM, rbenv, asdf), community resources, development tools, typical project structures, and common workflows. It's meant as a reference guide to the broader Ruby environment rather than executable code, though it does include a meta-programming example at the end to demonstrate Ruby's flexibility."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which of the following is NOT a Ruby version manager mentioned in the overview?",
+              options: [
+                "RVM",
+                "rbenv",
+                "asdf",
+                "npm"
+              ],
+              correctAnswer: 3,
+              explanation: "npm (Node Package Manager) is not a Ruby version manager; it's a package manager for JavaScript/Node.js. The Ruby version managers mentioned in the overview are RVM (Ruby Version Manager), rbenv, and asdf (which can manage versions for multiple languages including Ruby)."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is the difference between RubyGems and Bundler?",
+              back: "RubyGems is Ruby's package manager that handles the installation and management of individual gems (libraries). Bundler is a dependency manager that works with RubyGems to ensure a consistent set of gems is used across development, testing, and production environments. Bundler uses a Gemfile to specify project dependencies and creates a Gemfile.lock to lock versions, while RubyGems manages the central repository and installation process."
+            },
+            {
+              front: "What are the main Ruby implementations and how do they differ?",
+              back: "The main Ruby implementations are: 1) MRI/CRuby - the reference implementation written in C, 2) JRuby - Ruby on the Java Virtual Machine, offering Java interoperability, 3) TruffleRuby - a high-performance implementation on GraalVM. They differ in performance characteristics, platform compatibility, garbage collection, concurrency model (MRI has a Global Interpreter Lock while JRuby doesn't), and ability to interface with other languages (JRuby with Java, TruffleRuby with other GraalVM languages)."
+            }
+          ]
+        },
+        {
+          id: "ruby-future",
+          title: "The Future of Ruby",
+          description: "Recent developments and future directions of Ruby",
+          content: `
+# The Future of Ruby
+
+Ruby continues to evolve with new features, performance improvements, and adaptations to modern programming needs.
+          `,
+          codeExamples: [
+            {
+              title: "Recent and Future Ruby Features",
+              code: `# This is primarily informational content about Ruby's future
+# Many of these features require Ruby 3.0+ to run
+
+# 1. Ruby 3.0 (Released December 2020) - "Ruby 3x3" Initiative
+
+# 1.1 Performance Improvements
+# Ruby 3.0 aimed to be 3 times faster than Ruby 2.0
+
+# 1.2 Concurrency with Ractor
+# Ractors enable parallel execution without thread-safety concerns
+=begin
+# This requires Ruby 3.0+
+ractor1 = Ractor.new do
+  puts "Ractor 1 working..."
+  "Result from Ractor 1"
+end
+
+ractor2 = Ractor.new do
+  puts "Ractor 2 working..."
+  "Result from Ractor 2"
+end
+
+# Get results
+puts ractor1.take
+puts ractor2.take
+=end
+
+# 1.3 Type Checking with RBS and TypeProf
+# RBS - Ruby type signature language
+=begin
+# example.rbs
+class User
+  attr_reader name: String
+  attr_reader age: Integer
+  
+  def initialize: (name: String, age: Integer) -> void
+  def adult?: -> bool
+  def display_profile: -> String
+end
+=end
+
+# 1.4 Pattern Matching (Refined in Ruby 3.0)
+case [1, 2, 3]
+in [a, 2, 3]
+  puts "Matched: a = #{a}"
+end
+
+# Hash pattern matching
+case {name: "Alice", age: 30}
+in {name: "Alice", age:}
+  puts "Found Alice, age #{age}"
+end
+
+# 1.5 Rightward Assignment (New in 3.0)
+# This assigns the right value to the left variable
+# 42 => x
+
+# 2. Ruby 3.1 (Released December 2021)
+
+# 2.1 Improved Pattern Matching with Pin Operator
+=begin
+pattern = [1, 2]
+case [1, 2, 3]
+in [*^pattern, 3]
+  puts "Matches pattern followed by 3"
+end
+=end
+
+# 2.2 One-Line Pattern Matching with =~
+=begin
+users = [{name: "Alice", age: 20}, {name: "Bob", age: 30}]
+
+# Find users older than 25
+users.filter { |user| user =~ {age: 25..} }
+=end
+
+# 2.3 New Shorthand Method Syntax for Arguments
+=begin
+def squared(n) = n * n
+
+# Is equivalent to:
+def squared(n)
+  n * n
+end
+=end
+
+# 3. Ruby 3.2 (Released December 2022)
+
+# 3.1 WASI Support for WebAssembly
+# Ruby can now be compiled to WebAssembly
+
+# 3.2 Regexp Timeout
+# Helps prevent Regular Expression DoS attacks
+=begin
+Regexp.timeout = 1.0  # Set a timeout of 1 second for regex operations
+/a*b*c*d*e*f*g*/.match("a" * 1_000_000)  # Will timeout after 1 second
+=end
+
+# 3.3 Data Class
+=begin
+class Point < Data.define(:x, :y)
+end
+
+point = Point.new(x: 1, y: 2)
+puts point.x  # 1
+puts point.y  # 2
+
+# Points with the same coordinates are equal
+puts Point.new(x: 1, y: 2) == Point.new(x: 1, y: 2)  # true
+=end
+
+# 4. Ruby 3.3 (Released December 2023)
+
+# 4.1 JIT Improvements
+# RJIT and YJIT improvements
+
+# 4.2 Better Parsing Error Messages
+=begin
+# Invalid syntax will give more helpful error messages
+def example(
+  # Missing closing parenthesis
+=end
+
+# 5. Future Ruby Features and Directions
+
+# 5.1 JIT Compilation Improvements
+puts "JIT (Just-In-Time) compilation continues to be improved for better performance"
+
+# 5.2 Built-in Typed Ruby
+puts "More integrated typing system, building on RBS and TypeProf"
+
+# 5.3 Improved Concurrency Models
+puts "Further development of Ractor and other concurrency primitives"
+
+# 5.4 Value Objects and Immutability
+puts "More built-in support for value objects and immutable data structures"
+
+# 5.5 Continued Standard Library Improvements
+puts "Regular updates and improvements to the standard library"
+
+# 5.6 Language Simplification
+puts "Removing deprecated features and simplifying language constructs"
+
+# 5.7 HTTP/3 and Modern Protocol Support
+puts "Better support for modern web protocols"
+
+# 5.8 Ruby for Machine Learning and Data Science
+puts "Enhanced capabilities for data science and ML applications"
+
+# 6. Community Trends and Developments
+
+# 6.1 Increased TypeScript-like Type Safety
+puts "More developers are using type checking with RBS files and tools like Sorbet"
+
+# 6.2 Ruby in Edge Computing
+puts "Ruby for serverless functions and edge computing"
+
+# 6.3 Ruby in GitHub Actions and DevOps
+puts "Ruby for automation, CI/CD, and infrastructure as code"
+
+# 6.4 Revival of Smaller Ruby Web Frameworks
+puts "Focus on smaller, faster frameworks alongside Rails"
+
+# 6.5 Ruby in WebAssembly
+puts "Running Ruby in browsers and edge environments through WebAssembly"
+
+# 7. Demo of Some Newer Ruby Features
+
+# Pattern matching with array and hash 
+case {name: "Ruby", version: "3.2.2", features: ["Ractor", "RBS"]}
+in {name: "Ruby", version:, features: [first, *rest]}
+  puts "Ruby version #{version} with first feature: #{first}"
+  puts "Remaining features: #{rest.join(', ')}"
+end
+
+# Endless method definitions (Ruby 3.0+)
+# These compact methods are ideal for simple one-liners
+def square(x) = x * x
+def greet(name) = "Hello, #{name}!"
+
+puts square(5)     # 25
+puts greet("Ruby") # Hello, Ruby!
+
+# Find method for Enumerable
+numbers = [1, 2, 3, 4, 5]
+puts numbers.find(-> { "Not found" }) { |n| n > 10 }  # Not found
+
+# Beginless range (Ruby 2.7+)
+alphabet = ("a".."z").to_a
+puts alphabet[..5].join  # "abcdef"
+
+# Calling a method with leading argument as a block
+def process_data(data, &transform)
+  data.map(&transform)
+end
+
+result = process_data([1, 2, 3], &:to_s)
+puts result.inspect  # ["1", "2", "3"]
+
+puts "Future of Ruby examples completed"`,
+              explanation: "This example provides an informational overview of recent and upcoming Ruby features, starting with Ruby 3.0's 'Ruby 3x3' performance initiative, Ractors for concurrency, RBS for type signatures, and pattern matching. It covers features from Ruby 3.1 like enhanced pattern matching and shorthand method syntax, Ruby 3.2 additions like WASI support and the Data class, and Ruby 3.3 improvements. It also explores future directions in JIT compilation, typing, concurrency, value objects, and areas where Ruby is growing. The code demonstrates some newer features that are available in current Ruby versions, including pattern matching, endless method definitions, and beginless ranges."
+            }
+          ],
+          quiz: [
+            {
+              question: "What major feature introduced in Ruby 3.0 enables true parallel execution without the limitations of the Global Interpreter Lock (GIL)?",
+              options: [
+                "Fibers",
+                "Threads",
+                "Ractors",
+                "Processes"
+              ],
+              correctAnswer: 2,
+              explanation: "Ractors (short for 'Ruby Actors') were introduced in Ruby 3.0 to enable true parallel execution without the limitations of the Global Interpreter Lock (GIL). Ractors are isolated concurrent execution units that don't share objects, allowing Ruby programs to utilize multiple CPU cores for parallel computation while maintaining thread safety."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is RBS in Ruby and why is it important?",
+              back: "RBS (Ruby Signature) is a language to describe the types of Ruby programs, introduced in Ruby 3.0. It allows developers to write type definitions separately from their Ruby code, enabling optional static type checking through tools like TypeProf and Steep. RBS is important because it brings the benefits of static typing (catching errors at compile time, better documentation, editor support) while maintaining Ruby's dynamic nature. It represents Ruby's approach to gradual typing."
+            },
+            {
+              front: "What are the key performance initiatives in modern Ruby versions?",
+              back: "Key performance initiatives in modern Ruby include: 1) MJIT/YJIT - Just-In-Time compilers to speed up code execution, 2) Ractors - For parallel execution across multiple cores, 3) Memory optimizations like Object Shape and Variable Width Allocation, 4) Improved garbage collection algorithms, and 5) Faster method calls and object allocations. These initiatives aim to make Ruby more competitive in performance while maintaining its developer-friendly syntax and flexibility."
             }
           ]
         }
