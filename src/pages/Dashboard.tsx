@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +12,7 @@ import {
   FileText,
   ListCheck,
   ListOrdered,
-  Graduation,
+  GraduationCap,
   BrainCircuit
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -96,7 +95,7 @@ const Dashboard = () => {
     { 
       title: "Certification Path", 
       description: "Prepare for professional certifications",
-      icon: <Graduation className="text-emerald-500" />
+      icon: <GraduationCap className="text-emerald-500" />
     }
   ];
   
