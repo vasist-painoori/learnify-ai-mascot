@@ -2,33 +2,33 @@
 import { LearningPath } from '../../types';
 import { introductionTopic } from './introduction';
 import { syntaxTopic } from './syntax';
+import { variablesTopic } from './variables';
 import { dataTypesTopic } from './data-types';
 import { operatorsTopic } from './operators';
-import { controlStructuresTopic } from './control-structures';
-import { loopsTopic } from './loops';
+import { controlFlowTopic } from './control-flow';
 import { methodsTopic } from './methods';
 import { classesTopic } from './classes';
 import { inheritanceTopic } from './inheritance';
-import { stringManipulationTopic } from './string-manipulation';
+import { exceptionsTopic } from './exceptions';
 
-export const rubyPath: LearningPath = {
-  languageId: "ruby",
+export const csharpPath: LearningPath = {
+  languageId: "csharp",
   modules: [
     {
-      id: "ruby-basics",
-      title: "Ruby Fundamentals",
-      description: "Learn the core concepts of Ruby programming",
+      id: "csharp-basics",
+      title: "C# Fundamentals",
+      description: "Learn the core concepts of C# programming",
       topics: [
         introductionTopic,
         syntaxTopic,
+        variablesTopic,
         dataTypesTopic,
         operatorsTopic,
-        controlStructuresTopic,
-        loopsTopic,
+        controlFlowTopic,
         methodsTopic,
         classesTopic,
         inheritanceTopic,
-        stringManipulationTopic,
+        exceptionsTopic
       ]
     }
   ]

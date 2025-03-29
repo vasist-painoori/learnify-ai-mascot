@@ -1,13 +1,13 @@
 
 import { LearningPath } from './types';
-import { javascriptPath } from './learning-paths/javascriptPath';
-import { pythonPath } from './learning-paths/pythonPath';
-import { javaPath } from './learning-paths/javaPath';
-import { csharpPath } from './learning-paths/csharpPath';
-import { cppPath } from './learning-paths/cppPath';
-import { rubyPath } from './learning-paths/ruby/index';
-import { typescriptPath } from './learning-paths/typescriptPath';
-import { rustPath } from './learning-paths/rustPath';
+import { javascriptPath } from './learning-paths/javascript';
+import { pythonPath } from './learning-paths/python';
+import { javaPath } from './learning-paths/java';
+import { csharpPath } from './learning-paths/csharp';
+import { cppPath } from './learning-paths/cpp';
+import { rubyPath } from './learning-paths/ruby';
+import { typescriptPath } from './learning-paths/typescript';
+import { rustPath } from './learning-paths/rust';
 
 export type { 
   Module, 
