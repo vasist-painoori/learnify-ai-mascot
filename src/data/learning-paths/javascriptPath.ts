@@ -213,7 +213,163 @@ console.log(sum(1, 2, 3, 4)); // 10`,
             }
           ]
         },
-        // ... Additional JavaScript topics would be defined here
+        {
+          id: "js-objects",
+          title: "Objects and Arrays",
+          description: "Working with complex data structures in JavaScript",
+          content: `
+# Objects and Arrays in JavaScript
+
+Objects and arrays are fundamental data structures in JavaScript that allow you to organize and manipulate collections of data.
+          `,
+          codeExamples: [
+            {
+              title: "Working with Objects",
+              code: `// Creating objects
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 30,
+  isEmployed: true,
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+// Accessing object properties
+console.log(person.firstName); // "John"
+console.log(person["lastName"]); // "Doe"
+console.log(person.fullName()); // "John Doe"
+
+// Adding or modifying properties
+person.email = "john@example.com";
+person.age = 31;
+
+// Object methods
+const keys = Object.keys(person); // ["firstName", "lastName", "age", "isEmployed", "fullName", "email"]
+const values = Object.values(person); // ["John", "Doe", 31, true, [Function], "john@example.com"]
+const entries = Object.entries(person); // [["firstName", "John"], ["lastName", "Doe"], ...]`,
+              explanation: "This example demonstrates how to create objects, access and modify their properties, and use built-in object methods."
+            }
+          ],
+          quiz: [
+            {
+              question: "Which method is used to add a new element to the end of an array?",
+              options: ["push()", "pop()", "shift()", "unshift()"],
+              correctAnswer: 0,
+              explanation: "The push() method adds one or more elements to the end of an array and returns the new length of the array."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is an object in JavaScript?",
+              back: "An object is a collection of related data and functionality, stored as key-value pairs. The values can be primitive data types, functions (methods), or even other objects."
+            }
+          ]
+        },
+        {
+          id: "js-dom",
+          title: "DOM Manipulation",
+          description: "Interacting with HTML elements using JavaScript",
+          content: `
+# DOM Manipulation in JavaScript
+
+The Document Object Model (DOM) is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content.
+          `,
+          codeExamples: [
+            {
+              title: "Selecting Elements",
+              code: `// Get an element by ID
+const header = document.getElementById('header');
+
+// Get elements by class name
+const paragraphs = document.getElementsByClassName('paragraph');
+
+// Get elements by tag name
+const divs = document.getElementsByTagName('div');
+
+// Query selector (returns the first matching element)
+const firstButton = document.querySelector('button');
+
+// Query selector all (returns all matching elements)
+const allButtons = document.querySelectorAll('button');`,
+              explanation: "This example shows different ways to select elements from the DOM using JavaScript."
+            }
+          ],
+          quiz: [
+            {
+              question: "What method would you use to create a new HTML element?",
+              options: ["document.createElement()", "document.newElement()", "document.addElement()", "element.appendChild()"],
+              correctAnswer: 0,
+              explanation: "The document.createElement() method creates a new HTML element specified by the tag name."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is the DOM?",
+              back: "The Document Object Model (DOM) is a programming interface for web documents. It represents the HTML document as a tree of nodes that can be manipulated with JavaScript."
+            }
+          ]
+        },
+        {
+          id: "js-async",
+          title: "Asynchronous JavaScript",
+          description: "Handling asynchronous operations with promises and async/await",
+          content: `
+# Asynchronous JavaScript
+
+JavaScript is single-threaded, but it can perform non-blocking operations through callbacks, promises, and async/await.
+          `,
+          codeExamples: [
+            {
+              title: "Promises",
+              code: `// Creating a promise
+const fetchData = () => {
+  return new Promise((resolve, reject) => {
+    // Simulating an API call
+    setTimeout(() => {
+      const data = { id: 1, name: 'Product' };
+      // If successful
+      resolve(data);
+      // If error occurs
+      // reject(new Error('Failed to fetch data'));
+    }, 2000);
+  });
+};
+
+// Using a promise
+fetchData()
+  .then(data => {
+    console.log('Data received:', data);
+    return data.id;
+  })
+  .then(id => {
+    console.log('ID:', id);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  })
+  .finally(() => {
+    console.log('Operation completed');
+  });`,
+              explanation: "This example demonstrates how to create and use promises for handling asynchronous operations in JavaScript."
+            }
+          ],
+          quiz: [
+            {
+              question: "What is the purpose of the async/await syntax?",
+              options: ["To make synchronous operations faster", "To make asynchronous code look and behave more like synchronous code", "To replace promises entirely", "To execute multiple operations in parallel"],
+              correctAnswer: 1,
+              explanation: "The async/await syntax provides a more readable and maintainable way to work with promises, making asynchronous code look and behave more like synchronous code."
+            }
+          ],
+          flashcards: [
+            {
+              front: "What is a Promise in JavaScript?",
+              back: "A Promise is an object representing the eventual completion or failure of an asynchronous operation. It allows you to attach callbacks to handle the success or failure of that operation, rather than using nested callbacks."
+            }
+          ]
+        }
       ]
     }
   ]

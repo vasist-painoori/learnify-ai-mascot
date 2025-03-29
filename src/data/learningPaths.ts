@@ -6,6 +6,8 @@ import { javaPath } from './learning-paths/javaPath';
 import { csharpPath } from './learning-paths/csharpPath';
 import { cppPath } from './learning-paths/cppPath';
 import { rubyPath } from './learning-paths/rubyPath';
+import { typescriptPath } from './learning-paths/typescriptPath';
+import { rustPath } from './learning-paths/rustPath';
 
 export type { 
   Module, 
@@ -22,5 +24,7 @@ export const learningPaths: LearningPath[] = [
   javaPath,
   csharpPath,
   cppPath,
-  rubyPath
+  rubyPath,
+  typescriptPath,
+  rustPath
 ];
