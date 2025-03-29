@@ -5,7 +5,7 @@ import { pythonPath } from './learning-paths/pythonPath';
 import { javaPath } from './learning-paths/javaPath';
 import { csharpPath } from './learning-paths/csharpPath';
 import { cppPath } from './learning-paths/cppPath';
-import { rubyPath } from './learning-paths/rubyPath';
+import { rubyPath } from './learning-paths/ruby/index';
 import { typescriptPath } from './learning-paths/typescriptPath';
 import { rustPath } from './learning-paths/rustPath';
 
