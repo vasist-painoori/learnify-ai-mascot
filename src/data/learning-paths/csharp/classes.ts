@@ -1,231 +1,301 @@
+
 import { Topic } from '../../types';
 
 export const classesTopic: Topic = {
   id: "csharp-classes",
-  title: "Classes and Objects in C#",
-  description: "Learn about object-oriented programming with classes in C#",
+  title: "C# Classes",
+  description: "Learn about classes and object-oriented programming in C#",
   content: `
-# Classes and Objects in C#
+# C# Classes
 
-Classes are the foundation of object-oriented programming in C#. They serve as blueprints for creating objects.
+Classes are the fundamental building blocks of C# object-oriented programming. They represent real-world entities and their behaviors.
+
+## Class Definition
+```csharp
+class Person
+{
+    // Fields
+    private string name;
+    private int age;
+    
+    // Properties
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+    
+    public int Age
+    {
+        get { return age; }
+        set { age = value; }
+    }
+    
+    // Constructor
+    public Person(string name, int age)
+    {
+        this.name = name;
+        this.age = age;
+    }
+    
+    // Methods
+    public void Introduce()
+    {
+        Console.WriteLine($"Hello, my name is {name} and I am {age} years old.");
+    }
+}
+```
+
+## Auto-Implemented Properties
+```csharp
+class Student
+{
+    // Auto-implemented properties
+    public string Name { get; set; }
+    public int ID { get; set; }
+    
+    // Read-only property (can only be set in constructor)
+    public DateTime EnrollmentDate { get; }
+    
+    public Student(string name, int id)
+    {
+        Name = name;
+        ID = id;
+        EnrollmentDate = DateTime.Now;
+    }
+}
+```
+
+## Static Members
+```csharp
+class MathHelper
+{
+    // Static field
+    public static double PI = 3.14159;
+    
+    // Static method
+    public static double CalculateCircleArea(double radius)
+    {
+        return PI * radius * radius;
+    }
+}
+```
+
+## Constructors and Destructors
+```csharp
+class Database
+{
+    private string connectionString;
+    
+    // Default constructor
+    public Database()
+    {
+        connectionString = "default_connection";
+        Console.WriteLine("Database initialized with default connection");
+    }
+    
+    // Parameterized constructor
+    public Database(string connection)
+    {
+        connectionString = connection;
+        Console.WriteLine($"Database initialized with {connection}");
+    }
+    
+    // Destructor/Finalizer
+    ~Database()
+    {
+        Console.WriteLine("Database object is being destroyed");
+        // Clean up resources
+    }
+}
+```
   `,
   codeExamples: [
     {
-      title: "Class Definition and Object Creation",
-      code: `using System;
-
-namespace ClassesExample
+      title: "Creating and Using Classes",
+      code: `// Class definition
+public class Employee
 {
-    // Class definition
-    class Person
+    // Fields
+    private string name;
+    private int id;
+    private double salary;
+    
+    // Properties
+    public string Name 
+    { 
+        get { return name; } 
+        set { name = value; } 
+    }
+    
+    public int ID 
+    { 
+        get { return id; } 
+        private set { id = value; } // Can only be set within the class
+    }
+    
+    public double Salary
     {
-        // Fields
-        private string name;
-        private int age;
-        private string email;
-        
-        // Properties
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        
-        // Auto-implemented property
-        public string Email { get; set; }
-        
-        // Property with validation
-        public int Age
-        {
-            get { return age; }
-            set 
-            { 
-                if (value >= 0)
-                    age = value;
-                else
-                    throw new ArgumentException("Age cannot be negative");
-            }
-        }
-        
-        // Read-only property
-        public bool IsAdult
-        {
-            get { return age >= 18; }
-        }
-        
-        // Constructor
-        public Person(string name, int age)
-        {
-            this.name = name;
-            this.age = age;
-        }
-        
-        // Default constructor
-        public Person()
-        {
-            name = "Unknown";
-            age = 0;
-            email = "unknown@example.com";
-        }
-        
-        // Method
-        public void Introduce()
-        {
-            Console.WriteLine($"Hello, my name is {name} and I am {age} years old.");
-        }
-        
-        // Static field
-        public static int Count = 0;
-        
-        // Static constructor
-        static Person()
-        {
-            Console.WriteLine("Person class is initialized");
-        }
-        
-        // Static method
-        public static void DisplayCount()
-        {
-            Console.WriteLine($"Number of Person instances: {Count}");
-        }
-        
-        // Method with parameters
-        public void CelebrateBirthday()
-        {
-            age++;
-            Console.WriteLine($"{name} is now {age} years old");
-        }
-        
-        // Overriding ToString method from Object class
-        public override string ToString()
-        {
-            return $"Person: {name}, {age} years old, email: {email}";
+        get { return salary; }
+        set 
+        { 
+            if (value >= 0) // Validation
+                salary = value;
         }
     }
     
-    // Another class example with composition
-    class Address
+    // Constructor
+    public Employee(string name, int id)
     {
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string ZipCode { get; set; }
-        
-        public Address(string street, string city, string zipCode)
-        {
-            Street = street;
-            City = city;
-            ZipCode = zipCode;
-        }
-        
-        public override string ToString()
-        {
-            return $"{Street}, {City} {ZipCode}";
-        }
+        this.name = name;
+        this.id = id;
+        this.salary = 0;
     }
     
-    // Employee class with inheritance
-    class Employee : Person
+    // Method
+    public void GiveRaise(double amount)
     {
-        public string Company { get; set; }
-        public double Salary { get; set; }
-        public Address WorkAddress { get; set; }
-        
-        public Employee(string name, int age, string company, double salary)
-            : base(name, age)  // Call base class constructor
-        {
-            Company = company;
-            Salary = salary;
-        }
-        
-        // Method overriding
-        public new void Introduce()
-        {
-            Console.WriteLine($"Hello, my name is {Name} and I work at {Company}.");
-        }
-        
-        // Method with base call
-        public void DisplayInfo()
-        {
-            base.Introduce();  // Call base class method
-            Console.WriteLine($"I work at {Company} with a salary of ${Salary}");
-        }
+        salary += amount;
+        Console.WriteLine($"{name} received a raise of ${amount}. New salary: ${salary}");
     }
     
-    class Program
+    // Override ToString method
+    public override string ToString()
     {
-        static void Main(string[] args)
-        {
-            // Creating objects
-            Person person1 = new Person("Alice", 25);
-            Person person2 = new Person("Bob", 30, "bob@example.com");
-            Person person3 = new Person();  // Default constructor
-            
-            // Incrementing static counter
-            Person.Count += 3;
-            
-            // Using object methods
-            person1.Introduce();
-            person2.Introduce();
-            
-            // Using properties
-            Console.WriteLine($"{person1.Name} is {person1.Age} years old");
-            Console.WriteLine($"Is {person2.Name} an adult? {person2.IsAdult}");
-            
-            // Setting properties
-            person3.Name = "Charlie";
-            person3.Age = 22;
-            person3.Email = "charlie@example.com";
-            
-            // Using methods
-            person3.CelebrateBirthday();
-            
-            // Using static method
-            Person.DisplayCount();
-            
-            // Using ToString
-            Console.WriteLine(person2.ToString());
-            
-            // Creating Employee object
-            Employee employee = new Employee("David", 35, "ABC Corp", 75000);
-            employee.Email = "david@abccorp.com";
-            
-            // Creating Address object
-            Address address = new Address("123 Main St", "Anytown", "12345");
-            employee.WorkAddress = address;
-            
-            // Using methods
-            employee.Introduce();  // Calls Employee's Introduce method
-            employee.DisplayInfo();  // Calls base method and adds more info
-            
-            // Accessing properties
-            Console.WriteLine($"{employee.Name} works at {employee.Company}");
-            Console.WriteLine($"Work address: {employee.WorkAddress}");
-            
-            // Keep console window open
-            Console.ReadLine();
-        }
+        return $"Employee(ID: {id}, Name: {name}, Salary: ${salary})";
+    }
+}
+
+// Using the class
+class Program
+{
+    static void Main()
+    {
+        // Create an instance
+        Employee employee1 = new Employee("John Doe", 101);
+        
+        // Set property
+        employee1.Salary = 50000;
+        
+        // Call method
+        employee1.GiveRaise(5000);
+        
+        // Use property
+        Console.WriteLine($"Employee name: {employee1.Name}");
+        
+        // Use overridden ToString
+        Console.WriteLine(employee1);
     }
 }`,
-      explanation: "This example demonstrates various aspects of classes and objects in C#, including class definition, fields, constructors, methods, and access modifiers, and how to create and use objects of that class."
+      explanation: "This example demonstrates creating a C# class with fields, properties, constructors, and methods. It shows how to instantiate the class and work with its members."
+    },
+    {
+      title: "Advanced Class Features",
+      code: `// Static class
+public static class Calculator
+{
+    // Static property
+    public static double Pi { get; } = 3.14159;
+    
+    // Static methods
+    public static double Add(double a, double b) => a + b;
+    public static double Subtract(double a, double b) => a - b;
+    public static double Multiply(double a, double b) => a * b;
+    public static double Divide(double a, double b)
+    {
+        if (b == 0)
+            throw new DivideByZeroException();
+        return a / b;
+    }
+    
+    public static double CircleArea(double radius) => Pi * radius * radius;
+}
+
+// Class with constructor overloading
+public class Product
+{
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public string Category { get; set; }
+    
+    // Constructor with all parameters
+    public Product(string name, decimal price, string category)
+    {
+        Name = name;
+        Price = price;
+        Category = category;
+    }
+    
+    // Constructor with fewer parameters (calls the main constructor)
+    public Product(string name, decimal price) 
+        : this(name, price, "Uncategorized")
+    {
+    }
+    
+    // Default constructor (calls the main constructor)
+    public Product() 
+        : this("New Product", 0, "Uncategorized")
+    {
+    }
+}
+
+// Main program
+class Program
+{
+    static void Main()
+    {
+        // Using static class
+        double result = Calculator.Add(5, 3);
+        Console.WriteLine($"5 + 3 = {result}");
+        
+        double area = Calculator.CircleArea(2);
+        Console.WriteLine($"Circle area with radius 2: {area}");
+        
+        // Using constructor overloading
+        Product p1 = new Product("Laptop", 999.99m, "Electronics");
+        Product p2 = new Product("Book", 19.99m); // Uses second constructor
+        Product p3 = new Product(); // Uses default constructor
+        
+        Console.WriteLine($"{p1.Name}: ${p1.Price} ({p1.Category})");
+        Console.WriteLine($"{p2.Name}: ${p2.Price} ({p2.Category})"); // Category will be "Uncategorized"
+        Console.WriteLine($"{p3.Name}: ${p3.Price} ({p3.Category})"); // Will use all default values
+    }
+}`,
+      explanation: "This example shows advanced class features in C# including static classes, constructor overloading, and method expressions."
     }
   ],
   quiz: [
     {
-      question: "What is encapsulation in Java?",
+      question: "What is the purpose of a constructor in a C# class?",
       options: [
-        "The ability of a class to inherit from multiple classes",
-        "The process of wrapping code and data together into a single unit",
-        "The ability to override methods in child classes",
-        "The process of converting an object to a string"
+        "To destroy an object when it's no longer needed",
+        "To initialize an object when it's created",
+        "To define properties of a class",
+        "To override methods from the base class"
       ],
       correctAnswer: 1,
-      explanation: "Encapsulation in Java is the mechanism of wrapping the data (variables) and code acting on the data (methods) together as a single unit. It is implemented by declaring the variables as private and providing public getter and setter methods."
+      explanation: "Constructors are special methods that execute when an object of a class is created. They're primarily used to initialize the state of an object by setting initial values for fields and properties."
+    },
+    {
+      question: "Which of the following is true about static members in C# classes?",
+      options: [
+        "They can access instance members without creating an object",
+        "They belong to the class rather than any specific instance",
+        "They can only be private or protected",
+        "They are automatically serialized when the class is serialized"
+      ],
+      correctAnswer: 1,
+      explanation: "Static members (fields, properties, methods) belong to the class itself rather than to any specific instance of the class. They are shared across all instances of the class."
     }
   ],
   flashcards: [
     {
-      front: "What is the difference between a class and an object in Java?",
-      back: "A class is a blueprint or template for creating objects, defining object properties and behaviors. An object is an instance of a class, representing a specific entity with actual values for its properties."
+      front: "What is the difference between a field and a property in C#?",
+      back: "A field is a variable that is declared directly in a class, while a property is a member that provides a flexible mechanism to read, write, or compute the value of a private field. Properties can have get and set accessors, allowing control over accessing and modifying values."
+    },
+    {
+      front: "What is method overloading in C#?",
+      back: "Method overloading allows multiple methods to have the same name but different parameters (different number or type of parameters). It enables multiple ways to call methods based on different input types or amounts."
     }
   ]
 };

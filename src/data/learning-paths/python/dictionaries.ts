@@ -3,139 +3,201 @@ import { Topic } from '../../types';
 
 export const dictionariesTopic: Topic = {
   id: "python-dictionaries",
-  title: "Dictionaries in Python",
-  description: "Learn how to create and use dictionaries in Python",
+  title: "Python Dictionaries",
+  description: "Learn how to work with dictionaries in Python",
   content: `
-# Dictionaries in Python
+# Python Dictionaries
 
-Dictionaries are unordered, mutable collections of key-value pairs.
+Dictionaries are Python's built-in key-value stores, similar to hash maps or associative arrays in other languages.
+
+## Creating Dictionaries
+\`\`\`python
+# Empty dictionary
+empty_dict = {}
+
+# Dictionary with initial values
+person = {
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+}
+
+# Using dict() constructor
+another_dict = dict(name="Jane", age=25, city="Boston")
+\`\`\`
+
+## Accessing Dictionary Values
+\`\`\`python
+person = {"name": "John", "age": 30, "city": "New York"}
+
+# Access with key
+print(person["name"])  # Output: John
+
+# Using get() method (safer, returns None if key doesn't exist)
+print(person.get("age"))  # Output: 30
+print(person.get("country"))  # Output: None
+print(person.get("country", "USA"))  # Output: USA (default value)
+\`\`\`
+
+## Modifying Dictionaries
+\`\`\`python
+person = {"name": "John", "age": 30}
+
+# Add a new key-value pair
+person["city"] = "New York"
+
+# Update existing value
+person["age"] = 31
+
+# Update multiple key-values
+person.update({"age": 32, "job": "Developer"})
+
+# Remove a key-value pair
+del person["age"]
+
+# Remove and return a value
+job = person.pop("job")
+
+# Remove all items
+person.clear()
+\`\`\`
+
+## Dictionary Methods
+\`\`\`python
+person = {"name": "John", "age": 30, "city": "New York"}
+
+# Get all keys
+keys = person.keys()  # dict_keys(['name', 'age', 'city'])
+
+# Get all values
+values = person.values()  # dict_values(['John', 30, 'New York'])
+
+# Get all key-value pairs as tuples
+items = person.items()  # dict_items([('name', 'John'), ('age', 30), ('city', 'New York')])
+
+# Check if key exists
+print("name" in person)  # True
+
+# Copy a dictionary
+person_copy = person.copy()
+\`\`\`
+
+## Dictionary Comprehensions
+\`\`\`python
+# Create a dictionary of squares
+squares = {x: x*x for x in range(6)}
+# {0: 0, 1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+# Create dictionary with condition
+even_squares = {x: x*x for x in range(6) if x % 2 == 0}
+# {0: 0, 2: 4, 4: 16}
+\`\`\`
+
+## Nested Dictionaries
+\`\`\`python
+# Dictionary containing dictionaries
+users = {
+    "user1": {
+        "name": "Alice",
+        "age": 22,
+        "skills": ["Python", "SQL"]
+    },
+    "user2": {
+        "name": "Bob",
+        "age": 27,
+        "skills": ["JavaScript", "HTML", "CSS"]
+    }
+}
+
+# Accessing nested values
+print(users["user1"]["name"])  # Output: Alice
+print(users["user2"]["skills"][0])  # Output: JavaScript
+\`\`\`
   `,
   codeExamples: [
     {
-      title: "Working with Dictionaries",
-      code: `# Creating dictionaries
-empty_dict = {}
-person = {"name": "Alice", "age": 25, "city": "New York"}
-another_dict = dict(name="Bob", age=30, city="London")
-
-# Accessing dictionary values
-print(person["name"])  # Using key
-
-# Using get() method (safer - returns None if key doesn't exist)
-print(person.get("age"))
-print(person.get("country"))  # Returns None
-print(person.get("country", "Unknown"))  # Returns default value if key doesn't exist
-
-# Modifying dictionaries
-person["age"] = 26  # Change existing value
-person["country"] = "USA"  # Add new key-value pair
-print(person)
-
-# Dictionary methods
-keys = person.keys()  # Get all keys
-values = person.values()  # Get all values
-items = person.items()  # Get all key-value pairs as tuples
-
-print(f"Keys: {list(keys)}")
-print(f"Values: {list(values)}")
-print(f"Items: {list(items)}")
-
-# Removing items
-age = person.pop("age")  # Remove and return the value for key
-print(f"Popped age: {age}")
-print(person)
-
-item = person.popitem()  # Remove and return the last inserted key-value pair
-print(f"Popped item: {item}")
-print(person)
-
-person.clear()  # Remove all items
-print(person)
-
-# Dictionary comprehensions
-squares = {x: x**2 for x in range(1, 6)}
-print(squares)
-
-# Conditional dictionary comprehension
-even_squares = {x: x**2 for x in range(1, 11) if x % 2 == 0}
-print(even_squares)
-
-# Nested dictionaries
-employees = {
-    "Alice": {"position": "Developer", "salary": 75000},
-    "Bob": {"position": "Designer", "salary": 65000},
-    "Charlie": {"position": "Manager", "salary": 85000}
+      title: "Dictionary Basics",
+      code: `# Creating a dictionary
+fruits_inventory = {
+    "apple": 5,
+    "banana": 8,
+    "orange": 12
 }
 
-print(employees["Alice"]["salary"])  # Access nested value
+# Accessing values
+print(f"We have {fruits_inventory['apple']} apples")
 
-# Updating dictionaries
-dict1 = {"a": 1, "b": 2}
-dict2 = {"b": 3, "c": 4}
+# Adding and modifying
+fruits_inventory["pear"] = 3
+fruits_inventory["banana"] += 2
 
-dict1.update(dict2)  # Update dict1 with key-value pairs from dict2
-print(dict1)  # {'a': 1, 'b': 3, 'c': 4}
+print(fruits_inventory)
+# Output: {'apple': 5, 'banana': 10, 'orange': 12, 'pear': 3}
 
-# Checking if key exists
-print("a" in dict1)  # True
-print("z" in dict1)  # False
+# Checking if a key exists
+if "grape" in fruits_inventory:
+    print(f"We have {fruits_inventory['grape']} grapes")
+else:
+    print("We don't have any grapes")
 
-# Dictionary membership only checks keys, not values
-print(1 in dict1)  # False (1 is a value, not a key)
+# Safe access with get()
+grape_count = fruits_inventory.get("grape", 0)
+print(f"Grape count: {grape_count}")  # Output: Grape count: 0`,
+      explanation: "This example demonstrates the basics of creating, accessing, and modifying dictionaries in Python."
+    },
+    {
+      title: "Dictionary Methods and Loops",
+      code: `# Dictionary of fruit prices
+fruit_prices = {
+    "apple": 0.75,
+    "banana": 0.50,
+    "orange": 0.80,
+    "pear": 1.20
+}
 
-# Iterating through dictionaries
-prices = {"apple": 0.5, "banana": 0.3, "orange": 0.6}
+# Looping through a dictionary
+print("Fruit Price List:")
+for fruit, price in fruit_prices.items():
+    print(f"{fruit}: ${price:.2f}")
 
-# Iterate over keys (default)
-for fruit in prices:
-    print(f"{fruit}: ${prices[fruit]}")
+# Getting lists of keys and values
+fruits = list(fruit_prices.keys())
+prices = list(fruit_prices.values())
 
-# Iterate over key-value pairs
-for fruit, price in prices.items():
-    print(f"{fruit}: ${price}")
+print(f"Available fruits: {', '.join(fruits)}")
+print(f"Average price: ${sum(prices) / len(prices):.2f}")
 
-# Iterating over values
-for price in prices.values():
-    print(f"${price}")
-
-# Dictionary unpacking
-def display_info(name, age, city):
-    print(f"{name} is {age} years old and lives in {city}.")
-
-person = {"name": "David", "age": 35, "city": "Chicago"}
-display_info(**person)  # Unpacks dictionary as keyword arguments
-
-# Merging dictionaries (Python 3.5+)
-dict1 = {"a": 1, "b": 2}
-dict2 = {"c": 3, "d": 4}
-
-# Using unpacking (Python 3.5+)
-merged = {**dict1, **dict2}
-print(merged)
-
-# Using | operator (Python 3.9+)
-# merged = dict1 | dict2
-# print(merged)`,
-      explanation: "This example covers a comprehensive range of dictionary operations in Python, including creating dictionaries, accessing values, modifying dictionaries, dictionary methods, dictionary comprehensions, nested dictionaries, updating dictionaries, checking for keys, iterating through dictionaries, dictionary unpacking, and merging dictionaries."
+# Dictionary comprehension example
+# Creating a new dictionary with discounted prices
+discounted_prices = {fruit: price * 0.9 for fruit, price in fruit_prices.items()}
+print("Discounted prices:")
+for fruit, price in discounted_prices.items():
+    print(f"{fruit}: ${price:.2f}")`,
+      explanation: "This example shows how to loop through dictionaries, use dictionary methods like keys() and values(), and create new dictionaries using dictionary comprehensions."
     }
   ],
   quiz: [
     {
-      question: "Which of the following is NOT a valid way to create a dictionary in Python?",
-      options: [
-        "empty_dict = {}",
-        "person = dict(name='Alice', age=25)",
-        "scores = dict([('math', 90), ('science', 85)])",
-        "data = [1: 'one', 2: 'two']"
-      ],
-      correctAnswer: 3,
-      explanation: "The syntax data = [1: 'one', 2: 'two'] is invalid. Square brackets [] are used for lists, not dictionaries. Dictionary literals use curly braces {} with key-value pairs separated by colons, like {1: 'one', 2: 'two'}."
+      question: "What happens if you try to access a key that doesn't exist in a dictionary using the square bracket notation?",
+      options: ["It returns None", "It returns an empty value", "It raises a KeyError", "It adds the key with a None value"],
+      correctAnswer: 2,
+      explanation: "Trying to access a non-existent key with dictionary[key] raises a KeyError. To avoid this, use the get() method which returns None (or a specified default value) instead."
+    },
+    {
+      question: "Which method would you use to get all key-value pairs from a dictionary as a list of tuples?",
+      options: ["keys()", "values()", "items()", "elements()"],
+      correctAnswer: 2,
+      explanation: "The items() method returns a view object containing the key-value pairs of the dictionary as tuples in a list."
     }
   ],
   flashcards: [
     {
-      front: "What are the key characteristics of Python dictionaries?",
-      back: "Python dictionaries are: mutable (can be changed), unordered (prior to Python 3.7) or insertion-ordered (Python 3.7+), have unique keys (duplicates overwrite), allow any immutable type as keys (strings, numbers, tuples), and any type as values (including lists, dictionaries, etc.)."
+      front: "What is the difference between dict.get(key) and dict[key] in Python?",
+      back: "dict[key] raises a KeyError if the key doesn't exist, while dict.get(key) returns None (or a specified default value) if the key doesn't exist."
+    },
+    {
+      front: "How do you check if a key exists in a dictionary?",
+      back: "Use the 'in' operator: 'if key in dictionary:'"
     }
   ]
 };
