@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +10,7 @@ import {
   BarChart, 
   Settings,
   User,
-  FileText,
-  ListCheck,
-  ListOrdered,
-  GraduationCap,
-  BrainCircuit
+  GraduationCap
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import LanguageSelection from '@/components/LanguageSelection';
@@ -44,60 +41,6 @@ import {
 const Dashboard = () => {
   const navigate = useNavigate();
   const { selectedLanguage, progress, resetLearning } = useLearning();
-  
-  // Additional topics data
-  const additionalTopics = [
-    { 
-      title: "Popular Algorithms", 
-      description: "Learn common algorithms and their implementations",
-      icon: <ListOrdered className="text-blue-500" />
-    },
-    { 
-      title: "Advanced Concepts", 
-      description: "Dive deeper into complex programming concepts",
-      icon: <BrainCircuit className="text-purple-500" />
-    },
-    { 
-      title: "Practice Exercises", 
-      description: "Sharpen your skills with hands-on exercises",
-      icon: <Code className="text-green-500" />
-    },
-    { 
-      title: "Coding Challenges", 
-      description: "Test yourself with challenging coding problems",
-      icon: <ListCheck className="text-orange-500" />
-    },
-    { 
-      title: "Documentation", 
-      description: "Learn how to read and write technical documentation",
-      icon: <FileText className="text-gray-500" />
-    },
-    { 
-      title: "Best Practices", 
-      description: "Industry standard best practices and conventions",
-      icon: <BookOpen className="text-teal-500" />
-    },
-    { 
-      title: "Project Ideas", 
-      description: "Inspiration for your next coding project",
-      icon: <Book className="text-indigo-500" />
-    },
-    { 
-      title: "Reference Guide", 
-      description: "Quick reference for syntax and common functions",
-      icon: <Book className="text-red-500" />
-    },
-    { 
-      title: "Community Resources", 
-      description: "Find helpful communities and resources",
-      icon: <User className="text-yellow-500" />
-    },
-    { 
-      title: "Certification Path", 
-      description: "Prepare for professional certifications",
-      icon: <GraduationCap className="text-emerald-500" />
-    }
-  ];
   
   return (
     <SidebarProvider defaultOpen={true}>
@@ -258,26 +201,6 @@ const Dashboard = () => {
                         </Button>
                       </CardFooter>
                     </Card>
-                  </div>
-                  
-                  <h2 className="text-2xl font-bold mb-4 mt-8">Additional Learning Resources</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {additionalTopics.map((topic, index) => (
-                      <Card key={index}>
-                        <CardHeader>
-                          <div className="flex items-center gap-2">
-                            {topic.icon}
-                            <CardTitle className="text-lg">{topic.title}</CardTitle>
-                          </div>
-                          <CardDescription>{topic.description}</CardDescription>
-                        </CardHeader>
-                        <CardFooter>
-                          <Button variant="outline" className="w-full">
-                            Explore
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    ))}
                   </div>
                 </>
               ) : (
