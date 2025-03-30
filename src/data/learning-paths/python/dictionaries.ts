@@ -158,7 +158,6 @@ fruit_prices = {
 # Looping through a dictionary
 print("Fruit Price List:")
 for fruit in fruit_prices:
-    # Simple display without formatting
     print(f"{fruit}: ${fruit_prices[fruit]}")
 
 # Getting lists of keys and values
@@ -172,13 +171,12 @@ print("Average price: $" + str((0.75 + 0.50 + 0.80 + 1.20) / 4))
 # Dictionary comprehension example
 # Creating a new dictionary with discounted prices
 discounted = {}
-for fruit in fruit_prices:
-    discounted[fruit] = fruit_prices[fruit] * 0.9
+for item in fruit_prices:
+    discounted[item] = fruit_prices[item] * 0.9
     
 print("Discounted prices:")
-for fruit in discounted:
-    # Simple display without fancy formatting
-    print(f"{fruit}: ${discounted[fruit]}")`,
+for item in discounted:
+    print(f"{item}: ${discounted[item]}")`,
       explanation: "This example shows how to loop through dictionaries, use dictionary methods like keys() and values(), and create new dictionaries using dictionary comprehensions."
     }
   ],
