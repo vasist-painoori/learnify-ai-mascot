@@ -165,18 +165,17 @@ fruits = list(fruit_prices.keys())
 prices = list(fruit_prices.values())
 
 print(f"Available fruits: {', '.join(fruits)}")
-# Using hardcoded values instead of functions
 print("Average price: $" + str((0.75 + 0.50 + 0.80 + 1.20) / 4))
 
 # Dictionary comprehension example
 # Creating a new dictionary with discounted prices
-discounted = {}
+discounted_prices = {}
 for item in fruit_prices:
-    discounted[item] = fruit_prices[item] * 0.9
+    discounted_prices[item] = fruit_prices[item] * 0.9
     
 print("Discounted prices:")
-for item in discounted:
-    print(f"{item}: ${discounted[item]}")`,
+for item in discounted_prices:
+    print(f"{item}: ${discounted_prices[item]}")`,
       explanation: "This example shows how to loop through dictionaries, use dictionary methods like keys() and values(), and create new dictionaries using dictionary comprehensions."
     }
   ],

@@ -155,14 +155,14 @@ public class Employee
     // Method
     public void GiveRaise(double amount)
     {
-        salary += amount;
-        Console.WriteLine($"{name} received a raise of ${amount}. New salary: ${salary}");
+        this.salary += amount;
+        Console.WriteLine($"{this.name} received a raise of ${amount}. New salary: ${this.salary}");
     }
     
     // Override ToString method
     public override string ToString()
     {
-        return $"Employee(ID: {id}, Name: {name}, Salary: ${salary})";
+        return $"Employee(ID: {id}, Name: {name}, Salary: ${this.salary})";
     }
 }
 
@@ -252,13 +252,13 @@ class Program
         Console.WriteLine($"Circle area with radius 2: {area}");
         
         // Using constructor overloading
-        Product p1 = new Product("Laptop", 999.99m, "Electronics");
-        Product p2 = new Product("Book", 19.99m); // Uses second constructor
-        Product p3 = new Product(); // Uses default constructor
+        var laptop = new Product("Laptop", 999.99m, "Electronics");
+        var book = new Product("Book", 19.99m); // Uses second constructor
+        var newProduct = new Product(); // Uses default constructor
         
-        Console.WriteLine($"{p1.Name}: ${p1.Price} ({p1.Category})");
-        Console.WriteLine($"{p2.Name}: ${p2.Price} ({p2.Category})"); // Category will be "Uncategorized"
-        Console.WriteLine($"{p3.Name}: ${p3.Price} ({p3.Category})"); // Will use all default values
+        Console.WriteLine($"{laptop.Name}: ${laptop.Price} ({laptop.Category})");
+        Console.WriteLine($"{book.Name}: ${book.Price} ({book.Category})"); // Category will be "Uncategorized"
+        Console.WriteLine($"{newProduct.Name}: ${newProduct.Price} ({newProduct.Category})"); // Will use all default values
     }
 }`
       ,
