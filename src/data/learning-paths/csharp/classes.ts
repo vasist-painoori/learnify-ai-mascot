@@ -11,7 +11,7 @@ export const classesTopic: Topic = {
 Classes are the fundamental building blocks of C# object-oriented programming. They represent real-world entities and their behaviors.
 
 ## Class Definition
-```csharp
+\`\`\`csharp
 class Person
 {
     // Fields
@@ -44,10 +44,10 @@ class Person
         Console.WriteLine($"Hello, my name is {name} and I am {age} years old.");
     }
 }
-```
+\`\`\`
 
 ## Auto-Implemented Properties
-```csharp
+\`\`\`csharp
 class Student
 {
     // Auto-implemented properties
@@ -64,10 +64,10 @@ class Student
         EnrollmentDate = DateTime.Now;
     }
 }
-```
+\`\`\`
 
 ## Static Members
-```csharp
+\`\`\`csharp
 class MathHelper
 {
     // Static field
@@ -79,10 +79,10 @@ class MathHelper
         return PI * radius * radius;
     }
 }
-```
+\`\`\`
 
 ## Constructors and Destructors
-```csharp
+\`\`\`csharp
 class Database
 {
     private string connectionString;
@@ -108,7 +108,7 @@ class Database
         // Clean up resources
     }
 }
-```
+\`\`\`
   `,
   codeExamples: [
     {
@@ -260,7 +260,8 @@ class Program
         Console.WriteLine($"{p2.Name}: ${p2.Price} ({p2.Category})"); // Category will be "Uncategorized"
         Console.WriteLine($"{p3.Name}: ${p3.Price} ({p3.Category})"); // Will use all default values
     }
-}`,
+}`
+      ,
       explanation: "This example shows advanced class features in C# including static classes, constructor overloading, and method expressions."
     }
   ],
