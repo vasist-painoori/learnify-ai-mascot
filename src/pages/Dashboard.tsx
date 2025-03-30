@@ -49,7 +49,7 @@ const Dashboard = () => {
           <SidebarHeader className="border-b border-border">
             <div className="flex items-center gap-2 px-2">
               <BookOpen className="h-6 w-6" />
-              <div className="font-semibold text-lg">CodeMaster</div>
+              <div className="font-semibold text-lg">LearnifyAI</div>
               <SidebarTrigger className="ml-auto" />
             </div>
           </SidebarHeader>
