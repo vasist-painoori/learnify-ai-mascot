@@ -158,21 +158,21 @@ fruit_prices = {
 # Looping through a dictionary
 print("Fruit Price List:")
 for fruit, price in fruit_prices.items():
-    print(f"{fruit}: ${price:.2f}")
+    print(f"{fruit}: ${price:0.2f}")
 
 # Getting lists of keys and values
 fruits = list(fruit_prices.keys())
 prices = list(fruit_prices.values())
 
 print(f"Available fruits: {', '.join(fruits)}")
-print(f"Average price: ${sum(prices) / len(prices):.2f}")
+print(f"Average price: ${sum(prices) / len(prices):0.2f}")
 
 # Dictionary comprehension example
 # Creating a new dictionary with discounted prices
 discounted_prices = {fruit: price * 0.9 for fruit, price in fruit_prices.items()}
 print("Discounted prices:")
 for fruit, price in discounted_prices.items():
-    print(f"{fruit}: ${price:.2f}")`,
+    print(f"{fruit}: ${price:0.2f}")`,
       explanation: "This example shows how to loop through dictionaries, use dictionary methods like keys() and values(), and create new dictionaries using dictionary comprehensions."
     }
   ],
