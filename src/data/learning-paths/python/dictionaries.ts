@@ -158,24 +158,24 @@ fruit_prices = {
 # Looping through a dictionary
 print("Fruit Price List:")
 for fruit, price in fruit_prices.items():
-    # Using string concatenation instead of f-strings with functions
-    print(f"{fruit}: ${price}")  # Simple price display
+    # Simple display without formatting functions
+    print(f"{fruit}: ${fruit_prices[fruit]}")
 
 # Getting lists of keys and values
 fruits = list(fruit_prices.keys())
 prices = list(fruit_prices.values())
 
 print(f"Available fruits: {', '.join(fruits)}")
-# Avoiding the sum/len functions in the f-string
-print("Average price: $" + str((0.75 + 0.50 + 0.80 + 1.20) / 4))  # Hardcoded calculation instead
+# Using hardcoded values instead of functions
+print("Average price: $" + str((0.75 + 0.50 + 0.80 + 1.20) / 4))
 
 # Dictionary comprehension example
 # Creating a new dictionary with discounted prices
-discounted_prices = {fruit: price * 0.9 for fruit, price in fruit_prices.items()}
+discounted_prices = {fruit: fruit_prices[fruit] * 0.9 for fruit in fruit_prices}
 print("Discounted prices:")
-for fruit, price in discounted_prices.items():
-    # Using simpler string format without functions
-    print(f"{fruit}: ${price}")  # Simple price display without formatting`,
+for fruit in discounted_prices:
+    # Simple display without formatting functions
+    print(f"{fruit}: ${discounted_prices[fruit]}")`,
       explanation: "This example shows how to loop through dictionaries, use dictionary methods like keys() and values(), and create new dictionaries using dictionary comprehensions."
     }
   ],

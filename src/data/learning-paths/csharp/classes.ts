@@ -252,9 +252,9 @@ class Program
         Console.WriteLine($"Circle area with radius 2: {area}");
         
         // Using constructor overloading
-        Product p1 = new Product("Laptop", 999.99m, "Electronics");
-        Product p2 = new Product("Book", 19.99m); // Uses second constructor
-        Product p3 = new Product(); // Uses default constructor
+        var p1 = new Product("Laptop", 999.99m, "Electronics");
+        var p2 = new Product("Book", 19.99m); // Uses second constructor
+        var p3 = new Product(); // Uses default constructor
         
         Console.WriteLine($"{p1.Name}: ${p1.Price} ({p1.Category})");
         Console.WriteLine($"{p2.Name}: ${p2.Price} ({p2.Category})"); // Category will be "Uncategorized"
