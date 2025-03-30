@@ -158,14 +158,14 @@ fruit_prices = {
 # Looping through a dictionary
 print("Fruit Price List:")
 for fruit, price in fruit_prices.items():
-    print(f"{fruit}: ${price * 100 // 100 + (price * 100 % 100) / 100}")  # Formatting without using :0.2f
+    print(f"{fruit}: ${round(price * 100) / 100}")  # Formatting without using format specifier
 
 # Getting lists of keys and values
 fruits = list(fruit_prices.keys())
 prices = list(fruit_prices.values())
 
 print(f"Available fruits: {', '.join(fruits)}")
-print(f"Average price: ${sum(prices) / len(prices)}")  # Removed format specifier
+print(f"Average price: ${sum(prices) / len(prices)}")  # Simple formatting
 
 # Dictionary comprehension example
 # Creating a new dictionary with discounted prices
