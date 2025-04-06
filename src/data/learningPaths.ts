@@ -8,6 +8,7 @@ import { cppPath } from './learning-paths/cppPath';
 import { rubyPath } from './learning-paths/ruby/index';
 import { typescriptPath } from './learning-paths/typescriptPath';
 import { rustPath } from './learning-paths/rustPath';
+import { goPath } from './learning-paths/goPath';
 
 export type { 
   Module, 
@@ -26,5 +27,6 @@ export const learningPaths: LearningPath[] = [
   cppPath,
   rubyPath,
   typescriptPath,
-  rustPath
+  rustPath,
+  goPath
 ];
