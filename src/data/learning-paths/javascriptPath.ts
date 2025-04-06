@@ -950,7 +950,7 @@ try {
   validateUser(user);
 } catch (error) {
   if (error instanceof PropertyRequiredError) {
-    console.log(`Please provide the ${error.property} property`);
+    console.log("Please provide the " + error.property + " property");
   } else if (error instanceof ValidationError) {
     console.log('Invalid data:', error.message);
   } else {
@@ -1067,7 +1067,7 @@ window.addEventListener('storage', function(event) {
   console.log('New value:', event.newValue);
   console.log('Storage area:', event.storageArea === localStorage ? 'localStorage' : 'sessionStorage');
 });`,
-              explanation: "This example shows how to use sessionStorage, which works similarly to localStorage but the data is cleared when the browser session ends (i.e., when the tab or browser is closed). It also demonstrates the storage event, which is triggered when storage changes in another window/tab."
+              explanation: "This example shows how to use sessionStorage, which works similarly to localStorage but the data is cleared when the page session ends (i.e., when the tab or browser is closed). It also demonstrates the storage event, which is triggered when storage changes in another window/tab."
             }
           ],
           quiz: [
