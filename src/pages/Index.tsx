@@ -256,20 +256,7 @@ const Index = () => {
                 © {new Date().getFullYear()} LearnifyAI. All rights reserved.
               </p>
             </div>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
-                About
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
-                Contact
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
-                Privacy
-              </a>
-              <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
-                Terms
-              </a>
-            </div>
+            {/* Removed the non-functional footer links */}
           </div>
         </div>
       </footer>
@@ -278,3 +265,4 @@ const Index = () => {
 };
 
 export default Index;
+
