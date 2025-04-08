@@ -1,4 +1,7 @@
 
+// This component is no longer used in the application
+// Kept for reference but not imported anywhere
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
