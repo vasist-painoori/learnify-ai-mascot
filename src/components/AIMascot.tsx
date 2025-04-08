@@ -1,16 +1,47 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Send, X, MessageCircle } from 'lucide-react';
 import { useLearning } from '@/contexts/LearningContext';
+import { toast } from 'sonner';
+
+interface Message {
+  type: 'user' | 'ai';
+  text: string;
+}
 
 const AIMascot = () => {
   const { selectedLanguage, currentTopic } = useLearning();
   const [isOpen, setIsOpen] = useState(false);
   const [messageText, setMessageText] = useState('');
-  const [conversation, setConversation] = useState<Array<{type: 'user' | 'ai', text: string}>>([]);
+  const [conversation, setConversation] = useState<Message[]>(() => {
+    // Load conversation from localStorage if available
+    const savedConversation = localStorage.getItem('codebuddy-conversation');
+    return savedConversation ? JSON.parse(savedConversation) : [];
+  });
   const [isTyping, setIsTyping] = useState(false);
+  const [apiKey, setApiKey] = useState<string>(() => {
+    return localStorage.getItem('openai-api-key') || '';
+  });
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Save conversation to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('codebuddy-conversation', JSON.stringify(conversation));
+  }, [conversation]);
+
+  // Save API key to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('openai-api-key', apiKey);
+  }, [apiKey]);
+  
+  // Scroll to bottom of messages
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [conversation, isTyping]);
   
   // Intro message when mascot opens
   useEffect(() => {
@@ -32,39 +63,84 @@ const AIMascot = () => {
     }
   }, [isOpen, selectedLanguage, conversation.length]);
 
-  const handleSendMessage = () => {
+  const fetchAIResponse = async (userMessage: string) => {
+    if (!apiKey) {
+      toast.error("Please enter an OpenAI API key in the settings");
+      setIsTyping(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content: `You are CodeBuddy, a helpful coding assistant. The user is learning programming. ${
+                selectedLanguage 
+                  ? `They are currently learning ${selectedLanguage.name}.` 
+                  : ''
+              } ${
+                currentTopic 
+                  ? `They are specifically studying: ${currentTopic.title}. 
+                     Here is some context about this topic: ${currentTopic.description}` 
+                  : ''
+              } Be concise, helpful, and provide code examples when relevant.`
+            },
+            ...conversation.map(msg => ({
+              role: msg.type === 'user' ? 'user' : 'assistant',
+              content: msg.text
+            })),
+            {
+              role: 'user',
+              content: userMessage
+            }
+          ],
+          max_tokens: 500,
+          temperature: 0.7
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Failed to fetch AI response');
+      }
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    } catch (error) {
+      console.error('Error fetching AI response:', error);
+      return "I'm sorry, I encountered an error while processing your request. Please try again later.";
+    }
+  };
+
+  const handleSendMessage = async () => {
     if (!messageText.trim()) return;
     
     // Add user message
-    setConversation([...conversation, {
+    const userMessage = messageText.trim();
+    setConversation(prev => [...prev, {
       type: 'user',
-      text: messageText
+      text: userMessage
     }]);
     
     setIsTyping(true);
     setMessageText('');
     
-    // Simulate AI response
-    setTimeout(() => {
-      let response = "I'm here to help with your coding questions. Could you be more specific about what you'd like to learn?";
-      
-      // Provide contextual responses based on current topic
-      if (currentTopic) {
-        if (messageText.toLowerCase().includes('example')) {
-          response = `Here's an example related to ${currentTopic.title}:\n\n${currentTopic.codeExamples[0]?.code || "Let me prepare a custom example for you..."}`;
-        } else if (messageText.toLowerCase().includes('explain')) {
-          response = `${currentTopic.title} is a fundamental concept. ${currentTopic.description}\n\nWould you like me to elaborate on any specific part?`;
-        } else {
-          response = `I see you're learning about ${currentTopic.title}. ${currentTopic.description}\n\nDo you have any specific questions about this topic?`;
-        }
-      }
-      
-      setConversation(prev => [...prev, {
-        type: 'ai',
-        text: response
-      }]);
-      setIsTyping(false);
-    }, 1500);
+    // Fetch AI response
+    const aiResponse = await fetchAIResponse(userMessage);
+    
+    setConversation(prev => [...prev, {
+      type: 'ai',
+      text: aiResponse || "I'm sorry, I couldn't generate a response. Please try again."
+    }]);
+    setIsTyping(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -72,6 +148,15 @@ const AIMascot = () => {
       e.preventDefault();
       handleSendMessage();
     }
+  };
+
+  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setApiKey(e.target.value);
+  };
+
+  const clearConversation = () => {
+    setConversation([]);
+    toast.success("Conversation history cleared");
   };
 
   return (
@@ -85,7 +170,7 @@ const AIMascot = () => {
       >
         <Button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center"
+          className="w-14 h-14 rounded-full shadow-lg flex items-center justify-center bg-primary hover:bg-primary/90"
           size="icon"
         >
           <MessageCircle className="h-6 w-6" />
@@ -113,14 +198,29 @@ const AIMascot = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400">Your coding assistant</p>
                 </div>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-                className="h-8 w-8"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={clearConversation}
+                  className="h-8 w-8 text-gray-500"
+                  title="Clear conversation"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsOpen(false)}
+                  className="h-8 w-8"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
             
             {/* Chat messages */}
@@ -154,7 +254,28 @@ const AIMascot = () => {
                   </div>
                 </div>
               )}
+              
+              <div ref={messagesEndRef} />
             </div>
+            
+            {/* API Key input area (only if not set) */}
+            {!apiKey && (
+              <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-800">
+                <div className="flex flex-col">
+                  <label htmlFor="api-key" className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    Enter your OpenAI API key:
+                  </label>
+                  <input
+                    id="api-key"
+                    type="password"
+                    value={apiKey}
+                    onChange={handleApiKeyChange}
+                    className="border border-gray-300 dark:border-gray-700 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    placeholder="sk-..."
+                  />
+                </div>
+              </div>
+            )}
             
             {/* Input area */}
             <div className="p-4 border-t border-gray-200 dark:border-gray-800">
@@ -171,7 +292,7 @@ const AIMascot = () => {
                 <Button 
                   size="icon"
                   onClick={handleSendMessage}
-                  disabled={!messageText.trim()}
+                  disabled={!messageText.trim() || isTyping}
                   className="ml-2 flex-shrink-0"
                 >
                   <Send className="h-4 w-4" />
