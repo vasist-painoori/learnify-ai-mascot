@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { languages, Language } from '@/data/languages';
 import { learningPaths, LearningPath, Module, Topic } from '@/data/learningPaths';
-import { toast } from "@/components/ui/sonner";
+import { toast } from 'sonner';
 
 // Keys for localStorage
 const STORAGE_KEYS = {

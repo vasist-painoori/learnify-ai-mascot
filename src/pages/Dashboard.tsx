@@ -4,7 +4,7 @@ import { useLearning } from '@/contexts/LearningContext';
 import AIMascot from '@/components/AIMascot';
 import DashboardContent from '@/components/dashboard/DashboardContent';
 import { motion } from 'framer-motion';
-import { toast } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 
 const Dashboard = () => {
   const { selectedLanguage, progress, resetLearning } = useLearning();
