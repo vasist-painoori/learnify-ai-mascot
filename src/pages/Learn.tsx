@@ -7,7 +7,6 @@ import LearningPath from '@/components/LearningPath';
 import CodeEditor from '@/components/CodeEditor';
 import Flashcard from '@/components/Flashcard';
 import Quiz from '@/components/Quiz';
-import AIMascot from '@/components/AIMascot';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNavigate } from 'react-router-dom';
@@ -162,8 +161,6 @@ const Learn = () => {
           </motion.div>
         </div>
       </div>
-      
-      <AIMascot />
     </div>
   );
 };

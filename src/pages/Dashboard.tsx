@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import { useLearning } from '@/contexts/LearningContext';
-import AIMascot from '@/components/AIMascot';
 import DashboardContent from '@/components/dashboard/DashboardContent';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
@@ -35,8 +34,6 @@ const Dashboard = () => {
           progress={progress}
           resetLearning={resetLearning}
         />
-        
-        <AIMascot />
       </main>
     </motion.div>
   );
