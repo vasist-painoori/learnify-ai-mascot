@@ -40,6 +40,165 @@ const getLessonContent = (category: string, topic: string) => {
             </ul>
           `
         };
+      case 'custom-supports':
+        return {
+          title: 'Custom Supports',
+          content: `
+            <h2>Mastering Custom Supports</h2>
+            <p>Custom supports are crucial for complex 3D prints, allowing you to improve print quality while minimizing post-processing work.</p>
+            <h3>When to Use Custom Supports</h3>
+            <ul>
+              <li>Complex overhangs and bridges</li>
+              <li>Detailed models with fine features</li>
+              <li>Prints that require minimal support marks</li>
+            </ul>
+            <h3>Popular Slicer Support Settings</h3>
+            <p>Learn how to configure custom supports in popular slicers:</p>
+            <ul>
+              <li>Cura: Support blockers and enforcers</li>
+              <li>PrusaSlicer: Paint-on supports</li>
+              <li>Simplify3D: Support pillar placement</li>
+            </ul>
+          `
+        };
+      case 'bed-adhesion':
+        return {
+          title: 'Bed Adhesion',
+          content: `
+            <h2>Perfect Bed Adhesion Techniques</h2>
+            <p>Good bed adhesion is the foundation of successful 3D printing. This guide covers everything you need to know about getting prints to stick properly.</p>
+            <h3>Common Bed Surfaces</h3>
+            <ul>
+              <li>Glass beds: Smooth finish, requires adhesives</li>
+              <li>PEI sheets: Excellent adhesion for many materials</li>
+              <li>Buildtak: Strong adhesion for most filaments</li>
+              <li>Magnetic flexible beds: Easy print removal</li>
+            </ul>
+            <h3>Adhesion Helpers</h3>
+            <p>Different materials that can help with adhesion:</p>
+            <ul>
+              <li>Glue stick: Works well with PLA on glass</li>
+              <li>Hairspray: Good for ABS on glass</li>
+              <li>Blue painter's tape: Budget-friendly option</li>
+              <li>Specialized 3D printing adhesives: Premium solutions</li>
+            </ul>
+          `
+        };
+      case '3d-scanning':
+        return {
+          title: '3D Scanning',
+          content: `
+            <h2>Introduction to 3D Scanning</h2>
+            <p>3D scanning technology allows you to create digital models from physical objects, opening up new possibilities for 3D printing projects.</p>
+            <h3>Types of 3D Scanners</h3>
+            <ul>
+              <li>Laser triangulation scanners</li>
+              <li>Structured light scanners</li>
+              <li>Photogrammetry systems</li>
+              <li>Smartphone-based scanning apps</li>
+            </ul>
+            <h3>Scanning Process</h3>
+            <p>Basic steps for successful 3D scanning:</p>
+            <ol>
+              <li>Prepare the object (remove reflective surfaces)</li>
+              <li>Calibrate the scanner</li>
+              <li>Perform the scan</li>
+              <li>Process the point cloud data</li>
+              <li>Convert to a solid mesh</li>
+              <li>Clean up and repair the mesh</li>
+              <li>Export for 3D printing</li>
+            </ol>
+          `
+        };
+      case 'finishing':
+        return {
+          title: 'Print Finishing',
+          content: `
+            <h2>Post-Processing and Finishing Techniques</h2>
+            <p>Transform your raw 3D prints into professional-looking finished pieces with these techniques.</p>
+            <h3>Sanding Methods</h3>
+            <p>Progressive sanding with different grits:</p>
+            <ol>
+              <li>Start with 120-220 grit for rough surfaces</li>
+              <li>Progress to 400-600 grit for smoother results</li>
+              <li>Finish with 800-2000 grit for polishing preparation</li>
+            </ol>
+            <h3>Surface Treatments</h3>
+            <ul>
+              <li>Filler primers to hide layer lines</li>
+              <li>Epoxy coatings for smooth, durable finishes</li>
+              <li>Acetone vapor smoothing for ABS</li>
+              <li>Polyurethane clear coats for protection</li>
+            </ul>
+            <h3>Painting Techniques</h3>
+            <p>Achieve professional results with proper painting:</p>
+            <ul>
+              <li>Proper priming techniques</li>
+              <li>Airbrushing for smooth finishes</li>
+              <li>Brush painting tips and tricks</li>
+              <li>Weathering and detail work</li>
+            </ul>
+          `
+        };
+      case 'upgrades':
+        return {
+          title: 'Printer Upgrades',
+          content: `
+            <h2>Essential 3D Printer Upgrades</h2>
+            <p>Improve your 3D printer's performance, reliability and print quality with these valuable upgrades.</p>
+            <h3>Hotend Upgrades</h3>
+            <ul>
+              <li>All-metal hotends for high-temperature printing</li>
+              <li>Hardened steel nozzles for abrasive filaments</li>
+              <li>Ruby-tipped nozzles for extreme durability</li>
+              <li>Direct drive vs. Bowden extruder setups</li>
+            </ul>
+            <h3>Motion System Improvements</h3>
+            <ul>
+              <li>Linear rails for smoother, more precise movement</li>
+              <li>Belt tensioners for consistent tension</li>
+              <li>Stepper motor dampers for noise reduction</li>
+              <li>TMC stepper drivers for silent operation</li>
+            </ul>
+            <h3>Control and Safety Upgrades</h3>
+            <ul>
+              <li>Mainboard upgrades with 32-bit processors</li>
+              <li>Automatic bed leveling sensors</li>
+              <li>Filament runout sensors</li>
+              <li>Power loss recovery systems</li>
+              <li>Thermal runaway protection</li>
+            </ul>
+          `
+        };
+      case 'materials':
+        return {
+          title: '3D Printing Materials',
+          content: `
+            <h2>Advanced 3D Printing Materials</h2>
+            <p>Beyond basic filaments, discover specialized materials that enable unique properties and applications.</p>
+            <h3>Engineering-Grade Filaments</h3>
+            <ul>
+              <li><strong>Nylon</strong>: Strong, durable, with excellent layer adhesion</li>
+              <li><strong>Polycarbonate</strong>: Extremely durable with high impact resistance</li>
+              <li><strong>PEEK</strong>: Ultra high-performance for industrial applications</li>
+              <li><strong>PEI/ULTEM</strong>: High temperature resistance and strength</li>
+            </ul>
+            <h3>Composite Filaments</h3>
+            <ul>
+              <li>Carbon fiber reinforced: Enhanced rigidity</li>
+              <li>Wood-filled: Natural wood appearance and properties</li>
+              <li>Metal-filled: Metallic appearance and weight</li>
+              <li>Ceramic-filled: Unique textures and properties</li>
+            </ul>
+            <h3>Specialty Materials</h3>
+            <ul>
+              <li>Conductive filaments for electronic applications</li>
+              <li>Magnetic filaments for interactive projects</li>
+              <li>Color-changing materials (heat, UV, or light sensitive)</li>
+              <li>Dissolvable support materials (PVA, HIPS)</li>
+            </ul>
+          `
+        };
       // Additional topics would follow the same pattern
       default:
         return {

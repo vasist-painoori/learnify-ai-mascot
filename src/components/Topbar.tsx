@@ -25,6 +25,12 @@ const printingTopics = [
   { title: "Multi-Material Printing", url: "/3d-printing/multi-material" },
   { title: "Large Format Printing", url: "/3d-printing/large-format" },
   { title: "Maintenance & Care", url: "/3d-printing/maintenance" },
+  { title: "Custom Supports", url: "/3d-printing/custom-supports" },
+  { title: "Bed Adhesion", url: "/3d-printing/bed-adhesion" },
+  { title: "3D Scanning", url: "/3d-printing/3d-scanning" },
+  { title: "Print Finishing", url: "/3d-printing/finishing" },
+  { title: "Printer Upgrades", url: "/3d-printing/upgrades" },
+  { title: "3D Printing Materials", url: "/3d-printing/materials" },
 ];
 
 // Define programming topics
