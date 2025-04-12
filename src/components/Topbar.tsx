@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import { Printer3D, Code } from 'lucide-react';
+import { Printer, Code } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 // Define 3D printing topics
@@ -39,7 +39,7 @@ const Topbar = () => {
           <NavigationMenuList className="gap-2">
             <NavigationMenuItem>
               <NavigationMenuTrigger className="h-8 px-3 text-xs">
-                <Printer3D className="h-4 w-4 mr-1" />
+                <Printer className="h-4 w-4 mr-1" />
                 3D Printing Lessons
               </NavigationMenuTrigger>
               <NavigationMenuContent>
