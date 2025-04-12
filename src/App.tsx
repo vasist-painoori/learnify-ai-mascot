@@ -8,6 +8,7 @@ import { LearningProvider } from "@/contexts/LearningContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Learn from "./pages/Learn";
+import LessonPage from "./pages/LessonPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,8 +25,11 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/learn" element={<Learn />} />
             
-            {/* 3D Printing routes (placeholder until content is created) */}
-            <Route path="/3d-printing/:topic" element={<NotFound />} />
+            {/* 3D Printing lesson routes */}
+            <Route path="/3d-printing/:topic" element={<LessonPage />} />
+            
+            {/* Programming lesson routes */}
+            <Route path="/programming/:topic" element={<LessonPage />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>

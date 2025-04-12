@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import { Printer, Code } from 'lucide-react';
+import { Printer, Code, BookOpen } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 // Define 3D printing topics
@@ -25,6 +25,20 @@ const printingTopics = [
   { title: "Multi-Material Printing", url: "/3d-printing/multi-material" },
   { title: "Large Format Printing", url: "/3d-printing/large-format" },
   { title: "Maintenance & Care", url: "/3d-printing/maintenance" },
+];
+
+// Define programming topics
+const programmingTopics = [
+  { title: "JavaScript", url: "/programming/javascript" },
+  { title: "Python", url: "/programming/python" },
+  { title: "Java", url: "/programming/java" },
+  { title: "C#", url: "/programming/csharp" },
+  { title: "C++", url: "/programming/cpp" },
+  { title: "Ruby", url: "/programming/ruby" },
+  { title: "Go", url: "/programming/go" },
+  { title: "TypeScript", url: "/programming/typescript" },
+  { title: "Rust", url: "/programming/rust" },
+  { title: "PHP", url: "/programming/php" },
 ];
 
 const Topbar = () => {
@@ -68,15 +82,37 @@ const Topbar = () => {
                 Programming Lessons
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <Link
-                  to="/dashboard"
-                  className="block select-none space-y-1 rounded-md p-3 hover:bg-accent hover:text-accent-foreground"
-                >
-                  <div className="text-sm font-medium">All Programming Languages</div>
-                  <p className="text-xs leading-snug text-muted-foreground">
-                    View all available programming languages and courses
-                  </p>
-                </Link>
+                <ul className="grid w-[220px] p-2 md:w-[300px]">
+                  {programmingTopics.map((topic) => (
+                    <li key={topic.title}>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to={topic.url}
+                          className={cn(
+                            "block select-none space-y-1 rounded-md p-2 hover:bg-accent hover:text-accent-foreground"
+                          )}
+                        >
+                          <div className="text-sm font-medium">{topic.title}</div>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+                <div className="p-2 border-t border-gray-200 dark:border-gray-800">
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to="/dashboard"
+                      className={cn(
+                        "block select-none space-y-1 rounded-md p-2 hover:bg-accent hover:text-accent-foreground"
+                      )}
+                    >
+                      <div className="text-sm font-medium flex items-center">
+                        <BookOpen className="h-4 w-4 mr-2" />
+                        All Courses Dashboard
+                      </div>
+                    </Link>
+                  </NavigationMenuLink>
+                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>
