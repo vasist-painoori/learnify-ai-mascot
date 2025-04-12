@@ -23,6 +23,10 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/learn" element={<Learn />} />
+            
+            {/* 3D Printing routes (placeholder until content is created) */}
+            <Route path="/3d-printing/:topic" element={<NotFound />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

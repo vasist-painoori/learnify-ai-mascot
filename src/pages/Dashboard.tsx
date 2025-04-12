@@ -4,6 +4,7 @@ import { useLearning } from '@/contexts/LearningContext';
 import DashboardContent from '@/components/dashboard/DashboardContent';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
+import Topbar from '@/components/Topbar';
 
 const Dashboard = () => {
   const { selectedLanguage, progress, resetLearning } = useLearning();
@@ -28,6 +29,7 @@ const Dashboard = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
+      <Topbar />
       <main className="flex-1 overflow-y-auto pb-10 w-full pt-16">
         <DashboardContent
           selectedLanguage={selectedLanguage}

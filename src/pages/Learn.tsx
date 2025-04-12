@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Code, BrainCircuit, CheckCircle } from 'lucide-react';
+import Topbar from '@/components/Topbar';
 
 const Learn = () => {
   const { 
@@ -50,6 +51,7 @@ const Learn = () => {
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16">
+      <Topbar />
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
