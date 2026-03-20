@@ -4,8 +4,20 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Topbar from '@/components/Topbar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, XCircle, BookOpen, Code, FlaskConical } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
+
+interface CodeBlock {
+  language: string;
+  snippet: string;
+  explanation: string;
+}
+
+interface LessonSection {
+  heading: string;
+  body: string;
+  code?: CodeBlock;
+}
 
 interface CodingQuiz {
   question: string;
@@ -15,7 +27,7 @@ interface CodingQuiz {
 
 interface LessonData {
   title: string;
-  content: string;
+  sections: LessonSection[];
   diagram: string;
   codingQuiz: CodingQuiz;
 }
@@ -31,935 +43,492 @@ const CodingQuizSection = ({ quiz }: { quiz: CodingQuiz }) => {
   };
 
   return (
-    <div className="mt-8 p-6 rounded-xl border-2 border-primary/30 bg-primary/5">
-      <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-        🧪 Coding Quiz
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+      className="mt-10 p-6 rounded-2xl border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10"
+    >
+      <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+        <FlaskConical className="h-5 w-5 text-primary" />
+        Coding Challenge
       </h3>
-      <p className="mb-3 text-foreground/80">{quiz.question}</p>
-      <p className="text-sm text-muted-foreground mb-4">💡 Hint: {quiz.hint}</p>
-      
-      <label className="text-sm font-medium mb-2 block">Your answer (expected output):</label>
+      <p className="mb-3 text-foreground/90 text-[15px] leading-relaxed">{quiz.question}</p>
+      <div className="mb-4 p-3 rounded-lg bg-muted/50 border border-border/50">
+        <p className="text-sm text-muted-foreground">💡 <strong>Hint:</strong> {quiz.hint}</p>
+      </div>
+
+      <label className="text-sm font-semibold mb-2 block text-foreground/80">Your Answer:</label>
       <Textarea
         value={userAnswer}
         onChange={(e) => { setUserAnswer(e.target.value); setResult(null); }}
         placeholder="Type the expected output here..."
-        className="mb-4 font-mono text-sm"
-        rows={3}
+        className="mb-4 font-mono text-sm bg-background"
+        rows={2}
       />
-      
-      <Button onClick={checkAnswer} disabled={!userAnswer.trim()}>
+
+      <Button onClick={checkAnswer} disabled={!userAnswer.trim()} size="lg">
         Check Answer
       </Button>
-      
+
       {result === 'correct' && (
-        <div className="mt-4 p-3 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 flex items-center gap-2">
-          <CheckCircle className="h-5 w-5" /> Correct! Well done! 🎉
-        </div>
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-4 p-4 rounded-xl bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 flex items-center gap-3">
+          <CheckCircle className="h-6 w-6 flex-shrink-0" />
+          <div><strong>Correct!</strong> Great job — you nailed it! 🎉</div>
+        </motion.div>
       )}
       {result === 'incorrect' && (
-        <div className="mt-4 p-3 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300">
-          <div className="flex items-center gap-2 mb-2">
-            <XCircle className="h-5 w-5" /> Not quite. Try again!
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-4 p-4 rounded-xl bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300">
+          <div className="flex items-center gap-3 mb-2">
+            <XCircle className="h-6 w-6 flex-shrink-0" />
+            <strong>Not quite — try again!</strong>
           </div>
-          <p className="text-sm">Expected output: <code className="font-mono bg-black/10 dark:bg-white/10 px-1 rounded">{quiz.expectedOutput}</code></p>
-        </div>
+          <p className="text-sm ml-9">Expected: <code className="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded">{quiz.expectedOutput}</code></p>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
-const getLessonContent = (category: string, topic: string): LessonData | null => {
-  if (category === '3d-printing') {
-    const lessons: Record<string, LessonData> = {
+function getLessonContent(category: string, topic: string): LessonData | null {
+  const lessons: Record<string, Record<string, LessonData>> = {
+    '3d-printing': {
       'basics': {
         title: '3D Printer Basics',
-        content: `
-          <h2>Getting Started with 3D Printing</h2>
-          <p>3D printing is an additive manufacturing process that builds objects layer by layer from digital models. Unlike traditional manufacturing which cuts away material (subtractive), 3D printers deposit material precisely where it's needed. The most common type for beginners is FDM (Fused Deposition Modeling), which melts plastic filament and extrudes it through a heated nozzle onto a build platform.</p>
-          <p>Every FDM printer has five essential components: the <strong>extruder</strong> (pushes filament), the <strong>hot end</strong> (melts it), the <strong>build plate</strong> (printing surface), <strong>stepper motors</strong> (precise movement on X/Y/Z axes), and the <strong>controller board</strong> (the brain coordinating everything). Understanding these parts helps you troubleshoot issues and get better prints from day one.</p>
-        `,
-        diagram: `
-          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;background:#f0f4ff;border-radius:12px;border:2px solid #6366f1;">
-            <div style="font-weight:bold;color:#4338ca;">FDM 3D Printing Process Flow</div>
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;">
-              <div style="padding:8px 16px;background:#6366f1;color:white;border-radius:8px;font-size:13px;">3D Model (.STL)</div>
-              <span>→</span>
-              <div style="padding:8px 16px;background:#6366f1;color:white;border-radius:8px;font-size:13px;">Slicer Software</div>
-              <span>→</span>
-              <div style="padding:8px 16px;background:#6366f1;color:white;border-radius:8px;font-size:13px;">G-Code</div>
-              <span>→</span>
-              <div style="padding:8px 16px;background:#6366f1;color:white;border-radius:8px;font-size:13px;">Printer</div>
-              <span>→</span>
-              <div style="padding:8px 16px;background:#6366f1;color:white;border-radius:8px;font-size:13px;">Finished Object</div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;width:100%;max-width:500px;">
-              <div style="padding:8px;background:#e0e7ff;border-radius:8px;text-align:center;font-size:12px;"><strong>X-Axis</strong><br/>Left ↔ Right</div>
-              <div style="padding:8px;background:#e0e7ff;border-radius:8px;text-align:center;font-size:12px;"><strong>Y-Axis</strong><br/>Front ↔ Back</div>
-              <div style="padding:8px;background:#e0e7ff;border-radius:8px;text-align:center;font-size:12px;"><strong>Z-Axis</strong><br/>Up ↔ Down</div>
-            </div>
-          </div>
-        `,
+        sections: [
+          {
+            heading: 'What Is 3D Printing?',
+            body: '3D printing, also called additive manufacturing, creates physical objects by building them up layer by layer from a digital file. Unlike traditional manufacturing (like CNC machining) which carves material away from a solid block, 3D printing adds material only where it\'s needed — reducing waste dramatically. The technology has been around since the 1980s but has become affordable for home use only in the last decade, with printers now starting under $200.'
+          },
+          {
+            heading: 'How FDM Printing Works',
+            body: 'The most common home printer type is FDM (Fused Deposition Modeling). It works like a very precise hot glue gun on a robotic arm. A spool of plastic filament (usually 1.75mm diameter) is fed into a heated nozzle (the "hot end") which melts it at around 200°C. The melted plastic is then extruded onto a flat build plate in thin lines. The nozzle moves in the X and Y directions to trace out one layer, then either the nozzle moves up or the bed moves down by one layer height (typically 0.2mm), and the next layer prints on top.',
+            code: {
+              language: 'gcode',
+              snippet: '; Example G-code — what the printer reads\nG28          ; Home all axes (go to 0,0,0)\nG1 Z5 F500   ; Move nozzle up 5mm\nM104 S200    ; Set nozzle temp to 200°C\nM140 S60     ; Set bed temp to 60°C\nM109 S200    ; Wait for nozzle to reach temp\nG1 X50 Y50 F3000  ; Move to position (50,50)\nG1 Z0.2      ; Drop to first layer height\nG1 X100 E10 F1500 ; Print a line, extruding filament',
+              explanation: 'G-code is the language printers speak. G28 homes the machine, M104/M109 control temperature, and G1 moves the nozzle while extruding plastic.'
+            }
+          },
+          {
+            heading: 'The Five Core Components',
+            body: 'Every FDM printer has the same fundamental parts. The frame provides rigidity (wobble = bad prints). The motion system uses stepper motors and belts/leadscrews for precise movement on three axes. The extruder grips and pushes filament forward. The hot end melts it and deposits it through a 0.4mm nozzle opening. And the build plate is your heated printing surface — it\'s usually heated to 60°C to help prints stick and release cleanly when cooled.'
+          },
+          {
+            heading: 'From Model to Physical Object',
+            body: 'The workflow has three stages: Design → Slice → Print. First, you create or download a 3D model (STL or 3MF file) from sites like Thingiverse or Printables. Then, slicer software (Cura, PrusaSlicer) converts it into G-code — machine instructions telling the printer exactly where to move and how much plastic to extrude at each point. Finally, the G-code is sent to the printer via SD card, USB, or Wi-Fi. A simple phone case takes about 1-2 hours; a detailed figurine might take 8-12 hours.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#eef2ff,#e0e7ff);border-radius:16px;border:2px solid #818cf8;"><div style="font-weight:700;color:#4338ca;text-align:center;margin-bottom:16px;font-size:15px;">FDM Printer Components</div><div style="display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto;background:#f8fafc;border-radius:12px;padding:16px;border:1px solid #c7d2fe;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:#6366f1;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">1</div><div><strong style="color:#4338ca;">Filament Spool</strong><div style="font-size:12px;color:#64748b;">1.75mm plastic wire, 1kg rolls</div></div></div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:#6366f1;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">2</div><div><strong style="color:#4338ca;">Extruder</strong><div style="font-size:12px;color:#64748b;">Grips filament with a gear, pushes it down</div></div></div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:#6366f1;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">3</div><div><strong style="color:#4338ca;">Hot End (Nozzle)</strong><div style="font-size:12px;color:#64748b;">Heats to 200°C, melts plastic through 0.4mm hole</div></div></div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:#6366f1;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">4</div><div><strong style="color:#4338ca;">Build Plate</strong><div style="font-size:12px;color:#64748b;">Heated surface (60°C) where prints are built</div></div></div><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:#6366f1;border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;">5</div><div><strong style="color:#4338ca;">Motion System</strong><div style="font-size:12px;color:#64748b;">Stepper motors + belts for X/Y/Z movement</div></div></div></div><div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:400px;margin-left:auto;margin-right:auto;"><div style="padding:10px;background:#c7d2fe;border-radius:8px;text-align:center;font-size:12px;"><strong>X-Axis</strong><br/>Left-Right</div><div style="padding:10px;background:#c7d2fe;border-radius:8px;text-align:center;font-size:12px;"><strong>Y-Axis</strong><br/>Front-Back</div><div style="padding:10px;background:#c7d2fe;border-radius:8px;text-align:center;font-size:12px;"><strong>Z-Axis</strong><br/>Up-Down</div></div></div>',
         codingQuiz: {
-          question: "Given a 3D print with layer height of 0.2mm and a model that is 20mm tall, how many layers will the printer need? Write just the number.",
-          hint: "Divide total height by layer height: 20 / 0.2",
-          expectedOutput: "100"
+          question: 'A 3D printer prints at 0.2mm layer height. Your model is 40mm tall with a 5mm raft underneath. How many total layers does the printer need? (just the number)',
+          hint: 'Total height = 40 + 5 = 45mm. Layers = 45 / 0.2',
+          expectedOutput: '225'
         }
       },
       'filaments': {
-        title: 'Filament Types',
-        content: `
-          <h2>Understanding 3D Printing Filaments</h2>
-          <p>Choosing the right filament determines your print's strength, flexibility, temperature resistance, and appearance. PLA is the go-to beginner material — it's biodegradable, prints at low temperatures (190-220°C), and rarely warps. PETG is a great step up, offering more strength and slight flexibility while remaining easy to print. ABS is tougher and heat-resistant but requires an enclosure due to warping and fumes.</p>
-          <p>For specialty applications, TPU gives rubber-like flexibility for phone cases or gaskets, Nylon provides excellent strength and wear resistance for mechanical parts, and PC (Polycarbonate) offers the highest impact resistance and temperature tolerance. Always store filament in airtight containers with desiccant — most materials absorb moisture which causes bubbling and poor print quality.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#f0fdf4;border-radius:12px;border:2px solid #22c55e;">
-            <div style="font-weight:bold;color:#15803d;text-align:center;margin-bottom:12px;">Filament Comparison Chart</div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:14px;">PLA</div>
-                <div style="font-size:11px;">Easy • 190-220°C</div>
-                <div style="font-size:11px;">Strength: ★★☆☆</div>
-                <div style="font-size:11px;">Heat: ★☆☆☆</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:14px;">PETG</div>
-                <div style="font-size:11px;">Medium • 230-250°C</div>
-                <div style="font-size:11px;">Strength: ★★★☆</div>
-                <div style="font-size:11px;">Heat: ★★☆☆</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:14px;">ABS</div>
-                <div style="font-size:11px;">Hard • 220-250°C</div>
-                <div style="font-size:11px;">Strength: ★★★☆</div>
-                <div style="font-size:11px;">Heat: ★★★☆</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:14px;">TPU</div>
-                <div style="font-size:11px;">Medium • 220-250°C</div>
-                <div style="font-size:11px;">Flexible: ★★★★</div>
-                <div style="font-size:11px;">Heat: ★★☆☆</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:14px;">Nylon</div>
-                <div style="font-size:11px;">Hard • 240-260°C</div>
-                <div style="font-size:11px;">Strength: ★★★★</div>
-                <div style="font-size:11px;">Heat: ★★★☆</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:14px;">PC</div>
-                <div style="font-size:11px;">Expert • 260-310°C</div>
-                <div style="font-size:11px;">Strength: ★★★★</div>
-                <div style="font-size:11px;">Heat: ★★★★</div>
-              </div>
-            </div>
-          </div>
-        `,
+        title: 'Filament Types & Materials',
+        sections: [
+          {
+            heading: 'Why Filament Choice Matters',
+            body: 'The filament you choose determines almost everything about your finished print: its strength, flexibility, heat resistance, appearance, and how easy it is to print. Think of it like choosing wood vs. steel vs. rubber for a traditional project — each material has strengths and trade-offs. Most filament comes in 1.75mm diameter spools (1kg standard). Color variety is enormous, but the base material properties are what really matter.'
+          },
+          {
+            heading: 'PLA — The Beginner\'s Best Friend',
+            body: 'PLA (Polylactic Acid) is made from cornstarch or sugarcane, making it biodegradable. It prints at the lowest temperatures (190-220°C nozzle, 50-60°C bed), rarely warps, has minimal odor, and comes in hundreds of colors. Its weakness is heat resistance — PLA softens around 60°C, so a PLA part left in a hot car will deform. It\'s also relatively brittle compared to PETG, snapping rather than flexing under stress.',
+            code: {
+              language: 'yaml',
+              snippet: '# Recommended PLA Settings\nnozzle_temp: 210°C\nbed_temp: 60°C\nprint_speed: 50-60mm/s\ncooling_fan: 100%\nretraction: 5mm @ 45mm/s\nfirst_layer_speed: 20mm/s',
+              explanation: 'These settings work for most PLA brands. Always print a temperature tower first — a test that varies temperature every few layers so you can see which temp gives best quality.'
+            }
+          },
+          {
+            heading: 'PETG — The All-Rounder',
+            body: 'PETG (Polyethylene Terephthalate Glycol) is the same family of plastic as water bottles. It\'s stronger than PLA, slightly flexible (bends before breaking), handles temperatures up to ~80°C, and is food-safe in raw form. The trade-off: it\'s stringier than PLA — you\'ll see thin whiskers between parts. Print at 230-250°C with moderate cooling (50-70% fan).'
+          },
+          {
+            heading: 'ABS, TPU, Nylon & Beyond',
+            body: 'ABS is classic engineering plastic (LEGO bricks are ABS) — tough, heat-resistant to ~100°C, but warps aggressively and releases fumes, requiring an enclosure. TPU is flexible rubber-like material for phone cases and gaskets — print slowly (20-30mm/s). Nylon is incredibly strong with excellent wear resistance, perfect for gears and hinges, but absorbs moisture and must be dried before printing.'
+          },
+          {
+            heading: 'Storing Filament Properly',
+            body: 'Most filaments absorb moisture from air, causing bubbling and rough surfaces during printing. Store open spools in airtight containers with silica gel desiccant. Nylon and TPU are worst affected and should be printed from a dry box. If filament has absorbed moisture, dry it in a filament dryer at 45°C (PLA), 65°C (PETG), or 70°C (Nylon) for 4-6 hours.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:16px;border:2px solid #22c55e;"><div style="font-weight:700;color:#15803d;text-align:center;margin-bottom:16px;font-size:15px;">Filament Comparison</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;"><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #bbf7d0;text-align:center;"><div style="font-weight:bold;font-size:14px;color:#15803d;">PLA</div><div style="font-size:11px;color:#64748b;">200°C - Easy</div><div style="font-size:12px;">Strength ██░░░</div><div style="font-size:12px;">Heat ██░░░</div><div style="font-size:12px;">Flex █░░░░</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #bbf7d0;text-align:center;"><div style="font-weight:bold;font-size:14px;color:#15803d;">PETG</div><div style="font-size:11px;color:#64748b;">240°C - Medium</div><div style="font-size:12px;">Strength ███░░</div><div style="font-size:12px;">Heat ███░░</div><div style="font-size:12px;">Flex ██░░░</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #bbf7d0;text-align:center;"><div style="font-weight:bold;font-size:14px;color:#15803d;">ABS</div><div style="font-size:11px;color:#64748b;">240°C - Hard</div><div style="font-size:12px;">Strength ███░░</div><div style="font-size:12px;">Heat ████░</div><div style="font-size:12px;">Flex ██░░░</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #bbf7d0;text-align:center;"><div style="font-weight:bold;font-size:14px;color:#15803d;">TPU</div><div style="font-size:11px;color:#64748b;">230°C - Medium</div><div style="font-size:12px;">Strength ███░░</div><div style="font-size:12px;">Heat ██░░░</div><div style="font-size:12px;">Flex █████</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #bbf7d0;text-align:center;"><div style="font-weight:bold;font-size:14px;color:#15803d;">Nylon</div><div style="font-size:11px;color:#64748b;">255°C - Hard</div><div style="font-size:12px;">Strength ████░</div><div style="font-size:12px;">Heat ███░░</div><div style="font-size:12px;">Flex ███░░</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #bbf7d0;text-align:center;"><div style="font-weight:bold;font-size:14px;color:#15803d;">PC</div><div style="font-size:11px;color:#64748b;">280°C - Expert</div><div style="font-size:12px;">Strength █████</div><div style="font-size:12px;">Heat █████</div><div style="font-size:12px;">Flex ██░░░</div></div></div></div>',
         codingQuiz: {
-          question: "A spool of PLA filament weighs 1kg and costs $20. You print a model that uses 150g. How much did the filament cost for that print? Write the answer as: $X.XX",
-          hint: "Cost per gram = $20 / 1000g, then multiply by 150g",
-          expectedOutput: "$3.00"
+          question: 'You\'re printing a part for a car dashboard (temps up to 70°C). Which common material should you NOT use? (material name)',
+          hint: 'PLA softens around 60°C — below dashboard temperatures.',
+          expectedOutput: 'PLA'
         }
       },
       'slicers': {
-        title: 'Slicer Software',
-        content: `
-          <h2>Mastering Slicer Software</h2>
-          <p>A slicer converts your 3D model into G-code — the machine instructions your printer understands. It "slices" the model into horizontal layers and calculates the exact path the nozzle should follow. Popular free options include Cura (beginner-friendly with a huge community) and PrusaSlicer (excellent for advanced users). The slicer is where you control the most critical print settings.</p>
-          <p>The three settings that impact your print the most are <strong>layer height</strong> (0.1mm for detail, 0.2mm standard, 0.3mm for speed), <strong>infill percentage</strong> (10-20% for decorative items, 40-100% for strong parts), and <strong>print speed</strong> (slower = better quality). Supports are auto-generated scaffolding for overhangs beyond 45°. Always preview your sliced model before printing to catch potential issues.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fef3c7;border-radius:12px;border:2px solid #f59e0b;">
-            <div style="font-weight:bold;color:#b45309;text-align:center;margin-bottom:12px;">Slicer Workflow</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:32px;height:32px;background:#f59e0b;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;flex-shrink:0;">1</div>
-                <div style="padding:8px 12px;background:#fef9c3;border-radius:8px;flex:1;font-size:13px;"><strong>Import</strong> — Load .STL/.OBJ model</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:32px;height:32px;background:#f59e0b;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;flex-shrink:0;">2</div>
-                <div style="padding:8px 12px;background:#fef9c3;border-radius:8px;flex:1;font-size:13px;"><strong>Orient</strong> — Position for strength & minimal supports</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:32px;height:32px;background:#f59e0b;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;flex-shrink:0;">3</div>
-                <div style="padding:8px 12px;background:#fef9c3;border-radius:8px;flex:1;font-size:13px;"><strong>Configure</strong> — Set layer height, infill, speed, supports</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:32px;height:32px;background:#f59e0b;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;flex-shrink:0;">4</div>
-                <div style="padding:8px 12px;background:#fef9c3;border-radius:8px;flex:1;font-size:13px;"><strong>Preview</strong> — Check layer-by-layer visualization</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:32px;height:32px;background:#f59e0b;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;flex-shrink:0;">5</div>
-                <div style="padding:8px 12px;background:#fef9c3;border-radius:8px;flex:1;font-size:13px;"><strong>Export</strong> — Save G-code to SD card or send via USB/Wi-Fi</div>
-              </div>
-            </div>
-          </div>
-        `,
+        title: 'Slicer Software Mastery',
+        sections: [
+          {
+            heading: 'What Does a Slicer Do?',
+            body: 'A slicer is the bridge between your 3D model and your printer. It takes a 3D mesh file (STL, 3MF, or OBJ), mathematically slices it into hundreds of horizontal layers, then calculates the exact toolpath — the precise route the nozzle takes to trace each layer. It decides where to put walls (perimeters), how to fill the interior (infill), where to add supports, and how fast to move. The output is G-code: thousands of movement commands.'
+          },
+          {
+            heading: 'The Three Most Important Settings',
+            body: 'Layer height controls quality vs. speed. At 0.1mm, surfaces are smooth but prints take 2-3x longer. At 0.2mm (standard), you balance both. At 0.3mm, it\'s fast but lines are visible. Infill percentage controls strength — 15% for decorative items, 30-40% for functional parts, 100% for maximum strength. Print speed ranges from 40-60mm/s for quality to 100-150mm/s on modern machines.',
+            code: {
+              language: 'text',
+              snippet: 'Layer height for a 20mm cube:\n0.1mm = 200 layers = ~45 min\n0.2mm = 100 layers = ~22 min\n0.3mm =  67 layers = ~15 min\n\nInfill patterns:\nGrid     - Fast, decent X/Y strength\nGyroid   - Best all-around strength\nLightning - Minimal, supports top only\nCubic    - Good 3D strength',
+              explanation: 'Doubling layer height roughly halves print time. Gyroid infill is strongest but slowest; lightning is fastest but weakest.'
+            }
+          },
+          {
+            heading: 'Supports and Overhangs',
+            body: 'Printers can\'t print in mid-air — each layer needs something underneath. The "45-degree rule" says overhangs steeper than 45° need support material. Slicers auto-generate supports but they leave marks. Tree supports branch up from the build plate to overhangs, using less material and leaving cleaner surfaces. The "support interface" adds a dense layer with a 0.1-0.2mm gap for easy removal.'
+          },
+          {
+            heading: 'Walls, Tops, and Seams',
+            body: 'The outer shell is made of perimeters (walls) and solid top/bottom layers. 3-4 walls is standard. Top and bottom need 4-6 solid layers to bridge over infill without sagging. The "seam" is where each perimeter loop starts/ends, creating a visible line — align it to one spot (less visible on flat surfaces) or randomize it across the print.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:16px;border:2px solid #eab308;"><div style="font-weight:700;color:#a16207;text-align:center;margin-bottom:16px;font-size:15px;">Inside a Sliced Layer</div><div style="max-width:350px;margin:0 auto;background:#fffbeb;border:2px solid #eab308;border-radius:12px;padding:16px;"><div style="border:3px solid #b45309;border-radius:8px;padding:3px;"><div style="border:2px solid #d97706;border-radius:5px;padding:3px;"><div style="border:2px dashed #f59e0b;border-radius:3px;padding:20px;text-align:center;font-size:12px;color:#92400e;font-family:monospace;line-height:1.4;"><strong>Infill Pattern (15-20%)</strong><br/>/\\/\\/\\/\\<br/>\\/\\/\\/\\/<br/>/\\/\\/\\/\\</div></div></div><div style="display:flex;gap:8px;margin-top:12px;justify-content:center;"><div style="display:flex;align-items:center;gap:4px;font-size:11px;"><div style="width:12px;height:12px;background:#b45309;border-radius:2px;"></div>Outer Wall</div><div style="display:flex;align-items:center;gap:4px;font-size:11px;"><div style="width:12px;height:12px;background:#d97706;border-radius:2px;"></div>Inner Wall</div><div style="display:flex;align-items:center;gap:4px;font-size:11px;"><div style="width:12px;height:12px;background:#f59e0b;border-radius:2px;"></div>Infill</div></div></div></div>',
         codingQuiz: {
-          question: "A model is 30mm tall. At 0.2mm layer height, the print takes 2 hours. If you switch to 0.3mm layer height (making it 1.5x faster per layer), approximately how many minutes will it take? Round to nearest whole number.",
-          hint: "At 0.3mm: 30/0.3 = 100 layers vs 30/0.2 = 150 layers. Time ratio = 100/150 = 2/3 of original time.",
-          expectedOutput: "80"
+          question: 'A model is 50mm tall. At 0.2mm layers it takes 3 hours. You switch to 0.1mm. How many hours now? (just the number)',
+          hint: '0.1mm = double the layers = roughly double the time.',
+          expectedOutput: '6'
         }
       },
       'troubleshooting': {
         title: 'Print Troubleshooting',
-        content: `
-          <h2>Common 3D Printing Problems and Solutions</h2>
-          <p>The most frequent issue beginners face is <strong>first layer adhesion failure</strong> — the print doesn't stick to the bed. This is almost always caused by an improperly leveled bed or the nozzle being too far from the surface. The fix is methodical bed leveling (paper test method), cleaning the surface with isopropyl alcohol, and ensuring proper bed temperature. A good first layer is the foundation of every successful print.</p>
-          <p>Other common problems include <strong>stringing</strong> (thin threads between parts — fix with retraction settings), <strong>warping</strong> (corners lifting — use heated bed, brim, or enclosure), and <strong>layer shifts</strong> (misaligned layers — check belt tension and stepper motor current). The golden rule of troubleshooting: change only one setting at a time, then test. This way you know exactly what fixed the problem.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fef2f2;border-radius:12px;border:2px solid #ef4444;">
-            <div style="font-weight:bold;color:#dc2626;text-align:center;margin-bottom:12px;">Troubleshooting Decision Tree</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-              <div style="padding:8px 20px;background:#ef4444;color:white;border-radius:8px;font-size:13px;font-weight:bold;">Print Failed?</div>
-              <div style="width:2px;height:12px;background:#ef4444;"></div>
-              <div style="display:flex;gap:20px;align-items:flex-start;">
-                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-                  <div style="padding:6px 12px;background:#fee2e2;border-radius:6px;font-size:12px;text-align:center;">First layer issue?</div>
-                  <div style="padding:6px 12px;background:#fecaca;border-radius:6px;font-size:11px;text-align:center;">→ Re-level bed<br/>→ Clean surface<br/>→ Adjust Z-offset</div>
-                </div>
-                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-                  <div style="padding:6px 12px;background:#fee2e2;border-radius:6px;font-size:12px;text-align:center;">Stringing?</div>
-                  <div style="padding:6px 12px;background:#fecaca;border-radius:6px;font-size:11px;text-align:center;">→ ↑ Retraction<br/>→ ↓ Temperature<br/>→ Enable combing</div>
-                </div>
-                <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-                  <div style="padding:6px 12px;background:#fee2e2;border-radius:6px;font-size:12px;text-align:center;">Warping?</div>
-                  <div style="padding:6px 12px;background:#fecaca;border-radius:6px;font-size:11px;text-align:center;">→ ↑ Bed temp<br/>→ Add brim/raft<br/>→ Use enclosure</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `,
+        sections: [
+          {
+            heading: 'First Layer Adhesion — The #1 Problem',
+            body: 'If your first layer doesn\'t stick, the entire print fails. This is the single most common issue and almost always comes down to nozzle distance from the bed. Too far = filament doesn\'t squish and stick. Too close = can\'t extrude and scrapes the bed. The "paper test" calibration: slide paper between nozzle and bed, adjust until you feel slight friction when pulling.'
+          },
+          {
+            heading: 'Stringing and Oozing',
+            body: 'Stringing looks like thin spider webs between parts. It happens because melted plastic oozes from the nozzle during travel moves. Fix with retraction — the extruder pulls filament backward when traveling. Typical settings: 5-7mm at 40-60mm/s for Bowden, 0.5-2mm at 30-40mm/s for direct drive. Also try lowering nozzle temperature by 5-10°C — cooler plastic oozes less.',
+            code: {
+              language: 'text',
+              snippet: 'Anti-Stringing Checklist:\n1. Retraction distance: 6mm (Bowden)\n2. Retraction speed: 45mm/s\n3. Travel speed: 150mm/s (fast = less ooze)\n4. Combing: within infill\n5. Temperature: -5°C from normal\n6. Wipe nozzle: enabled\n\nFor Direct Drive: reduce retraction to 1-2mm',
+              explanation: 'Start with retraction distance and temp reduction. If still stringing, enable coasting and increase travel speed.'
+            }
+          },
+          {
+            heading: 'Warping and Corner Lifting',
+            body: 'Warping happens when bottom corners lift and curl upward. As plastic cools it shrinks, and temperature difference between hot top layers and cool bottom creates stress. ABS is notorious for this; PLA rarely warps. Fixes: correct bed temperature, add a brim (extra rings around base), clean bed with isopropyl alcohol, enclose the printer.'
+          },
+          {
+            heading: 'Layer Shifts and Under-Extrusion',
+            body: 'Layer shifts = print suddenly moved sideways mid-print. Usually mechanical: loose belts, loose grub screws on pulleys, or print head hitting the print. Under-extrusion = gaps and thin walls. Causes: partial clog, worn extruder gear, wrong filament diameter in slicer, or too-fast speed for the hotend\'s melt capacity.'
+          },
+          {
+            heading: 'The Golden Rule',
+            body: 'Change only ONE setting at a time, then test. If you change temperature AND speed AND retraction at once and the problem goes away, you don\'t know which fixed it. Print small test objects (calibration cubes, stringing tests) instead of wasting hours on full prints. Keep a log of what you changed and the result.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fef2f2,#fee2e2);border-radius:16px;border:2px solid #ef4444;"><div style="font-weight:700;color:#dc2626;text-align:center;margin-bottom:16px;font-size:15px;">Troubleshooting Flowchart</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div style="padding:12px;background:#fff;border:2px solid #fca5a5;border-radius:10px;"><div style="font-weight:bold;color:#dc2626;font-size:13px;margin-bottom:6px;">Won\'t Stick</div><div style="font-size:11px;color:#64748b;line-height:1.5;">1. Re-level bed<br/>2. Clean with IPA<br/>3. Increase bed temp +5°C<br/>4. Slow first layer<br/>5. Add brim</div></div><div style="padding:12px;background:#fff;border:2px solid #fca5a5;border-radius:10px;"><div style="font-weight:bold;color:#dc2626;font-size:13px;margin-bottom:6px;">Stringing</div><div style="font-size:11px;color:#64748b;line-height:1.5;">1. Increase retraction<br/>2. Lower temp 5-10°C<br/>3. Increase travel speed<br/>4. Enable coasting<br/>5. Dry filament</div></div><div style="padding:12px;background:#fff;border:2px solid #fca5a5;border-radius:10px;"><div style="font-weight:bold;color:#dc2626;font-size:13px;margin-bottom:6px;">Warping</div><div style="font-size:11px;color:#64748b;line-height:1.5;">1. Check bed temp<br/>2. Use brim/raft<br/>3. Enclose printer<br/>4. Try different material<br/>5. Reduce speed</div></div><div style="padding:12px;background:#fff;border:2px solid #fca5a5;border-radius:10px;"><div style="font-weight:bold;color:#dc2626;font-size:13px;margin-bottom:6px;">Gaps/Rough Surface</div><div style="font-size:11px;color:#64748b;line-height:1.5;">1. Check for clog<br/>2. Verify filament diameter<br/>3. Increase flow 2-5%<br/>4. Slow down<br/>5. Check extruder gear</div></div></div></div>',
         codingQuiz: {
-          question: "Your retraction distance is set to 5mm and retraction speed to 40mm/s. How long does one retraction take in milliseconds? Write just the number.",
-          hint: "Time = Distance / Speed. Convert seconds to milliseconds by multiplying by 1000.",
-          expectedOutput: "125"
+          question: 'Your retraction is 6mm at 40mm/s. How many milliseconds does one retraction take? (just the number)',
+          hint: 'Time = 6mm / 40mm/s = 0.15s. Convert: 0.15 * 1000',
+          expectedOutput: '150'
         }
       },
       'design': {
-        title: 'Model Design',
-        content: `
-          <h2>3D Model Design for Printing</h2>
-          <p>Designing for 3D printing is different from general 3D modeling because you must account for physical limitations. The most important rule is <strong>minimum wall thickness</strong> — walls should be at least 2x your nozzle diameter (typically 0.8mm with a 0.4mm nozzle). Overhangs beyond 45° require support structures, which leave marks on the surface. Smart designers orient parts to minimize overhangs or use chamfers instead.</p>
-          <p>For beginners, TinkerCAD (browser-based, free) is perfect for simple models using basic shapes. Fusion 360 offers professional parametric modeling with a free hobbyist license. When exporting, ensure your model is "manifold" (watertight with no holes in the mesh). Always add 0.2-0.3mm tolerance gaps for parts that need to fit together — printers aren't perfectly precise, and materials expand slightly.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#f0f9ff;border-radius:12px;border:2px solid #0ea5e9;">
-            <div style="font-weight:bold;color:#0369a1;text-align:center;margin-bottom:12px;">Design Rules for 3D Printing</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div style="padding:10px;background:#e0f2fe;border-radius:8px;text-align:center;">
-                <div style="font-size:24px;">📐</div>
-                <div style="font-weight:bold;font-size:13px;">Wall Thickness</div>
-                <div style="font-size:11px;">Min 0.8mm (2x nozzle)</div>
-              </div>
-              <div style="padding:10px;background:#e0f2fe;border-radius:8px;text-align:center;">
-                <div style="font-size:24px;">📏</div>
-                <div style="font-weight:bold;font-size:13px;">Overhangs</div>
-                <div style="font-size:11px;">Max 45° without support</div>
-              </div>
-              <div style="padding:10px;background:#e0f2fe;border-radius:8px;text-align:center;">
-                <div style="font-size:24px;">🔩</div>
-                <div style="font-weight:bold;font-size:13px;">Tolerances</div>
-                <div style="font-size:11px;">0.2-0.3mm for fit</div>
-              </div>
-              <div style="padding:10px;background:#e0f2fe;border-radius:8px;text-align:center;">
-                <div style="font-size:24px;">🌉</div>
-                <div style="font-weight:bold;font-size:13px;">Bridges</div>
-                <div style="font-size:11px;">Keep under 5mm span</div>
-              </div>
-            </div>
-          </div>
-        `,
+        title: '3D Model Design',
+        sections: [
+          {
+            heading: 'Designing for the Physical World',
+            body: 'Designing for 3D printing is different from designing for screens. Every surface must be buildable layer by layer from the bottom up. This means thinking about overhangs (beyond 45° needs support), minimum wall thickness (at least 2x nozzle diameter), and build orientation. A model that looks perfect in CAD might be impossible to print without thoughtful design choices.'
+          },
+          {
+            heading: 'CAD Software Options',
+            body: 'TinkerCAD (free, browser-based) is perfect for beginners — build models by combining basic shapes. Fusion 360 (free for hobbyists) is professional parametric CAD where you sketch 2D shapes and extrude into 3D. Blender (free) excels at organic shapes and characters. OnShape (free tier) runs entirely in-browser with professional capability. Most designers use multiple tools for different tasks.'
+          },
+          {
+            heading: 'Critical Design Rules',
+            body: 'Minimum wall thickness: 0.8mm (2x a 0.4mm nozzle). For holes, add 0.2-0.3mm tolerance — a 5mm hole prints slightly smaller. For snap-fit parts, 0.2mm clearance per side. Avoid sharp overhangs — use 45° chamfers instead. Fillets (rounded edges) are stronger than sharp corners. Always export as "manifold" (watertight) mesh.',
+            code: {
+              language: 'python',
+              snippet: '# Design tolerance calculator\ndef hole_size(desired_mm, tolerance=0.3):\n    return desired_mm + tolerance\n\n# 5mm bolt hole:\nprint(hole_size(5.0))  # 5.3mm\n\ndef check_wall(thickness, nozzle=0.4):\n    min_wall = nozzle * 2\n    if thickness < min_wall:\n        print(f"Too thin! Min: {min_wall}mm")\n    else:\n        walls = int(thickness / nozzle)\n        print(f"OK - {walls} perimeters")\n\ncheck_wall(1.2)  # OK - 3 perimeters\ncheck_wall(0.3)  # Too thin! Min: 0.8mm',
+              explanation: 'Always design with tolerances. Holes print smaller than designed, mating parts need clearance gaps. These calculations prevent frustrating reprints.'
+            }
+          },
+          {
+            heading: 'Orientation Strategy',
+            body: 'How you orient a model affects strength, quality, and print time. Layer lines are the weakest point — orient parts so primary stress runs along layers, not across them. Flat surfaces facing the bed are smoothest. Sometimes splitting a model into two halves printed flat and glued produces a stronger result than printing as one piece with supports.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:16px;border:2px solid #3b82f6;"><div style="font-weight:700;color:#1d4ed8;text-align:center;margin-bottom:16px;font-size:15px;">Design Rules Quick Reference</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:400px;margin:0 auto;"><div style="padding:14px;background:#fff;border-radius:10px;border:1px solid #bfdbfe;text-align:center;"><div style="font-weight:bold;font-size:13px;color:#1d4ed8;">Min Wall: 0.8mm</div><div style="font-size:11px;color:#64748b;">2x nozzle diameter</div></div><div style="padding:14px;background:#fff;border-radius:10px;border:1px solid #bfdbfe;text-align:center;"><div style="font-weight:bold;font-size:13px;color:#1d4ed8;">Hole Tolerance: +0.3mm</div><div style="font-size:11px;color:#64748b;">Holes shrink when printed</div></div><div style="padding:14px;background:#fff;border-radius:10px;border:1px solid #bfdbfe;text-align:center;"><div style="font-weight:bold;font-size:13px;color:#1d4ed8;">Max Overhang: 45°</div><div style="font-size:11px;color:#64748b;">Beyond needs supports</div></div><div style="padding:14px;background:#fff;border-radius:10px;border:1px solid #bfdbfe;text-align:center;"><div style="font-weight:bold;font-size:13px;color:#1d4ed8;">Fit Clearance: 0.2mm</div><div style="font-size:11px;color:#64748b;">Per side for mating parts</div></div></div></div>',
         codingQuiz: {
-          question: "You're designing a box with a 0.4mm nozzle. The minimum wall thickness should be 2x the nozzle diameter. If you want 3 perimeter walls, what is the total wall thickness in mm? Write as X.Xmm",
-          hint: "Min wall per perimeter = 0.4mm. Total = 0.4 × 3 = ?",
-          expectedOutput: "1.2mm"
+          question: 'You need a hole for a 6mm bolt with 0.3mm tolerance. What diameter should you design? (write as X.Xmm)',
+          hint: 'Design = desired + tolerance = 6 + 0.3',
+          expectedOutput: '6.3mm'
         }
       },
       'post-processing': {
-        title: 'Post-Processing',
-        content: `
-          <h2>Post-Processing Techniques</h2>
-          <p>Post-processing transforms rough 3D prints into professional-looking pieces. The basic workflow starts with <strong>support removal</strong> (flush cutters and pliers), followed by <strong>sanding</strong> — start at 80-120 grit to remove layer lines, progress through 220-400 grit for smoothness, and finish at 600-800+ for a polished feel. Wet sanding with water gives the best results and prevents clogging.</p>
-          <p>For advanced finishing, ABS can be vapor-smoothed with acetone (never heat it — use a sealed container with acetone-soaked paper towels). Apply filler primer spray to hide remaining layer lines, then paint with spray, brush, or airbrush. Always clean prints with isopropyl alcohol before painting. A clear coat (matte or gloss) protects the finish and gives a professional look.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#faf5ff;border-radius:12px;border:2px solid #a855f7;">
-            <div style="font-weight:bold;color:#7c3aed;text-align:center;margin-bottom:12px;">Post-Processing Pipeline</div>
-            <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center;">
-              <div style="padding:8px 12px;background:#ede9fe;border-radius:8px;font-size:12px;text-align:center;"><strong>1. Remove</strong><br/>Supports</div>
-              <span style="font-size:18px;">→</span>
-              <div style="padding:8px 12px;background:#ede9fe;border-radius:8px;font-size:12px;text-align:center;"><strong>2. Sand</strong><br/>80→400 grit</div>
-              <span style="font-size:18px;">→</span>
-              <div style="padding:8px 12px;background:#ede9fe;border-radius:8px;font-size:12px;text-align:center;"><strong>3. Fill</strong><br/>Primer/Filler</div>
-              <span style="font-size:18px;">→</span>
-              <div style="padding:8px 12px;background:#ede9fe;border-radius:8px;font-size:12px;text-align:center;"><strong>4. Paint</strong><br/>Spray/Brush</div>
-              <span style="font-size:18px;">→</span>
-              <div style="padding:8px 12px;background:#ede9fe;border-radius:8px;font-size:12px;text-align:center;"><strong>5. Seal</strong><br/>Clear Coat</div>
-            </div>
-          </div>
-        `,
+        title: 'Post-Processing & Finishing',
+        sections: [
+          {
+            heading: 'From Rough Print to Polished Product',
+            body: 'A raw 3D print has visible layer lines, support marks, and rough texture. Post-processing transforms it into something professional. The effort depends on purpose — a functional bracket needs nothing, a cosplay prop needs hours. The pipeline: support removal, sanding, filling, priming, painting, sealing.'
+          },
+          {
+            heading: 'Sanding Technique',
+            body: 'Start with 80-120 grit to remove major layer lines. Work in one direction, not circles. Progress through: 120, 220, 400, 600, 800. Each step removes scratches from the previous grit. Wet sanding (with water) from 400 onward gives smoother results. PLA sands well but go slow — friction heat can soften the surface.'
+          },
+          {
+            heading: 'Filling and Priming',
+            body: 'After sanding, fill remaining lines with filler primer spray (2-3 light coats at 15cm distance) with 400-grit sanding between coats. For deep imperfections, automotive body filler works — thin layers, let cure, sand smooth. Always work ventilated or wear a respirator when spraying.'
+          },
+          {
+            heading: 'Painting and Sealing',
+            body: 'Spray paint gives the most even coverage — 3-4 thin coats, 15 minutes between. For detailed models, acrylic brush painting with thin layers. Finish with clear coat: gloss for shiny, satin for realistic, matte for professional. Two coats of clear protect from scratches and UV yellowing.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#faf5ff,#ede9fe);border-radius:16px;border:2px solid #8b5cf6;"><div style="font-weight:700;color:#6d28d9;text-align:center;margin-bottom:16px;font-size:15px;">Post-Processing Pipeline</div><div style="display:flex;flex-direction:column;gap:6px;max-width:450px;margin:0 auto;"><div style="display:flex;align-items:center;gap:10px;"><div style="min-width:32px;height:32px;background:#8b5cf6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:14px;">1</div><div style="flex:1;padding:10px;background:#fff;border-radius:8px;border:1px solid #ddd6fe;font-size:13px;"><strong>Remove Supports</strong> — Flush cutters, sand nubs</div></div><div style="display:flex;align-items:center;gap:10px;"><div style="min-width:32px;height:32px;background:#8b5cf6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:14px;">2</div><div style="flex:1;padding:10px;background:#fff;border-radius:8px;border:1px solid #ddd6fe;font-size:13px;"><strong>Sand</strong> — 120 → 220 → 400 → 600 grit</div></div><div style="display:flex;align-items:center;gap:10px;"><div style="min-width:32px;height:32px;background:#8b5cf6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:14px;">3</div><div style="flex:1;padding:10px;background:#fff;border-radius:8px;border:1px solid #ddd6fe;font-size:13px;"><strong>Fill + Prime</strong> — Filler primer, 2-3 coats</div></div><div style="display:flex;align-items:center;gap:10px;"><div style="min-width:32px;height:32px;background:#8b5cf6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:14px;">4</div><div style="flex:1;padding:10px;background:#fff;border-radius:8px;border:1px solid #ddd6fe;font-size:13px;"><strong>Paint</strong> — 3-4 thin coats, 15min between</div></div><div style="display:flex;align-items:center;gap:10px;"><div style="min-width:32px;height:32px;background:#8b5cf6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:14px;">5</div><div style="flex:1;padding:10px;background:#fff;border-radius:8px;border:1px solid #ddd6fe;font-size:13px;"><strong>Seal</strong> — 2 coats clear coat for protection</div></div></div></div>',
         codingQuiz: {
-          question: "You sand a print using these grits in order: 80, 120, 220, 400, 800. How many sanding steps is that? And if each step takes 5 minutes, what's the total time? Write as: X steps, XX minutes",
-          hint: "Count the grits listed, then multiply by 5.",
-          expectedOutput: "5 steps, 25 minutes"
-        }
-      },
-      'settings': {
-        title: 'Advanced Settings',
-        content: `
-          <h2>Advanced 3D Printer Settings</h2>
-          <p>Beyond basic settings, <strong>Linear/Pressure Advance</strong> compensates for pressure buildup in the nozzle, eliminating blobs at corners and improving dimensional accuracy. To calibrate flow rate, print a single-wall cube, measure the wall thickness with calipers, then adjust: New Flow = (Expected ÷ Measured) × Current Flow. This ensures your printer extrudes exactly the right amount of material.</p>
-          <p><strong>Adaptive layer heights</strong> vary layer thickness based on geometry — thin layers for curves, thick for straight walls — cutting print time while keeping detail. <strong>Ironing</strong> passes the hot nozzle over top surfaces at low flow (5-10%) to create glass-smooth tops. For infill, gyroid pattern gives the best strength-to-weight ratio, while cubic works well for all-around strength.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#f0fdf4;border-radius:12px;border:2px solid #22c55e;">
-            <div style="font-weight:bold;color:#15803d;text-align:center;margin-bottom:12px;">Advanced Settings Impact</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Pressure Advance</div>
-                <div style="font-size:11px;">✓ Cleaner corners</div>
-                <div style="font-size:11px;">✓ Better dimensions</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Adaptive Layers</div>
-                <div style="font-size:11px;">✓ Faster prints</div>
-                <div style="font-size:11px;">✓ Detail where needed</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Ironing</div>
-                <div style="font-size:11px;">✓ Smooth top surfaces</div>
-                <div style="font-size:11px;">✓ 5-10% flow rate</div>
-              </div>
-              <div style="padding:10px;background:#dcfce7;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Gyroid Infill</div>
-                <div style="font-size:11px;">✓ Best strength/weight</div>
-                <div style="font-size:11px;">✓ Good for flex parts</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "Your current flow rate is 100%. You print a single-wall cube expecting 0.4mm walls, but measure 0.44mm. What should the new flow rate be? Round to nearest whole number and add %.",
-          hint: "New flow = (Expected / Measured) × Current = (0.4 / 0.44) × 100",
-          expectedOutput: "91%"
-        }
-      },
-      'multi-material': {
-        title: 'Multi-Material Printing',
-        content: `
-          <h2>Multi-Material and Multi-Color Printing</h2>
-          <p>Multi-material printing lets you combine different colors or materials in a single print. The simplest method is a <strong>manual filament change</strong> — the slicer pauses at a specific layer, you swap filament, and printing resumes. For automated changes, systems like Prusa's MMU or Bambu Lab's AMS splice multiple filaments before they reach the extruder, allowing color changes within the same layer.</p>
-          <p>The main challenge is <strong>purging</strong> — old material must be fully flushed before the new one prints cleanly. This is handled by purge towers (blocks printed alongside your model). Material compatibility matters too: PLA bonds well with PETG, but PLA and TPU don't stick together. Dual-extruder printers avoid purging by using separate nozzles, but require precise calibration of the offset between heads.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fff7ed;border-radius:12px;border:2px solid #f97316;">
-            <div style="font-weight:bold;color:#c2410c;text-align:center;margin-bottom:12px;">Multi-Material Methods</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;gap:8px;align-items:stretch;">
-                <div style="flex:1;padding:10px;background:#ffedd5;border-radius:8px;text-align:center;">
-                  <div style="font-weight:bold;font-size:13px;">Manual Swap</div>
-                  <div style="font-size:11px;">Simple • Layer-based only • Free</div>
-                </div>
-                <div style="flex:1;padding:10px;background:#ffedd5;border-radius:8px;text-align:center;">
-                  <div style="font-weight:bold;font-size:13px;">Filament Splicer</div>
-                  <div style="font-size:11px;">Automated • Within layers • ~$300</div>
-                </div>
-                <div style="flex:1;padding:10px;background:#ffedd5;border-radius:8px;text-align:center;">
-                  <div style="font-weight:bold;font-size:13px;">Dual Extruder</div>
-                  <div style="font-size:11px;">No purging • Complex cal. • $500+</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "A purge tower uses 3mm³ of filament per color change. Your print has 4 colors and makes 120 color changes total. How many mm³ of filament is wasted on purging? Write just the number.",
-          hint: "Total purge = number of color changes × purge per change",
-          expectedOutput: "360"
-        }
-      },
-      'large-format': {
-        title: 'Large Format Printing',
-        content: `
-          <h2>Large Format 3D Printing</h2>
-          <p>Large format printing creates objects beyond typical printer volumes (300mm+). The key challenge is <strong>warping</strong> — larger parts have more thermal contraction forces, making material choice critical. PLA and PETG warp less than ABS. An enclosure maintaining consistent temperature is almost mandatory. Using larger nozzles (0.6-1.0mm) dramatically reduces print time — a 0.8mm nozzle with 0.4mm layers prints roughly 4x faster than a standard 0.4mm nozzle at 0.2mm layers.</p>
-          <p>For objects exceeding your printer's build volume, <strong>segment the model</strong> into interlocking pieces. Design dovetail or pin joints at the split points, add 0.2mm tolerance for the joints, and glue them together after printing. Print duration can span days, so use a printer with power failure recovery and monitor remotely with a camera. Plan filament — a 30cm cube at 15% infill can easily use 500g+ of material.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#ecfeff;border-radius:12px;border:2px solid #06b6d4;">
-            <div style="font-weight:bold;color:#0e7490;text-align:center;margin-bottom:12px;">Large Print Strategy</div>
-            <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center;">
-              <div style="padding:8px 12px;background:#cffafe;border-radius:8px;font-size:12px;text-align:center;">
-                <strong>Design</strong><br/>Segment if needed
-              </div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#cffafe;border-radius:8px;font-size:12px;text-align:center;">
-                <strong>Optimize</strong><br/>Large nozzle + thick layers
-              </div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#cffafe;border-radius:8px;font-size:12px;text-align:center;">
-                <strong>Environment</strong><br/>Enclosure + stable temp
-              </div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#cffafe;border-radius:8px;font-size:12px;text-align:center;">
-                <strong>Monitor</strong><br/>Camera + power backup
-              </div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#cffafe;border-radius:8px;font-size:12px;text-align:center;">
-                <strong>Assemble</strong><br/>Glue segments
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "A model is 450mm tall. Your printer's max Z is 300mm. You split it into equal segments. How many segments do you need? (Round up to next whole number)",
-          hint: "450 / 300 = 1.5, but you can't print half a segment, so round up.",
-          expectedOutput: "2"
+          question: 'You sand with 5 grits (8 min each), then 3 primer coats (5 min each) with 10 min drying between coats. Total minutes?',
+          hint: 'Sanding: 5x8=40. Priming: 3x5=15. Drying: 2 gaps x 10=20. Total: 40+15+20',
+          expectedOutput: '75'
         }
       },
       'maintenance': {
-        title: 'Maintenance & Care',
-        content: `
-          <h2>3D Printer Maintenance</h2>
-          <p>Regular maintenance prevents most printing failures. <strong>Before every print</strong>: check bed level and clean the surface with isopropyl alcohol. <strong>Weekly</strong>: clean the nozzle exterior with a brass brush while hot, check belt tension (they should twang like a guitar string, not be loose or overtight), and remove debris from linear rails. <strong>Monthly</strong>: lubricate linear rails with PTFE-based lubricant and clean cooling fans with compressed air.</p>
-          <p>The most common maintenance task is <strong>clearing nozzle clogs</strong>. Use the "cold pull" method: heat to printing temperature, push clean filament through, cool to ~90°C while keeping pressure, then pull the filament out — it should come out with debris. For stubborn clogs, use acupuncture needles or replace the nozzle entirely. Keep spare nozzles on hand — they're cheap and wear out over time, especially with abrasive filaments like carbon fiber.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fdf4ff;border-radius:12px;border:2px solid #d946ef;">
-            <div style="font-weight:bold;color:#a21caf;text-align:center;margin-bottom:12px;">Maintenance Schedule</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:90px;padding:6px;background:#f5d0fe;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Every Print</div>
-                <div style="flex:1;padding:6px 10px;background:#fae8ff;border-radius:6px;font-size:12px;">Check bed level • Clean surface • Inspect first layer</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:90px;padding:6px;background:#f5d0fe;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Weekly</div>
-                <div style="flex:1;padding:6px 10px;background:#fae8ff;border-radius:6px;font-size:12px;">Clean nozzle • Check belts • Remove debris from rails</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:90px;padding:6px;background:#f5d0fe;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Monthly</div>
-                <div style="flex:1;padding:6px 10px;background:#fae8ff;border-radius:6px;font-size:12px;">Lubricate rails • Clean fans • Check for loose screws</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:90px;padding:6px;background:#f5d0fe;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Quarterly</div>
-                <div style="flex:1;padding:6px 10px;background:#fae8ff;border-radius:6px;font-size:12px;">Deep clean extruder • Check wiring • Inspect belts • Update firmware</div>
-              </div>
-            </div>
-          </div>
-        `,
+        title: 'Printer Maintenance',
+        sections: [
+          {
+            heading: 'Why Maintenance Matters',
+            body: 'A well-maintained printer produces consistent, reliable prints. A neglected one develops mysterious problems. Most maintenance is quick but makes an enormous difference — like car maintenance, simple preventive care avoids expensive failures later.'
+          },
+          {
+            heading: 'Before Every Print (30 seconds)',
+            body: 'Wipe the bed with isopropyl alcohol (90%+) and lint-free cloth. Check filament is loaded and spool can unwind freely. Confirm nozzle isn\'t oozing old material. Ensure nothing obstructs the print area. These quick checks prevent the majority of failures.'
+          },
+          {
+            heading: 'Weekly Tasks (15 minutes)',
+            body: 'Clean nozzle exterior with a brass brush while hot (200°C — be careful!). Check belt tension by plucking — should make a low "twang." Inspect extruder gear for ground plastic dust. Wipe down linear rails and rods.'
+          },
+          {
+            heading: 'Clearing Nozzle Clogs',
+            body: 'Symptoms: under-extrusion, grinding sounds, or no filament coming out. Use the "cold pull" method: heat to print temp, push clean filament through, set to 90°C, then firmly pull out — debris comes with it. Repeat until clean. For stubborn clogs, use acupuncture needles while hot, or just replace the nozzle ($0.50-$2 each).',
+            code: {
+              language: 'text',
+              snippet: 'Cold Pull Procedure:\n1. Heat nozzle to 200°C\n2. Push clean filament through\n3. Set temp to 90°C and wait\n4. Keep gentle push pressure\n5. At 90°C, pull filament out firmly\n6. Check tip — should be cone-shaped\n7. If dirty, repeat steps 1-6\n8. After 3 failed attempts: replace nozzle\n\nNozzle lifespan:\n  Brass: ~500 print hours\n  Hardened steel: ~2000+ hours',
+              explanation: 'Cold pulls work because slightly-cooled filament grips debris as you pull. Keep 5-10 spare nozzles on hand — they\'re cheap and wear out, especially with abrasive filaments.'
+            }
+          },
+          {
+            heading: 'Monthly Deep Clean',
+            body: 'Lubricate linear rails with PTFE grease (wipe excess). Blow out fans with compressed air (hold blades still). Check all screws — vibration loosens everything. Update firmware if available. Clean electronics enclosure.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fdf4ff,#fae8ff);border-radius:16px;border:2px solid #d946ef;"><div style="font-weight:700;color:#a21caf;text-align:center;margin-bottom:16px;font-size:15px;">Maintenance Schedule</div><div style="display:flex;flex-direction:column;gap:8px;max-width:450px;margin:0 auto;"><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #22c55e;"><div style="font-weight:bold;color:#22c55e;font-size:13px;">Every Print (~30s)</div><div style="font-size:12px;color:#64748b;">Clean bed - Check spool - Inspect nozzle</div></div><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #eab308;"><div style="font-weight:bold;color:#eab308;font-size:13px;">Weekly (~15 min)</div><div style="font-size:12px;color:#64748b;">Brush nozzle - Check belts - Clean extruder gear</div></div><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #f97316;"><div style="font-weight:bold;color:#f97316;font-size:13px;">Monthly (~30 min)</div><div style="font-size:12px;color:#64748b;">Lubricate rails - Blow fans - Tighten screws</div></div><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #ef4444;"><div style="font-weight:bold;color:#ef4444;font-size:13px;">Quarterly (~1 hr)</div><div style="font-size:12px;color:#64748b;">Deep-clean extruder - Replace nozzle - Update firmware</div></div></div></div>',
         codingQuiz: {
-          question: "A brass nozzle lasts about 500 print hours. You print an average of 4 hours per day, 5 days a week. After how many weeks should you replace the nozzle?",
-          hint: "Hours per week = 4 × 5 = 20. Weeks = 500 / 20",
-          expectedOutput: "25"
+          question: 'A brass nozzle lasts ~500 hours. You print 3 hrs/day, 6 days/week. How many weeks until replacement? (round to nearest whole)',
+          hint: 'Hours/week = 3x6 = 18. Weeks = 500/18 = 27.7...',
+          expectedOutput: '28'
         }
-      },
-      'custom-supports': {
-        title: 'Custom Supports',
-        content: `
-          <h2>Custom Support Structures</h2>
-          <p>Auto-generated supports work for most prints, but custom supports give you control over exactly where support material goes. This reduces waste, improves surface finish on supported areas, and makes removal easier. In PrusaSlicer, you can paint supports directly onto the model. In Cura, support blockers let you prevent supports in specific areas while enforcing them in others.</p>
-          <p><strong>Tree supports</strong> are a game-changer — they grow branch-like structures from the build plate up to overhangs, using less material and leaving fewer marks than traditional grid supports. For best results, use a support interface (a denser layer between support and model) with 0.1-0.2mm gap for easy removal. Organic supports in newer slicers combine tree-like efficiency with traditional reliability.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#f0f9ff;border-radius:12px;border:2px solid #3b82f6;">
-            <div style="font-weight:bold;color:#1d4ed8;text-align:center;margin-bottom:12px;">Support Types Comparison</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-              <div style="padding:10px;background:#dbeafe;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:13px;">Grid/Linear</div>
-                <div style="font-size:11px;">✓ Reliable</div>
-                <div style="font-size:11px;">✗ More material</div>
-                <div style="font-size:11px;">✗ Harder removal</div>
-              </div>
-              <div style="padding:10px;background:#dbeafe;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:13px;">Tree</div>
-                <div style="font-size:11px;">✓ Less material</div>
-                <div style="font-size:11px;">✓ Easy removal</div>
-                <div style="font-size:11px;">✗ Slower to slice</div>
-              </div>
-              <div style="padding:10px;background:#dbeafe;border-radius:8px;text-align:center;">
-                <div style="font-weight:bold;font-size:13px;">Custom Painted</div>
-                <div style="font-size:11px;">✓ Full control</div>
-                <div style="font-size:11px;">✓ Minimal waste</div>
-                <div style="font-size:11px;">✗ Manual effort</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "A print uses 30g of support material with grid supports. Tree supports use 40% less material. How many grams of support would tree supports use?",
-          hint: "40% less means you use 60% of the original: 30 × 0.6",
-          expectedOutput: "18"
-        }
-      },
-      'bed-adhesion': {
-        title: 'Bed Adhesion',
-        content: `
-          <h2>Mastering Bed Adhesion</h2>
-          <p>Good bed adhesion means your print sticks during printing but releases easily when done. The <strong>build surface</strong> matters most: PEI sheets (smooth or textured) are the gold standard — PLA sticks when hot and pops off when cooled. Glass beds give perfectly flat first layers but need adhesive helpers. Magnetic flexible plates let you flex the surface to pop prints off easily.</p>
-          <p>Beyond the surface, your <strong>first layer settings</strong> are critical. Print the first layer slower (20mm/s), slightly squished (Z-offset tuning), and hotter (bed temp +5°C from normal). A <strong>brim</strong> adds thin rings around your print's base for extra grip — great for tall/narrow prints. A <strong>raft</strong> prints a thick platform underneath — useful for warpy materials but wastes material and affects bottom surface quality.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fffbeb;border-radius:12px;border:2px solid #eab308;">
-            <div style="font-weight:bold;color:#a16207;text-align:center;margin-bottom:12px;">Adhesion Methods</div>
-            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-              <div style="padding:10px;background:#fef9c3;border-radius:8px;text-align:center;min-width:100px;">
-                <div style="font-weight:bold;font-size:13px;">Skirt</div>
-                <div style="font-size:11px;">Lines around print</div>
-                <div style="font-size:11px;">Tests extrusion</div>
-                <div style="font-size:11px;">No added grip</div>
-              </div>
-              <div style="padding:10px;background:#fef9c3;border-radius:8px;text-align:center;min-width:100px;">
-                <div style="font-weight:bold;font-size:13px;">Brim</div>
-                <div style="font-size:11px;">Flat rings on base</div>
-                <div style="font-size:11px;">Good grip</div>
-                <div style="font-size:11px;">Easy to remove</div>
-              </div>
-              <div style="padding:10px;background:#fef9c3;border-radius:8px;text-align:center;min-width:100px;">
-                <div style="font-weight:bold;font-size:13px;">Raft</div>
-                <div style="font-size:11px;">Full platform below</div>
-                <div style="font-size:11px;">Best grip</div>
-                <div style="font-size:11px;">Wastes material</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "A brim with 8 lines at 0.4mm line width adds how many mm of extra width around the print on each side? Write as X.Xmm",
-          hint: "Total brim width = number of lines × line width = 8 × 0.4",
-          expectedOutput: "3.2mm"
-        }
-      },
-      '3d-scanning': {
-        title: '3D Scanning',
-        content: `
-          <h2>3D Scanning for Printing</h2>
-          <p>3D scanning captures real-world objects as digital models you can modify and reprint. <strong>Photogrammetry</strong> is the most accessible method — take 50-200 photos of an object from all angles, then software like Meshroom (free) or RealityCapture stitches them into a 3D model. It works best on textured, matte objects in diffused lighting. Shiny or transparent objects need to be coated with scanning spray first.</p>
-          <p>Dedicated <strong>structured light scanners</strong> (like Creality Scan or Revopoint) project patterns onto objects and capture the deformation to calculate 3D geometry. They're faster and more precise than photogrammetry but cost $300-2000+. After scanning, you'll need to clean the mesh — fill holes, smooth noise, and reduce polygon count — using MeshMixer or Blender before the model is print-ready.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#f0fdf4;border-radius:12px;border:2px solid #10b981;">
-            <div style="font-weight:bold;color:#047857;text-align:center;margin-bottom:12px;">3D Scanning Pipeline</div>
-            <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center;">
-              <div style="padding:8px 12px;background:#d1fae5;border-radius:8px;font-size:12px;text-align:center;"><strong>Capture</strong><br/>Photos or Scanner</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#d1fae5;border-radius:8px;font-size:12px;text-align:center;"><strong>Process</strong><br/>Generate Point Cloud</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#d1fae5;border-radius:8px;font-size:12px;text-align:center;"><strong>Mesh</strong><br/>Create 3D Surface</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#d1fae5;border-radius:8px;font-size:12px;text-align:center;"><strong>Clean</strong><br/>Fix Holes & Noise</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#d1fae5;border-radius:8px;font-size:12px;text-align:center;"><strong>Print</strong><br/>Slice & Fabricate</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "For photogrammetry, you take 120 photos at 12MB each. What's the total storage needed in GB? Round to 1 decimal place and add GB.",
-          hint: "Total MB = 120 × 12 = 1440MB. Convert to GB: 1440 / 1024",
-          expectedOutput: "1.4GB"
-        }
-      },
-      'finishing': {
-        title: 'Print Finishing',
-        content: `
-          <h2>Professional Print Finishing</h2>
-          <p>Professional finishing goes beyond basic sanding. <strong>Filler primer</strong> (like Rust-Oleum Filler Primer) is sprayed in light coats to fill layer lines — apply 2-3 coats with light sanding between each. For a glass-smooth finish, follow with spot putty on any remaining imperfections, sand with 400-600 grit, then apply a final primer coat before painting.</p>
-          <p>For painting, <strong>spray paint</strong> gives the most even coverage — hold 20-30cm away, use sweeping motions, and apply 3-4 light coats rather than one thick coat. Let each coat dry 15-20 minutes. For detailed models, acrylic brush painting with thin layers works best. Finish with a clear coat — gloss for a shiny look, satin for realistic, or matte for a professional appearance. UV-resistant clear coat prevents yellowing over time.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fef2f2;border-radius:12px;border:2px solid #f43f5e;">
-            <div style="font-weight:bold;color:#be123c;text-align:center;margin-bottom:12px;">Finishing Quality Levels</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:80px;padding:6px;background:#fecdd3;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Basic</div>
-                <div style="flex:1;padding:6px 10px;background:#ffe4e6;border-radius:6px;font-size:12px;">Sand → Paint = Visible layer lines, quick finish</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:80px;padding:6px;background:#fecdd3;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Good</div>
-                <div style="flex:1;padding:6px 10px;background:#ffe4e6;border-radius:6px;font-size:12px;">Sand → Filler Primer → Paint → Clear Coat = Smooth finish</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:80px;padding:6px;background:#fecdd3;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">Pro</div>
-                <div style="flex:1;padding:6px 10px;background:#ffe4e6;border-radius:6px;font-size:12px;">Sand → Fill → Prime → Sand → Paint × 3 → Clear × 2 = Showroom quality</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "You apply 3 coats of paint with 15 min drying between each, then 2 coats of clear coat with 20 min drying between. Total drying time only (not painting time) in minutes?",
-          hint: "Paint drying: 2 gaps × 15min = 30min. Clear coat drying: 1 gap × 20min = 20min. Total = ?",
-          expectedOutput: "50"
-        }
-      },
-      'upgrades': {
-        title: 'Printer Upgrades',
-        content: `
-          <h2>Essential Printer Upgrades</h2>
-          <p>The most impactful upgrade for any printer is an <strong>all-metal hotend</strong> — it replaces the PTFE-lined version and lets you print at temperatures above 240°C, unlocking materials like Nylon, PC, and ABS without worrying about PTFE degradation. A <strong>hardened steel nozzle</strong> (replacing brass) handles abrasive filaments like carbon fiber and glow-in-the-dark without wearing out, though it transfers heat slightly less efficiently.</p>
-          <p>Other high-value upgrades include a <strong>direct drive extruder</strong> (better for flexible filaments by shortening the filament path), <strong>auto bed leveling</strong> sensors like BLTouch (eliminates manual leveling), and <strong>silent stepper drivers</strong> (TMC2209) that make your printer whisper-quiet. A Raspberry Pi running Klipper firmware can dramatically improve print speed and quality through better motion planning and input shaping.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#eff6ff;border-radius:12px;border:2px solid #3b82f6;">
-            <div style="font-weight:bold;color:#1d4ed8;text-align:center;margin-bottom:12px;">Upgrade Priority Tier List</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:60px;padding:6px;background:#2563eb;color:white;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">S Tier</div>
-                <div style="flex:1;padding:6px 10px;background:#dbeafe;border-radius:6px;font-size:12px;">All-metal hotend • Auto bed leveling • Klipper firmware</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:60px;padding:6px;background:#3b82f6;color:white;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">A Tier</div>
-                <div style="flex:1;padding:6px 10px;background:#dbeafe;border-radius:6px;font-size:12px;">Direct drive extruder • PEI build plate • Silent drivers</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <div style="width:60px;padding:6px;background:#60a5fa;color:white;border-radius:6px;font-size:12px;font-weight:bold;text-align:center;">B Tier</div>
-                <div style="flex:1;padding:6px 10px;background:#dbeafe;border-radius:6px;font-size:12px;">Hardened nozzle • Enclosure • LED lighting • Cable chains</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "A BLTouch sensor probes 25 points on the bed in a 5x5 grid. If probing each point takes 3 seconds with 2 seconds travel between points, how many seconds does the full probing sequence take? (No travel after last point)",
-          hint: "Probe time = 25 × 3 = 75s. Travel time = 24 gaps × 2 = 48s. Total = ?",
-          expectedOutput: "123"
-        }
-      },
-      'materials': {
-        title: '3D Printing Materials',
-        content: `
-          <h2>Advanced 3D Printing Materials</h2>
-          <p>Beyond standard filaments, <strong>composite materials</strong> add fibers to a base polymer for enhanced properties. Carbon fiber PLA/PETG/Nylon adds stiffness and a premium matte finish — but requires a hardened nozzle as the fibers are abrasive. Wood-fill PLA contains wood dust for a natural look that can be sanded and stained like real wood. Metal-fill filaments (copper, bronze, steel) are extremely heavy and can be polished to look like real metal.</p>
-          <p><strong>Engineering materials</strong> like ASA (UV-resistant ABS alternative for outdoor use), Polycarbonate (extremely strong, needs 260°C+), and PEEK/ULTEM (aerospace-grade, needs 400°C+ hotends) serve industrial applications. For resin printing, standard resins give fine detail, tough resins mimic ABS properties, flexible resins work for gaskets, and castable resins are used in jewelry making for lost-wax casting.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fdf2f8;border-radius:12px;border:2px solid #ec4899;">
-            <div style="font-weight:bold;color:#be185d;text-align:center;margin-bottom:12px;">Material Categories</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div style="padding:10px;background:#fce7f3;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Standard</div>
-                <div style="font-size:11px;">PLA, PETG, ABS, TPU</div>
-                <div style="font-size:11px;">190-250°C • Easy to print</div>
-              </div>
-              <div style="padding:10px;background:#fce7f3;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Composite</div>
-                <div style="font-size:11px;">CF, Wood, Metal fill</div>
-                <div style="font-size:11px;">Need hardened nozzle</div>
-              </div>
-              <div style="padding:10px;background:#fce7f3;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Engineering</div>
-                <div style="font-size:11px;">ASA, PC, Nylon, PEEK</div>
-                <div style="font-size:11px;">240-400°C • Enclosure req.</div>
-              </div>
-              <div style="padding:10px;background:#fce7f3;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Resin</div>
-                <div style="font-size:11px;">Standard, Tough, Flex</div>
-                <div style="font-size:11px;">SLA/DLP printers only</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: "Carbon fiber filament costs $45/kg. Standard PLA costs $20/kg. You need 200g for a print. How much more expensive is CF vs PLA for this print? Write as $X.XX",
-          hint: "CF cost for 200g: 45 × 0.2 = $9. PLA cost: 20 × 0.2 = $4. Difference = ?",
-          expectedOutput: "$5.00"
-        }
-      },
-    };
-    return lessons[topic] || null;
-  }
-
-  // Programming lessons
-  if (category === 'programming') {
-    const lessons: Record<string, LessonData> = {
+      }
+    },
+    'programming': {
       'javascript': {
-        title: 'JavaScript',
-        content: `
-          <h2>JavaScript Fundamentals</h2>
-          <p>JavaScript is the language of the web — it runs in every browser and powers interactive websites, servers (Node.js), and mobile apps. Variables are declared with <code>let</code> (mutable) or <code>const</code> (immutable). JavaScript is dynamically typed, meaning a variable can hold any type: strings, numbers, booleans, objects, or arrays. Functions are first-class citizens — they can be stored in variables, passed as arguments, and returned from other functions.</p>
-          <p>Modern JavaScript (ES6+) introduced arrow functions (<code>const add = (a, b) => a + b</code>), template literals (<code>\`Hello \${name}\`</code>), destructuring, spread operators, and promises for async operations. The language uses prototypal inheritance rather than classical classes, though the <code>class</code> syntax provides familiar structure. Understanding the event loop and asynchronous patterns (callbacks → promises → async/await) is essential for real-world JS development.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fef9c3;border-radius:12px;border:2px solid #eab308;">
-            <div style="font-weight:bold;color:#a16207;text-align:center;margin-bottom:12px;">JavaScript Data Types</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div style="padding:10px;background:#fef3c7;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Primitives</div>
-                <div style="font-size:11px;">string, number, boolean</div>
-                <div style="font-size:11px;">null, undefined, symbol, bigint</div>
-              </div>
-              <div style="padding:10px;background:#fef3c7;border-radius:8px;">
-                <div style="font-weight:bold;font-size:13px;">Reference Types</div>
-                <div style="font-size:11px;">Object, Array, Function</div>
-                <div style="font-size:11px;">Date, RegExp, Map, Set</div>
-              </div>
-            </div>
-          </div>
-        `,
+        title: 'JavaScript — Language of the Web',
+        sections: [
+          {
+            heading: 'Why JavaScript Matters',
+            body: 'JavaScript is the only language that runs natively in every web browser. When you click a button and something happens without the page reloading — that\'s JavaScript. It started as a simple scripting language in 1995 but now runs servers (Node.js), mobile apps (React Native), desktop apps (Electron), and even ML models. Learning JavaScript gives you access to the widest range of platforms of any single language.'
+          },
+          {
+            heading: 'Variables and Data Types',
+            body: 'JavaScript has three variable declarations: var (old, avoid), let (for values that change), and const (for constants). It\'s dynamically typed — the language figures out types. Primitives: string, number, boolean, null, undefined, symbol, bigint. Complex types: objects (key-value pairs) and arrays (ordered lists). A famous quirk: typeof null returns "object" — a bug from 1995 never fixed.',
+            code: {
+              language: 'javascript',
+              snippet: 'const name = "Alice";       // string\nlet score = 0;              // number, can reassign\nscore = score + 10;\n\nconst player = {\n  name: "Alice",\n  level: 5,\n  items: ["sword", "shield"]\n};\n\nconsole.log(player.name);       // "Alice"\nconsole.log(player.items[0]);   // "sword"\nconsole.log(typeof null);       // "object" (the bug!)',
+              explanation: 'Use const by default, let when you need to reassign. Objects group related data with dot notation access.'
+            }
+          },
+          {
+            heading: 'Functions — Three Ways',
+            body: 'Function declarations are hoisted (usable before written). Function expressions are assigned to variables. Arrow functions (ES6) are concise and don\'t have their own "this". Functions are first-class: store in variables, pass as arguments, return from other functions. Array methods like map, filter, reduce take functions as callbacks for powerful data transformations.',
+            code: {
+              language: 'javascript',
+              snippet: '// Arrow functions + array methods\nconst numbers = [3, 1, 4, 1, 5, 9];\n\nconst doubled = numbers.map(n => n * 2);\n// [6, 2, 8, 2, 10, 18]\n\nconst evens = numbers.filter(n => n % 2 === 0);\n// [4]\n\nconst sum = numbers.reduce((total, n) => total + n, 0);\n// 23',
+              explanation: 'Arrow functions shine in array methods. Single-expression arrows have implicit return — no braces or return keyword needed.'
+            }
+          },
+          {
+            heading: 'Async/Await',
+            body: 'JavaScript is single-threaded but non-blocking. Promises represent future values (pending/fulfilled/rejected). Async/await makes promise code read like synchronous code. Any async function returns a promise. Always wrap await in try/catch. The fetch API doesn\'t throw on 404/500 — you must check response.ok yourself.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fefce8,#fef9c3);border-radius:16px;border:2px solid #eab308;"><div style="font-weight:700;color:#a16207;text-align:center;margin-bottom:16px;font-size:15px;">JavaScript Event Loop</div><div style="display:flex;flex-direction:column;gap:8px;max-width:400px;margin:0 auto;"><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #fbbf24;"><div style="font-weight:bold;text-align:center;color:#92400e;">Call Stack</div><div style="font-size:12px;color:#64748b;text-align:center;">Runs code one function at a time</div></div><div style="text-align:center;color:#eab308;">↕</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #22c55e;text-align:center;"><div style="font-weight:bold;color:#15803d;font-size:13px;">Microtasks</div><div style="font-size:11px;color:#64748b;">Promises, await</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #3b82f6;text-align:center;"><div style="font-weight:bold;color:#1d4ed8;font-size:13px;">Macrotasks</div><div style="font-size:11px;color:#64748b;">setTimeout, events</div></div></div></div></div>',
         codingQuiz: {
-          question: 'What is the output of: console.log(typeof null)',
-          hint: "This is a famous JavaScript quirk. typeof null doesn't return 'null'.",
-          expectedOutput: "object"
+          question: 'What is the output of: console.log(typeof undefined)',
+          hint: 'typeof returns a string. undefined is its own type.',
+          expectedOutput: 'undefined'
         }
       },
       'python': {
-        title: 'Python',
-        content: `
-          <h2>Python Fundamentals</h2>
-          <p>Python's philosophy is "readability counts" — it uses indentation instead of braces to define code blocks, making it one of the most readable languages. Variables don't need type declarations (<code>name = "Alice"</code>), and Python supports multiple paradigms: procedural, object-oriented, and functional. Its standard library is enormous, earning it the nickname "batteries included" — from file I/O to web servers to data science, there's likely a built-in module for it.</p>
-          <p>Python's key data structures are lists (<code>[1, 2, 3]</code>), dictionaries (<code>{"key": "value"}</code>), tuples (immutable lists), and sets (unique values). List comprehensions (<code>[x*2 for x in range(5)]</code>) provide elegant one-line transformations. Python uses duck typing — if it walks like a duck and quacks like a duck, it's a duck. This means you focus on what an object can do, not what type it is.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#dbeafe;border-radius:12px;border:2px solid #3b82f6;">
-            <div style="font-weight:bold;color:#1d4ed8;text-align:center;margin-bottom:12px;">Python Data Structures</div>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-              <div style="padding:8px;background:#eff6ff;border-radius:8px;text-align:center;font-size:12px;"><strong>List</strong><br/>[1, 2, 3] — Ordered, Mutable</div>
-              <div style="padding:8px;background:#eff6ff;border-radius:8px;text-align:center;font-size:12px;"><strong>Tuple</strong><br/>(1, 2, 3) — Ordered, Immutable</div>
-              <div style="padding:8px;background:#eff6ff;border-radius:8px;text-align:center;font-size:12px;"><strong>Dict</strong><br/>{"a": 1} — Key-Value pairs</div>
-              <div style="padding:8px;background:#eff6ff;border-radius:8px;text-align:center;font-size:12px;"><strong>Set</strong><br/>{1, 2, 3} — Unique values</div>
-            </div>
-          </div>
-        `,
+        title: 'Python — Readable & Powerful',
+        sections: [
+          {
+            heading: 'Why Python Is Special',
+            body: 'Python uses indentation instead of braces to define code blocks, making readable code a requirement. It\'s the world\'s most popular language, dominating data science, ML, web dev (Django/Flask), and automation. Its "batteries included" standard library handles most tasks without extra packages.'
+          },
+          {
+            heading: 'Data Structures',
+            body: 'Four core structures: lists (ordered, mutable), tuples (ordered, immutable), dictionaries (key-value pairs), and sets (unique values). List comprehensions are Python\'s superpower: [x*2 for x in range(5)] creates [0, 2, 4, 6, 8] in one line.',
+            code: {
+              language: 'python',
+              snippet: 'numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nevens = [n for n in numbers if n % 2 == 0]\nprint(evens)  # [2, 4, 6, 8, 10]\n\nuser = {"name": "Alice", "age": 30}\nfor key, val in user.items():\n    print(f"{key}: {val}")\n\nfirst, *middle, last = [1, 2, 3, 4, 5]\nprint(middle)  # [2, 3, 4]',
+              explanation: 'List comprehensions replace loops with one-line expressions. The * operator in unpacking captures "the rest" into a list.'
+            }
+          },
+          {
+            heading: 'Pythonic Patterns',
+            body: 'Use enumerate() for index+value, zip() for parallel iteration, "with" statements for file handling (auto-closes). F-strings (f"Hello {name}") for formatting. The philosophy: "There should be one obvious way to do it."',
+            code: {
+              language: 'python',
+              snippet: 'fruits = ["apple", "banana", "cherry"]\nfor i, fruit in enumerate(fruits):\n    print(f"{i}: {fruit}")\n\nnames = ["Alice", "Bob"]\nscores = [95, 87]\nfor name, score in zip(names, scores):\n    print(f"{name}: {score}")\n\nwith open("data.txt") as file:\n    content = file.read()\n# File auto-closed here',
+              explanation: 'enumerate gives index+value. zip pairs parallel lists. "with" guarantees cleanup even if errors occur.'
+            }
+          },
+          {
+            heading: 'Classes and OOP',
+            body: 'Every method takes "self" as first parameter. __init__ is the constructor. Dunder methods (__str__, __len__, __eq__) enable operator overloading. Dataclasses (3.7+) auto-generate boilerplate for simple data containers. Python supports multiple paradigms: procedural, OOP, and functional.'
+          }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:16px;border:2px solid #3b82f6;"><div style="font-weight:700;color:#1d4ed8;text-align:center;margin-bottom:16px;font-size:15px;">Python Data Structures</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:400px;margin:0 auto;"><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #93c5fd;text-align:center;"><div style="font-weight:bold;color:#1d4ed8;">list []</div><div style="font-size:12px;color:#64748b;">Ordered, Mutable</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #93c5fd;text-align:center;"><div style="font-weight:bold;color:#1d4ed8;">tuple ()</div><div style="font-size:12px;color:#64748b;">Ordered, Immutable</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #93c5fd;text-align:center;"><div style="font-weight:bold;color:#1d4ed8;">dict {}</div><div style="font-size:12px;color:#64748b;">Key-Value Lookup</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:2px solid #93c5fd;text-align:center;"><div style="font-weight:bold;color:#1d4ed8;">set {}</div><div style="font-size:12px;color:#64748b;">Unique Values Only</div></div></div></div>',
         codingQuiz: {
-          question: 'What is the output of: print(len([x for x in range(10) if x % 2 == 0]))',
-          hint: "range(10) gives 0-9. Even numbers in that range: 0, 2, 4, 6, 8. Count them.",
-          expectedOutput: "5"
+          question: 'What is the output of: print(len([x for x in range(10) if x % 3 == 0]))',
+          hint: 'range(10) = 0-9. Divisible by 3: 0, 3, 6, 9. Count them.',
+          expectedOutput: '4'
         }
       },
       'java': {
-        title: 'Java',
-        content: `
-          <h2>Java Fundamentals</h2>
-          <p>Java follows the "write once, run anywhere" principle — code compiles to bytecode that runs on any Java Virtual Machine (JVM). It's strictly object-oriented: everything lives inside classes, and every file must have a class matching its filename. Java is statically typed, so you must declare variable types (<code>String name = "Alice";</code>). This catches errors at compile time rather than runtime, making large codebases more maintainable.</p>
-          <p>Java's key concepts include inheritance (<code>extends</code>), interfaces (<code>implements</code>), and access modifiers (public, private, protected). The language features automatic garbage collection, strong exception handling (try-catch-finally), and a massive ecosystem of libraries and frameworks (Spring Boot for web, Android SDK for mobile). Generics (<code>List&lt;String&gt;</code>) provide type safety for collections without sacrificing reusability.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#dcfce7;border-radius:12px;border:2px solid #22c55e;">
-            <div style="font-weight:bold;color:#15803d;text-align:center;margin-bottom:12px;">Java Compilation Flow</div>
-            <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;">
-              <div style="padding:8px 14px;background:#bbf7d0;border-radius:8px;font-size:12px;text-align:center;"><strong>.java</strong><br/>Source Code</div>
-              <span>→</span>
-              <div style="padding:8px 14px;background:#bbf7d0;border-radius:8px;font-size:12px;text-align:center;"><strong>javac</strong><br/>Compiler</div>
-              <span>→</span>
-              <div style="padding:8px 14px;background:#bbf7d0;border-radius:8px;font-size:12px;text-align:center;"><strong>.class</strong><br/>Bytecode</div>
-              <span>→</span>
-              <div style="padding:8px 14px;background:#bbf7d0;border-radius:8px;font-size:12px;text-align:center;"><strong>JVM</strong><br/>Runs anywhere</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'What is the output of: System.out.println(10 / 3)',
-          hint: "In Java, dividing two integers performs integer division (truncates decimal).",
-          expectedOutput: "3"
-        }
+        title: 'Java — Enterprise Powerhouse',
+        sections: [
+          { heading: 'Why Java Endures', body: 'Java runs on the JVM across every OS. It powers Android apps, banking systems, e-commerce, and big data tools (Hadoop, Spark). Over 3 billion devices run Java. Strict typing catches errors at compile time.' },
+          { heading: 'Strict Typing and OOP', body: 'Every variable declares its type. Everything lives inside a class. Primitives (int, double, boolean) vs objects (String, arrays). Entry point: public static void main(String[] args). Encapsulation: private fields, public methods.',
+            code: { language: 'java', snippet: 'public class Player {\n    private String name;\n    private int health = 100;\n    \n    public Player(String name) {\n        this.name = name;\n    }\n    \n    public void takeDamage(int amount) {\n        health = Math.max(0, health - amount);\n        System.out.println(name + " HP: " + health);\n    }\n}\n// Usage: Player hero = new Player("Alice");', explanation: 'Java enforces encapsulation with private fields and public methods. The "new" keyword creates instances.' }
+          },
+          { heading: 'Collections and Generics', body: 'List (ordered), Set (unique), Map (key-value), Queue. Generics ensure type safety: List<String> only holds strings. Java 8 Streams enable functional transformations: list.stream().filter().map().collect().' },
+          { heading: 'Interfaces', body: 'Interfaces define contracts — what methods a class must implement. A class can implement multiple interfaces but extend only one parent. Since Java 8, interfaces can have default methods with implementation.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fef2f2,#fee2e2);border-radius:16px;border:2px solid #ef4444;"><div style="font-weight:700;color:#dc2626;text-align:center;margin-bottom:16px;font-size:15px;">Java Class Structure</div><div style="max-width:350px;margin:0 auto;background:#fff;border-radius:12px;border:2px solid #fca5a5;overflow:hidden;"><div style="padding:10px;background:#ef4444;color:white;font-weight:bold;text-align:center;">public class ClassName</div><div style="padding:12px;display:flex;flex-direction:column;gap:6px;"><div style="padding:8px;background:#fef2f2;border-radius:6px;border-left:3px solid #f87171;font-size:12px;"><strong>Fields</strong> — private String name;</div><div style="padding:8px;background:#fef2f2;border-radius:6px;border-left:3px solid #fb923c;font-size:12px;"><strong>Constructor</strong> — public ClassName(params)</div><div style="padding:8px;background:#fef2f2;border-radius:6px;border-left:3px solid #fbbf24;font-size:12px;"><strong>Methods</strong> — public void doThing()</div><div style="padding:8px;background:#fef2f2;border-radius:6px;border-left:3px solid #a3e635;font-size:12px;"><strong>main()</strong> — entry point</div></div></div></div>',
+        codingQuiz: { question: 'What is the output of: System.out.println("Hello".length())', hint: 'length() returns number of characters.', expectedOutput: '5' }
       },
       'csharp': {
-        title: 'C#',
-        content: `
-          <h2>C# Fundamentals</h2>
-          <p>C# (C-Sharp) is Microsoft's modern, object-oriented language that runs on the .NET platform. It combines the power of C++ with the simplicity of Java, adding features like properties, events, LINQ (Language Integrated Query), and async/await built into the language core. C# is strongly typed with excellent IDE support in Visual Studio, providing autocompletion, refactoring tools, and real-time error detection.</p>
-          <p>C# excels in game development (Unity engine uses C# exclusively), enterprise web applications (ASP.NET), desktop apps (WPF/WinForms), and cloud services (Azure). Key features include nullable reference types (<code>string?</code>), pattern matching, records (immutable data classes), and a powerful generics system. The language evolves rapidly with annual releases adding features like top-level statements, global usings, and file-scoped namespaces.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#ede9fe;border-radius:12px;border:2px solid #8b5cf6;">
-            <div style="font-weight:bold;color:#6d28d9;text-align:center;margin-bottom:12px;">C# Application Types</div>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
-              <div style="padding:8px;background:#ddd6fe;border-radius:8px;text-align:center;font-size:12px;"><strong>Unity Games</strong><br/>2D/3D game development</div>
-              <div style="padding:8px;background:#ddd6fe;border-radius:8px;text-align:center;font-size:12px;"><strong>ASP.NET</strong><br/>Web APIs & apps</div>
-              <div style="padding:8px;background:#ddd6fe;border-radius:8px;text-align:center;font-size:12px;"><strong>Desktop</strong><br/>WPF, WinForms, MAUI</div>
-              <div style="padding:8px;background:#ddd6fe;border-radius:8px;text-align:center;font-size:12px;"><strong>Cloud</strong><br/>Azure Functions & Services</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'In C#, what is the output of: Console.WriteLine(5 == 5.0)',
-          hint: "C# automatically converts int to double for comparison.",
-          expectedOutput: "True"
-        }
+        title: 'C# — Modern & Versatile',
+        sections: [
+          { heading: 'C# Overview', body: 'Microsoft\'s flagship language on .NET. Combines C++ power with Java safety plus LINQ, async/await, and pattern matching. Used for Unity games, ASP.NET web apps, and cross-platform mobile with .NET MAUI. Strongly typed with excellent Visual Studio tooling.' },
+          { heading: 'Core Syntax', body: 'C-style syntax with strong typing. "var" provides local type inference. Value types (int, struct) on stack, reference types (class, string) on heap. Properties replace getter/setter boilerplate. Pattern matching with switch expressions.',
+            code: { language: 'csharp', snippet: 'public class Player {\n    public string Name { get; set; }\n    public int Health { get; private set; } = 100;\n    \n    public Player(string name) => Name = name;\n    \n    public bool IsAlive => Health > 0;\n    \n    public string GetStatus() => Health switch {\n        > 75 => "Healthy",\n        > 25 => "Wounded",\n        > 0  => "Critical",\n        _    => "Dead"\n    };\n}', explanation: 'Properties, expression-bodied members (=>), and switch expressions keep C# code concise and readable.' }
+          },
+          { heading: 'LINQ', body: 'Query data with SQL-like syntax in C#: people.Where(p => p.Age >= 18).OrderBy(p => p.Name).Select(p => p.Name). Works on any IEnumerable — lists, databases, XML, APIs.' },
+          { heading: 'Async/Await', body: 'C# pioneered async/await. Methods return Task<T>, await pauses until resolved. The compiler transforms linear code into efficient state machines. Makes responsive UIs and scalable servers natural to write.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-radius:16px;border:2px solid #8b5cf6;"><div style="font-weight:700;color:#6d28d9;text-align:center;margin-bottom:16px;font-size:15px;">C# / .NET Ecosystem</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:350px;margin:0 auto;"><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #ddd6fe;text-align:center;"><div style="font-weight:bold;color:#6d28d9;">Unity Games</div><div style="font-size:11px;color:#64748b;">2D/3D + VR/AR</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #ddd6fe;text-align:center;"><div style="font-weight:bold;color:#6d28d9;">ASP.NET</div><div style="font-size:11px;color:#64748b;">Web APIs</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #ddd6fe;text-align:center;"><div style="font-weight:bold;color:#6d28d9;">.NET MAUI</div><div style="font-size:11px;color:#64748b;">Mobile Apps</div></div><div style="padding:12px;background:#fff;border-radius:10px;border:1px solid #ddd6fe;text-align:center;"><div style="font-weight:bold;color:#6d28d9;">Azure</div><div style="font-size:11px;color:#64748b;">Cloud</div></div></div></div>',
+        codingQuiz: { question: 'In C#, what is the output of: Console.WriteLine("Hello World".Split(" ").Length)', hint: 'Split(" ") creates an array of words. Length counts elements.', expectedOutput: '2' }
       },
       'cpp': {
-        title: 'C++',
-        content: `
-          <h2>C++ Fundamentals</h2>
-          <p>C++ is a systems programming language that gives you direct control over hardware and memory. It adds object-oriented features (classes, inheritance, polymorphism) on top of C while maintaining C's performance. Memory management is manual — you allocate with <code>new</code> and free with <code>delete</code>, though modern C++ (C++11 onward) provides smart pointers (<code>unique_ptr</code>, <code>shared_ptr</code>) that automate this safely.</p>
-          <p>C++ powers game engines (Unreal Engine), operating systems, browsers, databases, and embedded systems where performance is critical. The Standard Template Library (STL) provides efficient containers (vector, map, set) and algorithms (sort, find, transform). Templates enable generic programming — write code once that works with any type. The language is complex but incredibly powerful, making it essential for performance-critical applications.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fef3c7;border-radius:12px;border:2px solid #f59e0b;">
-            <div style="font-weight:bold;color:#b45309;text-align:center;margin-bottom:12px;">C++ Memory Model</div>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="padding:8px;background:#fde68a;border-radius:8px;text-align:center;font-size:12px;"><strong>Stack</strong> — Auto variables, function calls (fast, auto-freed)</div>
-              <div style="padding:8px;background:#fcd34d;border-radius:8px;text-align:center;font-size:12px;"><strong>Heap</strong> — new/delete, dynamic allocation (manual management)</div>
-              <div style="padding:8px;background:#fbbf24;border-radius:8px;text-align:center;font-size:12px;"><strong>Static</strong> — Global/static variables (program lifetime)</div>
-              <div style="padding:8px;background:#f59e0b;color:white;border-radius:8px;text-align:center;font-size:12px;"><strong>Code</strong> — Compiled instructions (read-only)</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'What is the output of: cout << (7 / 2)',
-          hint: "Integer division in C++ truncates the decimal part.",
-          expectedOutput: "3"
-        }
+        title: 'C++ — Performance King',
+        sections: [
+          { heading: 'The Power of C++', body: 'Compiles to machine code with zero runtime overhead. Powers game engines (Unreal), OS kernels, browsers, and databases. Harder to learn but gives deep insight into how computers actually work.' },
+          { heading: 'Memory Management', body: 'Stack (auto-freed) vs heap (new/delete). Modern C++11+ uses smart pointers: unique_ptr (one owner, auto-deletes), shared_ptr (reference-counted). Eliminates memory leaks when used properly.',
+            code: { language: 'cpp', snippet: '#include <iostream>\n#include <vector>\n#include <memory>\n\nclass Player {\n    std::string name;\n    int health;\npublic:\n    Player(const std::string& n, int hp=100)\n        : name(n), health(hp) {}\n    void hit(int dmg) {\n        health = std::max(0, health - dmg);\n        std::cout << name << " HP: " << health << "\\n";\n    }\n};\n\nint main() {\n    auto hero = std::make_unique<Player>("Alice");\n    hero->hit(30);  // Alice HP: 70\n    // auto-freed when scope ends\n}', explanation: 'unique_ptr ensures automatic cleanup. Vectors manage their own memory. Range-based for loops are clean C++11 syntax.' }
+          },
+          { heading: 'STL and Templates', body: 'Standard Template Library: vector, map, set, queue. Algorithms: sort, find, transform. Templates enable generic code. std::sort works on any container type.' },
+          { heading: 'Modern C++', body: 'Auto type inference, range-for, lambdas, move semantics, structured bindings. Modern C++ is almost a different language from old-style C++. Motto: "don\'t pay for what you don\'t use."' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:16px;border:2px solid #f59e0b;"><div style="font-weight:700;color:#b45309;text-align:center;margin-bottom:16px;font-size:15px;">C++ Memory Layout</div><div style="max-width:300px;margin:0 auto;display:flex;flex-direction:column;gap:4px;"><div style="padding:12px;background:#fef3c7;border-radius:8px 8px 4px 4px;border:2px solid #fbbf24;text-align:center;font-size:13px;"><strong>Stack</strong> — Auto variables (fast)</div><div style="padding:12px;background:#fed7aa;border-radius:4px;border:2px solid #fb923c;text-align:center;font-size:13px;"><strong>Heap</strong> — Dynamic alloc (manual/smart)</div><div style="padding:12px;background:#fecaca;border-radius:4px;border:2px solid #f87171;text-align:center;font-size:13px;"><strong>Static</strong> — Globals</div><div style="padding:12px;background:#e2e8f0;border-radius:4px 4px 8px 8px;border:2px solid #94a3b8;text-align:center;font-size:13px;"><strong>Code</strong> — Read-only instructions</div></div></div>',
+        codingQuiz: { question: 'In C++, what is the output of: cout << (17 % 5)', hint: '% gives remainder. 17 / 5 = 3 remainder ?', expectedOutput: '2' }
       },
       'ruby': {
-        title: 'Ruby',
-        content: `
-          <h2>Ruby Fundamentals</h2>
-          <p>Ruby was designed to make programmers happy — its syntax reads almost like English. Everything in Ruby is an object, including numbers and booleans (<code>5.times { puts "hello" }</code> is valid Ruby). Variables don't need type declarations, and methods can be called without parentheses. Ruby uses blocks (chunks of code passed to methods) extensively, making iteration elegant: <code>[1,2,3].map { |x| x * 2 }</code> returns <code>[2, 4, 6]</code>.</p>
-          <p>Ruby on Rails, the web framework, made Ruby famous by enabling rapid web development with convention over configuration. Ruby features mixins (sharing behavior via modules instead of multiple inheritance), symbols (lightweight immutable identifiers like <code>:name</code>), and powerful metaprogramming capabilities. The language prioritizes developer productivity and readability, following Matz's principle: "Ruby is designed to make programmers happy."</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fce7f3;border-radius:12px;border:2px solid #ec4899;">
-            <div style="font-weight:bold;color:#be185d;text-align:center;margin-bottom:12px;">Ruby Object Model</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-              <div style="padding:8px 20px;background:#fbcfe8;border-radius:8px;font-size:12px;text-align:center;"><strong>BasicObject</strong></div>
-              <div style="width:2px;height:8px;background:#ec4899;"></div>
-              <div style="padding:8px 20px;background:#fbcfe8;border-radius:8px;font-size:12px;text-align:center;"><strong>Object</strong> (includes Kernel)</div>
-              <div style="width:2px;height:8px;background:#ec4899;"></div>
-              <div style="display:flex;gap:12px;">
-                <div style="padding:8px 12px;background:#fce7f3;border-radius:8px;font-size:11px;text-align:center;">String</div>
-                <div style="padding:8px 12px;background:#fce7f3;border-radius:8px;font-size:11px;text-align:center;">Integer</div>
-                <div style="padding:8px 12px;background:#fce7f3;border-radius:8px;font-size:11px;text-align:center;">Array</div>
-                <div style="padding:8px 12px;background:#fce7f3;border-radius:8px;font-size:11px;text-align:center;">Hash</div>
-              </div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'What is the output of: puts [1, 2, 3].select { |x| x.odd? }.length',
-          hint: "select filters elements. Odd numbers from [1,2,3] are 1 and 3.",
-          expectedOutput: "2"
-        }
+        title: 'Ruby — Programmer Happiness',
+        sections: [
+          { heading: 'Ruby\'s Philosophy', body: 'Created to make programming enjoyable. Syntax reads like English: 5.times { puts "hello" }. Everything is an object — even numbers have methods. Ruby on Rails revolutionized web dev and is used by Shopify, GitHub, Airbnb.' },
+          { heading: 'Blocks and Iteration', body: 'Blocks are chunks of code passed to methods. Almost all iteration uses them. select filters, map transforms, reduce aggregates. Methods ending in ? return booleans, ! modify in place. Symbols (:name) are lightweight immutable identifiers.',
+            code: { language: 'ruby', snippet: 'puts 42.even?      # true\nputs "hello".upcase # HELLO\n\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\nevens = numbers.select { |n| n.even? }\nputs evens.inspect  # [2, 4, 6, 8, 10]\n\ntotal = numbers.reduce(0) { |sum, n| sum + n }\nputs total  # 55\n\nuser = { name: "Alice", role: :admin }\nputs user[:name]  # Alice', explanation: 'Ruby methods with ? return booleans. Blocks make iteration elegant and readable. Symbols are perfect hash keys.' }
+          },
+          { heading: 'Classes and Mixins', body: 'Single inheritance + modules for mixins. Include a module to add its methods to any class — composition over inheritance. Open classes let you add methods to existing types. Metaprogramming: method_missing, define_method, attr_accessor.' },
+          { heading: 'The Rails Effect', body: 'Ruby on Rails introduced "convention over configuration" — follow naming conventions and the framework does the rest. Active Record ORM, RESTful routing, MVC architecture. Still the fastest way to go from idea to deployed web app.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fdf2f8,#fce7f3);border-radius:16px;border:2px solid #ec4899;"><div style="font-weight:700;color:#be185d;text-align:center;margin-bottom:16px;font-size:15px;">Ruby Object Hierarchy</div><div style="display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="padding:10px 24px;background:#ec4899;color:white;border-radius:10px;font-weight:bold;">BasicObject</div><div style="width:2px;height:8px;background:#ec4899;"></div><div style="padding:10px 24px;background:#f472b6;color:white;border-radius:10px;font-weight:bold;">Object + Kernel</div><div style="width:2px;height:8px;background:#ec4899;"></div><div style="display:flex;gap:6px;"><div style="padding:8px 12px;background:#fce7f3;border-radius:8px;font-size:12px;border:1px solid #f9a8d4;">Your Class</div><div style="padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:12px;border:1px solid #fde68a;">+ Module</div><div style="padding:8px 12px;background:#dcfce7;border-radius:8px;font-size:12px;border:1px solid #bbf7d0;">+ Mixin</div></div></div></div>',
+        codingQuiz: { question: 'What is the output of: puts [1,2,3,4,5].select(&:odd?).sum', hint: 'Odd numbers: 1,3,5. Sum: 1+3+5', expectedOutput: '9' }
       },
       'go': {
-        title: 'Go',
-        content: `
-          <h2>Go (Golang) Fundamentals</h2>
-          <p>Go was created at Google to solve real-world software engineering problems: slow compilation, complex dependencies, and difficult concurrency. It compiles to a single static binary with no dependencies, making deployment trivial. Go is statically typed but uses type inference (<code>name := "Alice"</code>), has garbage collection, and deliberately omits features like classes and inheritance in favor of simplicity — composition with interfaces and structs replaces traditional OOP.</p>
-          <p>Go's killer feature is <strong>goroutines</strong> — lightweight concurrent functions launched with the <code>go</code> keyword. They communicate through channels, following the principle "don't communicate by sharing memory; share memory by communicating." Go's standard library includes production-ready HTTP servers, JSON handling, and testing tools. It powers Docker, Kubernetes, and many cloud-native tools because of its performance, simplicity, and excellent concurrency support.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#e0f2fe;border-radius:12px;border:2px solid #0ea5e9;">
-            <div style="font-weight:bold;color:#0369a1;text-align:center;margin-bottom:12px;">Go Concurrency Model</div>
-            <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;">
-              <div style="padding:8px 14px;background:#bae6fd;border-radius:8px;font-size:12px;text-align:center;"><strong>Goroutine A</strong><br/>go funcA()</div>
-              <div style="padding:8px 14px;background:#0ea5e9;color:white;border-radius:8px;font-size:12px;text-align:center;"><strong>Channel</strong><br/>ch <- data</div>
-              <div style="padding:8px 14px;background:#bae6fd;border-radius:8px;font-size:12px;text-align:center;"><strong>Goroutine B</strong><br/>data := <-ch</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'In Go, what does fmt.Println(len("Hello")) output?',
-          hint: "len() on a string returns the number of bytes. ASCII characters are 1 byte each.",
-          expectedOutput: "5"
-        }
+        title: 'Go — Simple, Fast, Concurrent',
+        sections: [
+          { heading: 'Go\'s Design', body: 'Created at Google to solve slow compile times and complex concurrency. Compiles to a single static binary in seconds. No classes, no inheritance, no exceptions — radical simplicity. Powers Docker, Kubernetes, Terraform.' },
+          { heading: 'Structs and Interfaces', body: 'Structs hold data, methods defined separately with a "receiver." Interfaces are implicitly satisfied — if your type has the right methods, it implements the interface. No "implements" keyword. Multiple return values replace exceptions.',
+            code: { language: 'go', snippet: 'type Player struct {\n    Name   string\n    Health int\n}\n\nfunc (p *Player) TakeDamage(amount int) {\n    p.Health -= amount\n    fmt.Printf("%s HP: %d\\n", p.Name, p.Health)\n}\n\nfunc main() {\n    hero := Player{Name: "Alice", Health: 100}\n    hero.TakeDamage(30)  // Alice HP: 70\n    \n    // Multiple return values\n    val, err := strconv.Atoi("42")\n    if err != nil {\n        log.Fatal(err)\n    }\n    fmt.Println(val)  // 42\n}', explanation: 'Go methods have a receiver (p *Player). := declares and assigns. Error handling is explicit: check err != nil after every call.' }
+          },
+          { heading: 'Goroutines and Channels', body: 'Goroutines: lightweight concurrent functions (go keyword, ~2KB each vs ~1MB threads). Channels: typed pipes for safe communication. "Don\'t communicate by sharing memory; share memory by communicating." Eliminates most race conditions.',
+            code: { language: 'go', snippet: 'func fetch(url string, ch chan<- string) {\n    time.Sleep(time.Second)\n    ch <- "Got " + url\n}\n\nfunc main() {\n    ch := make(chan string)\n    urls := []string{"a.com", "b.com", "c.com"}\n    \n    for _, url := range urls {\n        go fetch(url, ch)  // 3 goroutines\n    }\n    \n    for i := 0; i < 3; i++ {\n        fmt.Println(<-ch)  // receive results\n    }\n    // All 3 in ~1 second, not 3!\n}', explanation: 'Three goroutines fetch in parallel. Channel collects results safely. Total: ~1 second instead of 3.' }
+          },
+          { heading: 'Error Handling', body: 'No exceptions — functions return errors as values. Check if err != nil after every call. Verbose but explicit. Go 1.13 added error wrapping for better error chains.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:16px;border:2px solid #06b6d4;"><div style="font-weight:700;color:#0e7490;text-align:center;margin-bottom:16px;font-size:15px;">Go Concurrency</div><div style="display:flex;align-items:center;gap:8px;justify-content:center;max-width:400px;margin:0 auto;"><div style="flex:1;padding:12px;background:#fff;border-radius:10px;border:2px solid #67e8f9;text-align:center;"><div style="font-weight:bold;color:#0e7490;">Goroutine A</div><div style="font-size:11px;font-family:monospace;">go func()</div></div><div style="padding:8px 14px;background:#06b6d4;color:white;border-radius:8px;font-weight:bold;font-size:12px;">Channel</div><div style="flex:1;padding:12px;background:#fff;border-radius:10px;border:2px solid #67e8f9;text-align:center;"><div style="font-weight:bold;color:#0e7490;">Goroutine B</div><div style="font-size:11px;font-family:monospace;">data := <-ch</div></div></div></div>',
+        codingQuiz: { question: 'In Go, what does fmt.Println(len("Hello, World!")) output?', hint: 'len() counts bytes. ASCII = 1 byte each. Count all characters.', expectedOutput: '13' }
       },
       'typescript': {
-        title: 'TypeScript',
-        content: `
-          <h2>TypeScript Fundamentals</h2>
-          <p>TypeScript is JavaScript with a type system bolted on — every valid JavaScript program is also valid TypeScript. Types are added via annotations (<code>let name: string = "Alice"</code>) and catch errors before runtime. Interfaces define object shapes (<code>interface User { name: string; age: number }</code>), and the compiler ensures you don't access properties that don't exist or pass wrong types to functions. All types are erased at compile time, producing clean JavaScript.</p>
-          <p>TypeScript's type system goes far beyond basic types — it includes generics (<code>Array&lt;T&gt;</code>), union types (<code>string | number</code>), type guards, mapped types, and conditional types. It's the standard for large-scale JavaScript applications, used by Angular, React (with TSX), Vue, and virtually every modern web framework. The tooling benefits are enormous: autocompletion, refactoring, and inline documentation all powered by the type system.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#f0fdf4;border-radius:12px;border:2px solid #22c55e;">
-            <div style="font-weight:bold;color:#15803d;text-align:center;margin-bottom:12px;">TypeScript Type Hierarchy</div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-              <div style="padding:8px 20px;background:#bbf7d0;border-radius:8px;font-size:12px;"><strong>unknown</strong> (top type)</div>
-              <div style="width:2px;height:8px;background:#22c55e;"></div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-                <div style="padding:6px 10px;background:#dcfce7;border-radius:6px;font-size:11px;">string</div>
-                <div style="padding:6px 10px;background:#dcfce7;border-radius:6px;font-size:11px;">number</div>
-                <div style="padding:6px 10px;background:#dcfce7;border-radius:6px;font-size:11px;">boolean</div>
-                <div style="padding:6px 10px;background:#dcfce7;border-radius:6px;font-size:11px;">object</div>
-                <div style="padding:6px 10px;background:#dcfce7;border-radius:6px;font-size:11px;">void</div>
-              </div>
-              <div style="width:2px;height:8px;background:#22c55e;"></div>
-              <div style="padding:8px 20px;background:#86efac;border-radius:8px;font-size:12px;"><strong>never</strong> (bottom type)</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'What TypeScript type is inferred for: const x = [1, "hello", true] — Write the type as TypeScript would show it.',
-          hint: "TypeScript infers the union of all element types as an array.",
-          expectedOutput: "(string | number | boolean)[]"
-        }
+        title: 'TypeScript — JS with Types',
+        sections: [
+          { heading: 'Why TypeScript', body: 'Adds static types to JavaScript. Catches bugs before runtime: wrong types, misspelled properties, wrong arguments. Every valid JS is valid TS — adopt gradually. Now the standard for serious web development.' },
+          { heading: 'Types and Inference', body: 'Add types with colon syntax: let name: string. But TypeScript infers most types automatically. Interfaces define object shapes. Union types (string | number) for multiple possibilities. Generics for reusable typed functions.',
+            code: { language: 'typescript', snippet: 'interface User {\n  id: number;\n  name: string;\n  role: "admin" | "user";\n  email?: string; // optional\n}\n\nfunction greet(user: User): string {\n  return "Hello " + user.name;\n}\n\n// Generics\nfunction first<T>(arr: T[]): T | undefined {\n  return arr[0];\n}\n\nconst n = first([1, 2, 3]);     // number\nconst s = first(["a", "b"]);    // string', explanation: 'Union literal types restrict values. Optional properties use ?. Generics let you write type-safe reusable code.' }
+          },
+          { heading: 'Advanced Types', body: 'Utility types: Partial<T> (all optional), Pick<T, keys>, Omit<T, keys>, Record<K, V>. Mapped and conditional types derive new types programmatically. Keeps types DRY as codebases grow.' },
+          { heading: 'In Practice', body: 'React with TSX gives typed props. Prisma generates database types. Strict mode catches null access, wrong args, missing properties. VS Code uses TS even for JS files for autocompletion.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:16px;border:2px solid #22c55e;"><div style="font-weight:700;color:#15803d;text-align:center;margin-bottom:16px;font-size:15px;">TypeScript Type Hierarchy</div><div style="display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="padding:10px 20px;background:#22c55e;color:white;border-radius:10px;font-weight:bold;">unknown (top)</div><div style="width:2px;height:6px;background:#22c55e;"></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;"><div style="padding:6px 10px;background:#fff;border-radius:6px;font-size:12px;border:1px solid #86efac;">string</div><div style="padding:6px 10px;background:#fff;border-radius:6px;font-size:12px;border:1px solid #86efac;">number</div><div style="padding:6px 10px;background:#fff;border-radius:6px;font-size:12px;border:1px solid #86efac;">boolean</div><div style="padding:6px 10px;background:#fff;border-radius:6px;font-size:12px;border:1px solid #86efac;">object</div></div><div style="width:2px;height:6px;background:#22c55e;"></div><div style="padding:10px 20px;background:#166534;color:white;border-radius:10px;font-weight:bold;">never (bottom)</div></div></div>',
+        codingQuiz: { question: 'What type does TS infer for: const x = [1, "hello"]', hint: 'TS infers the union of all element types.', expectedOutput: '(string | number)[]' }
       },
       'rust': {
-        title: 'Rust',
-        content: `
-          <h2>Rust Fundamentals</h2>
-          <p>Rust guarantees memory safety without a garbage collector through its unique <strong>ownership system</strong>: every value has exactly one owner, and when the owner goes out of scope, the value is automatically dropped. Borrowing rules (<code>&T</code> for shared references, <code>&mut T</code> for mutable) are enforced at compile time, eliminating data races, null pointer dereferences, and buffer overflows — entire categories of bugs that plague C and C++.</p>
-          <p>Rust's type system includes enums with data (like <code>Option&lt;T&gt;</code> replacing null), pattern matching with exhaustive checking, traits (like interfaces), and zero-cost abstractions. Error handling uses <code>Result&lt;T, E&gt;</code> instead of exceptions, forcing you to handle every possible error. Despite its strict compiler, Rust consistently tops "most loved language" surveys because once code compiles, it's remarkably reliable and performant.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#fef2f2;border-radius:12px;border:2px solid #ef4444;">
-            <div style="font-weight:bold;color:#dc2626;text-align:center;margin-bottom:12px;">Rust Ownership Rules</div>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div style="padding:8px 12px;background:#fee2e2;border-radius:8px;font-size:12px;"><strong>Rule 1:</strong> Each value has exactly one owner</div>
-              <div style="padding:8px 12px;background:#fee2e2;border-radius:8px;font-size:12px;"><strong>Rule 2:</strong> When the owner goes out of scope, the value is dropped</div>
-              <div style="padding:8px 12px;background:#fee2e2;border-radius:8px;font-size:12px;"><strong>Rule 3:</strong> You can have either ONE mutable reference OR any number of immutable references</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'In Rust, what does println!("{}", vec![1, 2, 3].len()) output?',
-          hint: "len() returns the number of elements in the vector.",
-          expectedOutput: "3"
-        }
+        title: 'Rust — Safe & Fast',
+        sections: [
+          { heading: 'Why Rust Is Revolutionary', body: 'Memory safety without garbage collection via the ownership system. If it compiles, no null pointers, no data races, no buffer overflows. Used by Firefox, Dropbox, Discord, and the Linux kernel. Voted "most loved language" for years.' },
+          { heading: 'Ownership', body: 'Every value has one owner. When owner leaves scope, value is dropped. Borrow with &T (shared read) or &mut T (exclusive write). Compiler enforces these rules — prevents use-after-free, double-free, dangling pointers at compile time.',
+            code: { language: 'rust', snippet: 'fn main() {\n    let name = String::from("Alice");\n    greet(name);  // ownership moves\n    // name is invalid here!\n    \n    let score = String::from("95");\n    print_len(&score);    // borrow\n    println!("{}", score); // still valid\n    \n    let mut items = vec!["sword"];\n    items.push("shield"); // mut ok\n}\n\nfn greet(n: String) { println!("Hi {}!", n); }\nfn print_len(s: &String) { println!("{}", s.len()); }', explanation: 'Moving transfers ownership — original variable becomes invalid. & borrows without taking ownership. The compiler tells you exactly where violations occur.' }
+          },
+          { heading: 'Option and Result', body: 'No null, no exceptions. Option<T> = Some(value) or None. Result<T,E> = Ok(value) or Err(error). Compiler forces you to handle both cases. The ? operator propagates errors concisely.' },
+          { heading: 'Zero-Cost Abstractions', body: 'High-level features (iterators, closures, generics) compile to the same code as hand-written loops. No GC pauses, no runtime overhead. Matches or beats C/C++ in benchmarks while being memory-safe.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#fef2f2,#fee2e2);border-radius:16px;border:2px solid #ef4444;"><div style="font-weight:700;color:#dc2626;text-align:center;margin-bottom:16px;font-size:15px;">Rust Ownership Rules</div><div style="display:flex;flex-direction:column;gap:8px;max-width:400px;margin:0 auto;"><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #ef4444;font-size:13px;"><strong>Rule 1:</strong> Each value has one owner</div><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #f97316;font-size:13px;"><strong>Rule 2:</strong> Owner leaves scope = value dropped</div><div style="padding:12px;background:#fff;border-radius:10px;border-left:4px solid #eab308;font-size:13px;"><strong>Rule 3:</strong> Many &amp;T OR one &amp;mut T</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;"><div style="padding:10px;background:#dcfce7;border-radius:8px;text-align:center;font-size:12px;"><strong>Option&lt;T&gt;</strong><br/>Replaces null</div><div style="padding:10px;background:#dbeafe;border-radius:8px;text-align:center;font-size:12px;"><strong>Result&lt;T,E&gt;</strong><br/>Replaces exceptions</div></div></div></div>',
+        codingQuiz: { question: 'What does println!("{}", vec![10,20,30].len()) output?', hint: 'len() counts vector elements.', expectedOutput: '3' }
       },
       'php': {
-        title: 'PHP',
-        content: `
-          <h2>PHP Fundamentals</h2>
-          <p>PHP powers about 77% of all websites with a known server-side language — WordPress, Wikipedia, and Facebook all started with PHP. It's a server-side scripting language embedded in HTML with <code>&lt;?php ?&gt;</code> tags. Variables start with <code>$</code> (<code>$name = "Alice"</code>), and the language is dynamically typed. PHP has evolved dramatically — modern PHP 8.x includes named arguments, match expressions, enums, fibers for async, and union types.</p>
-          <p>PHP's strength is its ecosystem: Composer for package management, Laravel and Symfony as world-class frameworks, and PHPUnit for testing. Arrays in PHP are actually ordered maps that serve as lists, dictionaries, sets, and stacks. While PHP had a reputation for messy code, modern PHP with strict typing (<code>declare(strict_types=1)</code>), PSR standards, and frameworks like Laravel produces clean, maintainable code that rivals any language.</p>
-        `,
-        diagram: `
-          <div style="padding:16px;background:#e0e7ff;border-radius:12px;border:2px solid #6366f1;">
-            <div style="font-weight:bold;color:#4338ca;text-align:center;margin-bottom:12px;">PHP Request Lifecycle</div>
-            <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center;">
-              <div style="padding:8px 12px;background:#c7d2fe;border-radius:8px;font-size:12px;text-align:center;"><strong>Browser</strong><br/>HTTP Request</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#c7d2fe;border-radius:8px;font-size:12px;text-align:center;"><strong>Web Server</strong><br/>Apache/Nginx</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#c7d2fe;border-radius:8px;font-size:12px;text-align:center;"><strong>PHP Engine</strong><br/>Process Script</div>
-              <span>→</span>
-              <div style="padding:8px 12px;background:#c7d2fe;border-radius:8px;font-size:12px;text-align:center;"><strong>HTML</strong><br/>Response</div>
-            </div>
-          </div>
-        `,
-        codingQuiz: {
-          question: 'What is the output of: echo count([1, 2, 3, 4, 5]);',
-          hint: "count() returns the number of elements in an array.",
-          expectedOutput: "5"
-        }
-      },
-    };
-    return lessons[topic] || null;
-  }
+        title: 'PHP — The Web\'s Workhorse',
+        sections: [
+          { heading: 'PHP Powers the Web', body: 'Runs ~77% of websites with known server-side language. WordPress (43% of ALL websites), Wikipedia, Slack, Etsy. Server-side: browser requests page, PHP executes, generates HTML, sends response. User never sees PHP code.' },
+          { heading: 'Modern PHP', body: 'Variables start with $. Arrays are ordered maps (list + dictionary). PHP 8+ has constructor promotion, match expressions, named arguments, strict typing. Each HTTP request starts fresh (shared-nothing architecture) — inherently scalable.',
+            code: { language: 'php', snippet: '<?php\ndeclare(strict_types=1);\n\nclass User {\n    public function __construct(\n        private string $name,\n        private int $age\n    ) {}\n    \n    public function greet(): string {\n        return "Hello, {$this->name}!";\n    }\n}\n\n$user = new User(name: "Alice", age: 30);\necho $user->greet(); // Hello, Alice!\n\n$nums = [3, 1, 4, 1, 5, 9];\n$sum = array_reduce($nums, fn($c, $n) => $c + $n, 0);\necho $sum; // 23', explanation: 'PHP 8 constructor promotion declares properties inline. strict_types enforces type checking. Arrow functions (fn =>) are concise.' }
+          },
+          { heading: 'Laravel', body: 'PHP\'s premier framework. Eloquent ORM for readable database queries, Blade templating, built-in auth, job queues. Philosophy: "developer happiness." Composer package manager provides thousands of quality libraries.' },
+          { heading: 'PHP Today', body: 'PHP 8.3 has typed properties, enums, fibers (async), JIT compilation. Nothing like PHP of 2005. With WordPress powering 43% of the web, PHP knowledge remains one of the most marketable skills.' }
+        ],
+        diagram: '<div style="padding:20px;background:linear-gradient(135deg,#eef2ff,#e0e7ff);border-radius:16px;border:2px solid #6366f1;"><div style="font-weight:700;color:#4338ca;text-align:center;margin-bottom:16px;font-size:15px;">PHP Request Lifecycle</div><div style="display:flex;align-items:center;gap:6px;justify-content:center;flex-wrap:wrap;"><div style="padding:10px;background:#fff;border-radius:10px;border:2px solid #a5b4fc;text-align:center;font-size:12px;"><strong>Browser</strong><br/>Request</div><div style="color:#6366f1;">&#8594;</div><div style="padding:10px;background:#fff;border-radius:10px;border:2px solid #a5b4fc;text-align:center;font-size:12px;"><strong>Server</strong><br/>Nginx</div><div style="color:#6366f1;">&#8594;</div><div style="padding:10px;background:#6366f1;color:white;border-radius:10px;text-align:center;font-size:12px;"><strong>PHP</strong><br/>Execute</div><div style="color:#6366f1;">&#8594;</div><div style="padding:10px;background:#fff;border-radius:10px;border:2px solid #a5b4fc;text-align:center;font-size:12px;"><strong>HTML</strong><br/>Response</div></div></div>',
+        codingQuiz: { question: 'What is the output of: echo strlen("Hello World");', hint: 'strlen() counts characters including the space.', expectedOutput: '11' }
+      }
+    }
+  };
 
-  return null;
-};
+  return lessons[category]?.[topic] || null;
+}
 
 const LessonPage = () => {
   const { category, topic } = useParams<{ category: string; topic: string }>();
-  
+
   if (!category || !topic) {
     return (
       <div className="min-h-screen bg-background pt-16">
         <Topbar />
         <div className="container mx-auto px-4 py-8 text-center">
           <h1 className="text-2xl font-bold mb-4">Lesson Not Found</h1>
-          <Link to="/">
-            <Button><ArrowLeft className="h-4 w-4 mr-2" /> Go Home</Button>
-          </Link>
+          <Link to="/"><Button><ArrowLeft className="h-4 w-4 mr-2" /> Go Home</Button></Link>
         </div>
       </div>
     );
   }
-  
+
   const lesson = getLessonContent(category, topic);
-  
+
   if (!lesson) {
     return (
       <div className="min-h-screen bg-background pt-16">
@@ -967,51 +536,81 @@ const LessonPage = () => {
         <div className="container mx-auto px-4 py-8 text-center">
           <h1 className="text-2xl font-bold mb-4">Lesson Coming Soon!</h1>
           <p className="text-muted-foreground mb-4">This lesson is being prepared.</p>
-          <Link to="/">
-            <Button><ArrowLeft className="h-4 w-4 mr-2" /> Go Home</Button>
-          </Link>
+          <Link to="/"><Button><ArrowLeft className="h-4 w-4 mr-2" /> Go Home</Button></Link>
         </div>
       </div>
     );
   }
-  
+
   return (
     <div className="min-h-screen bg-background pt-16">
       <Topbar />
-      
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+
+      <div className="container mx-auto px-4 py-8 max-w-3xl">
         <div className="mb-6">
           <Link to="/">
             <Button variant="ghost" size="sm" className="rounded-full">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
+              <ArrowLeft className="h-4 w-4 mr-2" /> Back to Home
             </Button>
           </Link>
         </div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="bg-card rounded-xl border border-border overflow-hidden">
-            <div className="p-6 md:p-8">
-              <h1 className="text-3xl font-bold mb-6">{lesson.title}</h1>
-              
-              {/* Lesson Content */}
-              <div className="prose dark:prose-invert max-w-none mb-8">
-                <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
-              </div>
-              
-              {/* Diagram */}
-              <div className="mb-8">
-                <div dangerouslySetInnerHTML={{ __html: lesson.diagram }} />
-              </div>
-              
-              {/* Coding Quiz */}
-              <CodingQuizSection quiz={lesson.codingQuiz} />
-            </div>
+          <h1 className="text-3xl font-bold mb-8 leading-tight">{lesson.title}</h1>
+
+          {/* Sections */}
+          <div className="space-y-10">
+            {lesson.sections.map((section, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+              >
+                <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-primary/70" />
+                  {section.heading}
+                </h2>
+                <p className="text-[15px] leading-relaxed text-foreground/85 mb-4">
+                  {section.body}
+                </p>
+
+                {section.code && (
+                  <div className="rounded-xl overflow-hidden border border-border/60 mb-2">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-muted/60 border-b border-border/40">
+                      <Code className="h-4 w-4 text-primary" />
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                        {section.code.language}
+                      </span>
+                    </div>
+                    <pre className="p-4 bg-muted/30 overflow-x-auto text-sm leading-relaxed">
+                      <code>{section.code.snippet}</code>
+                    </pre>
+                    <div className="px-4 py-3 bg-muted/20 border-t border-border/30">
+                      <p className="text-sm text-muted-foreground">{section.code.explanation}</p>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            ))}
           </div>
+
+          {/* Diagram */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-10"
+          >
+            <div dangerouslySetInnerHTML={{ __html: lesson.diagram }} />
+          </motion.div>
+
+          {/* Quiz */}
+          <CodingQuizSection quiz={lesson.codingQuiz} />
         </motion.div>
       </div>
     </div>
