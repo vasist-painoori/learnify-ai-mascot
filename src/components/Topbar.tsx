@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   NavigationMenu,
@@ -11,9 +11,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
 import { Printer, Code, BookOpen } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
 
-// Define 3D printing topics
 const printingTopics = [
   { title: "3D Printer Basics", url: "/3d-printing/basics" },
   { title: "Filament Types", url: "/3d-printing/filaments" },
@@ -21,19 +19,8 @@ const printingTopics = [
   { title: "Print Troubleshooting", url: "/3d-printing/troubleshooting" },
   { title: "Model Design", url: "/3d-printing/design" },
   { title: "Post-Processing", url: "/3d-printing/post-processing" },
-  { title: "Advanced Settings", url: "/3d-printing/settings" },
-  { title: "Multi-Material Printing", url: "/3d-printing/multi-material" },
-  { title: "Large Format Printing", url: "/3d-printing/large-format" },
-  { title: "Maintenance & Care", url: "/3d-printing/maintenance" },
-  { title: "Custom Supports", url: "/3d-printing/custom-supports" },
-  { title: "Bed Adhesion", url: "/3d-printing/bed-adhesion" },
-  { title: "3D Scanning", url: "/3d-printing/3d-scanning" },
-  { title: "Print Finishing", url: "/3d-printing/finishing" },
-  { title: "Printer Upgrades", url: "/3d-printing/upgrades" },
-  { title: "3D Printing Materials", url: "/3d-printing/materials" },
 ];
 
-// Define programming topics
 const programmingTopics = [
   { title: "JavaScript", url: "/programming/javascript" },
   { title: "Python", url: "/programming/python" },
@@ -49,7 +36,7 @@ const programmingTopics = [
 
 const Topbar = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 h-12 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-50 px-4 flex items-center">
+    <div className="fixed top-0 left-0 right-0 h-12 bg-background border-b border-border z-50 px-4 flex items-center">
       <div className="flex items-center justify-between w-full">
         <Link to="/" className="font-semibold text-primary mr-4">
           LearnifyAI
@@ -104,7 +91,7 @@ const Topbar = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="p-2 border-t border-gray-200 dark:border-gray-800">
+                <div className="p-2 border-t border-border">
                   <NavigationMenuLink asChild>
                     <Link
                       to="/dashboard"
